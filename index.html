@@ -384,6 +384,7 @@
       <div class="meta-pill"><span class="dot-pending"></span> <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub Org Live</a></div>
       <div class="meta-pill">🔗 <a href="https://simplicitygh.atlassian.net" target="_blank">Confluence</a> · <a href="https://simplicitygh.atlassian.net/jira" target="_blank">JIRA</a></div>
       <div class="meta-pill">📁 Drive · GitHub · Claude Connected</div>
+      <div class="meta-pill" style="cursor:pointer;background:rgba(48,147,76,0.2);border-color:rgba(48,147,76,0.4);" onclick="copyTeamLink(this)" id="header-team-link">🔗 Copy Team Link</div>
     </div>
   </div>
 </header>
@@ -437,7 +438,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -457,7 +457,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -477,7 +476,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -497,7 +495,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -517,7 +514,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -537,7 +533,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -557,7 +552,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -577,7 +571,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -597,7 +590,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -628,7 +620,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -648,7 +639,6 @@
           </div>
         </div>
       </div>
-      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -1218,24 +1208,20 @@
   }
   document.addEventListener('DOMContentLoaded', initNotes);
 
-  // ── TEAM LINK COPY BUTTON ─────────────────────────────
+  // -- TEAM LINK COPY BUTTON
   function copyTeamLink(btn) {
-    const url = 'https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/';
-    navigator.clipboard.writeText(url).then(() => {
+    var url = 'https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/';
+    var orig = btn.innerHTML;
+    navigator.clipboard.writeText(url).then(function() {
       btn.innerHTML = '✓ Team Link Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerHTML = '🔗 Copy Team Link';
-        btn.classList.remove('copied');
-      }, 2000);
-    }).catch(() => {
-      // fallback
-      const ta = document.createElement('textarea');
+      setTimeout(function() { btn.innerHTML = orig; }, 2000);
+    }).catch(function() {
+      var ta = document.createElement('textarea');
       ta.value = url; document.body.appendChild(ta);
       ta.select(); document.execCommand('copy');
       document.body.removeChild(ta);
       btn.innerHTML = '✓ Copied!';
-      setTimeout(() => { btn.innerHTML = '🔗 Copy Team Link'; }, 2000);
+      setTimeout(function() { btn.innerHTML = orig; }, 2000);
     });
   }
 
