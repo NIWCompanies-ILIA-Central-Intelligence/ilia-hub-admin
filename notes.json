@@ -1,6 +1,12 @@
 {
   "notes": [
     {
+      "id": "1780683261202",
+      "cardId": "confluence",
+      "text": "please change logo for this card.",
+      "ts": 1749150180000
+    },
+    {
       "id": "1780681849271",
       "cardId": "bitbucket-mirror",
       "text": "Mohit Update \u2014 Jun 5 2026 ~4:00 PM\n\nFrontend code is pushing to ilia-frontend repo (in progress \u2014 slow).\nBackend needs cleanup before push \u2014 not started yet.\n\nNote: Mohit flagged as 'domain_disabled / External user not managed by admin' \u2014 may need IT to add him as managed user in the org if access issues continue.\n\nMonitoring: Frontend repo still showing only README.md as of this note \u2014 code push may still be in progress.",
