@@ -1,6 +1,12 @@
 {
   "notes": [
     {
+      "id": "1780674183529",
+      "cardId": "cih-global",
+      "text": "COMPLIANCE HOLD \u2014 Google Drive Disconnected (Jun 5 2026)\n\nGoogle Drive connector disconnected pending internal compliance and IT review. Issue: Claude had access to ALL company Shared Drives including Bank, Renewals, S Drive, client folders, policy records, and personal financial data.\n\nThis requires sign-off before reconnecting:\n- IT/compliance approval for connecting Google Workspace to Claude AI\n- Data classification review (client PII, insurance records, financial data)\n- Formal data processing agreement with Anthropic if required\n- Scoped reconnection \u2014 only ILIA Central Intelligence Shared Drive once created\n\nAction: Jamin to raise with IT/compliance team. Do NOT reconnect full Drive until approved.\n\nResolution path: Create dedicated ILIA CIH Shared Drive \u2192 get compliance sign-off \u2192 reconnect only that drive.",
+      "ts": 1780674183529
+    },
+    {
       "id": "1780673272599",
       "cardId": "cih-global",
       "text": "Can we add the function of Claude prompts interaction with Node, Bitbucket to allow users to work in ILIA and see updates on a browser real time. Users communicate only in Claude for these requirements, to update ILIA code on local machines, and the setup requirements for this for users of the ILIA CIH.",
