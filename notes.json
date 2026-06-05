@@ -1,4 +1,11 @@
 {
-  "notes": [],
+  "notes": [
+    {
+      "id": "1780673272599",
+      "cardId": "cih-global",
+      "text": "Can we add the function of Claude prompts interaction with Node, Bitbucket to allow users to work in ILIA and see updates on a browser real time. Users communicate only in Claude for these requirements, to update ILIA code on local machines, and the setup requirements for this for users of the ILIA CIH.",
+      "ts": 1780673272599
+    }
+  ],
   "card_statuses": {}
 }
