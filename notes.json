@@ -1,6 +1,12 @@
 {
   "notes": [
     {
+      "id": "1780681849271",
+      "cardId": "bitbucket-mirror",
+      "text": "Mohit Update \u2014 Jun 5 2026 ~4:00 PM\n\nFrontend code is pushing to ilia-frontend repo (in progress \u2014 slow).\nBackend needs cleanup before push \u2014 not started yet.\n\nNote: Mohit flagged as 'domain_disabled / External user not managed by admin' \u2014 may need IT to add him as managed user in the org if access issues continue.\n\nMonitoring: Frontend repo still showing only README.md as of this note \u2014 code push may still be in progress.",
+      "ts": 1780681849271
+    },
+    {
       "id": "1780674465627",
       "cardId": "bitbucket-mirror",
       "text": "Token confirmed \u2014 Jun 5 2026\n\nMohit's classic GitHub token verified and working. Token user: mohit-simsaw. Has confirmed read access to all 4 repos (ilia-backend, ilia-frontend, ilia-infrastructure, ilia-shared-libs).\n\nNext step: Mohit to push Bitbucket mirror into ilia-backend and ilia-frontend repos. Backend first.",
