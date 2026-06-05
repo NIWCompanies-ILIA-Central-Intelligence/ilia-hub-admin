@@ -329,6 +329,47 @@
     font-size: 9px; font-weight: 700; margin-left: 2px;
   }
 
+
+  /* TEAM LINK BUTTON */
+  .team-link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 5px; padding: 4px 10px; border-radius: 5px;
+    font-size: 10.5px; font-weight: 600; cursor: pointer;
+    background: var(--off-white); border: 1px solid var(--border);
+    color: var(--muted); transition: all 0.15s; width: 100%;
+    justify-content: center;
+  }
+  .team-link-btn:hover { background: var(--green-pale); color: var(--green); border-color: var(--green); }
+  .team-link-btn.copied { background: var(--green-pale); color: var(--green); border-color: var(--green); }
+
+  /* GLOBAL CIH NOTES */
+  .cih-notes-bar {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 44px; overflow: hidden;
+  }
+  .cih-notes-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; cursor: pointer; transition: background 0.15s;
+    border-bottom: 1px solid transparent;
+  }
+  .cih-notes-header:hover { background: var(--off-white); }
+  .cih-notes-header.open { border-bottom-color: var(--border); }
+  .cih-notes-title { font-weight: 700; font-size: 13.5px; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .cih-notes-meta { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .cih-global-count { background: var(--blue-mid); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .cih-notes-body { display: none; padding: 16px 20px; }
+  .cih-notes-body.open { display: block; }
+  .cih-note-list { margin-bottom: 12px; }
+  .cih-note-item { background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; }
+  .cih-note-text { font-size: 12.5px; color: var(--ink); line-height: 1.55; margin-bottom: 5px; }
+  .cih-note-meta { font-size: 10px; color: var(--muted); font-family: 'DM Mono',monospace; display: flex; justify-content: space-between; }
+  .cih-input-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .cih-textarea { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 12.5px; font-family: 'DM Sans',sans-serif; resize: none; min-height: 72px; outline: none; transition: border-color 0.15s; }
+  .cih-textarea:focus { border-color: var(--blue-mid); }
+  .cih-save-row { display: flex; gap: 8px; justify-content: flex-end; }
+  .cih-save-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: var(--blue-mid); color: white; }
+  .cih-cancel-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--off-white); color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -348,6 +389,32 @@
 </header>
 
 <main>
+
+
+  <!-- GLOBAL CIH NOTES -->
+  <div class="section-label" style="margin-top:4px;">CIH Project Notes</div>
+  <div class="cih-notes-bar">
+    <div class="cih-notes-header" onclick="toggleCIHNotes(this)">
+      <div class="cih-notes-title">
+        📋 ILIA Central Intelligence Hub — Project Notes
+        <span class="cih-global-count" id="cih-global-count">0</span>
+      </div>
+      <div class="cih-notes-meta">
+        <span id="cih-last-note-meta">No notes yet</span>
+        <span style="font-size:13px;color:var(--border);" id="cih-expand-icon">›</span>
+      </div>
+    </div>
+    <div class="cih-notes-body" id="cih-notes-body">
+      <div class="cih-note-list" id="cih-note-list"></div>
+      <div class="cih-input-wrap">
+        <textarea class="cih-textarea" id="cih-note-ta" placeholder="Add a project-level note — decisions, updates, action items for the entire CIH..."></textarea>
+        <div class="cih-save-row">
+          <button class="cih-cancel-btn" onclick="toggleCIHNotes(document.querySelector('.cih-notes-header'))">Cancel</button>
+          <button class="cih-save-btn" onclick="saveCIHNote()">Save Note</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- CONNECTION STATUS -->
   <div class="section-label" style="margin-top:4px;">Connection Status</div>
@@ -370,6 +437,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -389,6 +457,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -408,6 +477,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -427,6 +497,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -446,6 +517,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-live">
@@ -465,6 +537,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -484,6 +557,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -503,6 +577,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-pending">
@@ -522,6 +597,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -552,6 +628,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -571,6 +648,7 @@
           </div>
         </div>
       </div>
+      <button class="team-link-btn" onclick="copyTeamLink(this)">🔗 Copy Team Link</button>
     </div>
 
     <div class="conn-card conn-waiting">
@@ -1139,6 +1217,87 @@
     });
   }
   document.addEventListener('DOMContentLoaded', initNotes);
+
+  // ── TEAM LINK COPY BUTTON ─────────────────────────────
+  function copyTeamLink(btn) {
+    const url = 'https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/';
+    navigator.clipboard.writeText(url).then(() => {
+      btn.innerHTML = '✓ Team Link Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '🔗 Copy Team Link';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.innerHTML = '✓ Copied!';
+      setTimeout(() => { btn.innerHTML = '🔗 Copy Team Link'; }, 2000);
+    });
+  }
+
+  // ── GLOBAL CIH NOTES ──────────────────────────────────
+  const CIH_NOTE_KEY = 'cih-global';
+
+  function toggleCIHNotes(header) {
+    header.classList.toggle('open');
+    const body = document.getElementById('cih-notes-body');
+    const icon = document.getElementById('cih-expand-icon');
+    body.classList.toggle('open');
+    icon.style.transform = body.classList.contains('open') ? 'rotate(90deg)' : '';
+    renderCIHNotes();
+  }
+
+  async function renderCIHNotes() {
+    const data  = await fetchNotes();
+    const notes = (data.notes || []).filter(n => n.cardId === CIH_NOTE_KEY);
+    const list  = document.getElementById('cih-note-list');
+    const count = document.getElementById('cih-global-count');
+    const meta  = document.getElementById('cih-last-note-meta');
+    if (!list) return;
+    count.textContent = notes.length;
+    if (notes.length > 0) {
+      meta.textContent = 'Last: ' + formatDate(notes[0].ts);
+    }
+    list.innerHTML = notes.length
+      ? notes.map(n => `
+          <div class="cih-note-item">
+            <div class="cih-note-text">${n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
+            <div class="cih-note-meta">
+              <span>${formatDate(n.ts)}</span>
+              <span class="note-delete" onclick="deleteCIHNote('${n.id}')">✕ remove</span>
+            </div>
+          </div>`).join('')
+      : '<div style="font-size:11.5px;color:var(--muted);padding:4px 0 10px;">No project notes yet — add decisions, status updates, or action items for the entire CIH.</div>';
+  }
+
+  async function saveCIHNote() {
+    const ta   = document.getElementById('cih-note-ta');
+    const text = ta.value.trim();
+    if (!text) return;
+    const data = await fetchNotes();
+    data.notes = data.notes || [];
+    data.notes.unshift({ id: Date.now().toString(), cardId: CIH_NOTE_KEY, text, ts: Date.now() });
+    await persistNotes(data);
+    ta.value = '';
+    await renderCIHNotes();
+  }
+
+  async function deleteCIHNote(noteId) {
+    const data = await fetchNotes();
+    data.notes = (data.notes || []).filter(n => n.id !== noteId);
+    await persistNotes(data);
+    await renderCIHNotes();
+  }
+
+  // init CIH count on load
+  document.addEventListener('DOMContentLoaded', async () => {
+    await renderCIHNotes();
+  });
+
 </script>
 
 </body>
