@@ -1278,12 +1278,23 @@
     const ta   = document.getElementById('cih-note-ta');
     const text = ta.value.trim();
     if (!text) return;
-    const data = await fetchNotes();
-    data.notes = data.notes || [];
-    data.notes.unshift({ id: Date.now().toString(), cardId: CIH_NOTE_KEY, text, ts: Date.now() });
-    await persistNotes(data);
-    ta.value = '';
-    await renderCIHNotes();
+    const saveBtn = document.querySelector('.cih-save-btn');
+    const origText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '⏳ Saving...';
+    try {
+      const data = await fetchNotes();
+      data.notes = data.notes || [];
+      data.notes.unshift({ id: Date.now().toString(), cardId: CIH_NOTE_KEY, text, ts: Date.now() });
+      await persistNotes(data);
+      ta.value = '';
+      saveBtn.innerHTML = '✓ Saved!';
+      setTimeout(() => { saveBtn.innerHTML = origText; }, 1500);
+      await renderCIHNotes();
+    } catch(e) {
+      saveBtn.innerHTML = '❌ Error — try again';
+      setTimeout(() => { saveBtn.innerHTML = origText; }, 2000);
+      console.error('CIH save error:', e);
+    }
   }
 
   async function deleteCIHNote(noteId) {
