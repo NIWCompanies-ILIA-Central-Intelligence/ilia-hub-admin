@@ -1180,7 +1180,7 @@
             <div class="note-item-text">${n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
             <div class="note-item-meta">
               <span>${formatDate(n.ts)}</span>
-              <span class="note-delete" onclick="deleteNote('${cardId}','${n.id}')">✕ remove</span>
+              <span class="note-delete" onclick="confirmDelete('${cardId}','${n.id}', this)">✕ remove</span>
             </div>
           </div>`).join('')
       : '<div style="font-size:11px;color:var(--muted);padding:4px 0;">No notes yet.</div>';
@@ -1220,6 +1220,24 @@
       setTimeout(() => { saveBtn.innerHTML = orig; }, 2000);
       console.error('saveNote error:', e);
     }
+  }
+
+  async function confirmDelete(cardId, noteId, el) {
+    // Replace the remove link with inline confirm
+    const orig = el.outerHTML;
+    el.outerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;">
+      <span style="color:var(--muted);">Remove?</span>
+      <span onclick="deleteNote('${cardId}','${noteId}')" style="color:var(--red);font-weight:700;cursor:pointer;padding:1px 5px;background:var(--red-pale);border-radius:3px;">Yes</span>
+      <span onclick="renderNotes('${cardId}')" style="color:var(--muted);cursor:pointer;padding:1px 5px;background:var(--off-white);border-radius:3px;border:1px solid var(--border);">No</span>
+    </span>`;
+  }
+
+  async function confirmDeleteCIH(noteId, el) {
+    el.outerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;">
+      <span style="color:var(--muted);">Remove?</span>
+      <span onclick="deleteCIHNote('${noteId}')" style="color:var(--red);font-weight:700;cursor:pointer;padding:1px 5px;background:var(--red-pale);border-radius:3px;">Yes</span>
+      <span onclick="renderCIHNotes()" style="color:var(--muted);cursor:pointer;padding:1px 5px;background:var(--off-white);border-radius:3px;border:1px solid var(--border);">No</span>
+    </span>`;
   }
 
   async function deleteNote(cardId, noteId) {
@@ -1279,7 +1297,7 @@
             <div class="cih-note-text">${n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
             <div class="cih-note-meta">
               <span>${formatDate(n.ts)}</span>
-              <span class="note-delete" onclick="deleteCIHNote('${n.id}')">✕ remove</span>
+              <span class="note-delete" onclick="confirmDeleteCIH('${n.id}', this)">✕ remove</span>
             </div>
           </div>`).join('')
       : '<div style="font-size:11.5px;color:var(--muted);padding:4px 0 10px;">No project notes yet.</div>';
