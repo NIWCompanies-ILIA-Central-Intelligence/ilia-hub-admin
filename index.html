@@ -680,7 +680,7 @@
     </div>
 
 
-    <div class="conn-card conn-waiting" style="border:1px solid rgba(230,81,0,0.3);">
+    <div class="conn-card conn-pending" style="border-top-color:#E65100;">
       <div class="conn-icon" style="background:#FFF3E0;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
           <path d="M2 12L6 5L10 12H2Z" fill="#34A853"/>
@@ -690,8 +690,19 @@
       </div>
       <div class="conn-name">Shared Marketing Drive</div>
       <div class="conn-desc">ILIA / NIW marketing assets — videos, images, flyers, campaign materials, and brand resources managed by Rahim.</div>
-      <span class="conn-status" style="background:#FFF3E0;color:#C05000;font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;">⏳ Pending Connection</span>
-      <a class="conn-link" href="https://drive.google.com" target="_blank" style="margin-top:8px;">Open Google Drive →</a>
+      <span class="conn-status cs-pending">⏳ Pending Connection</span>
+      <a class="conn-link" href="https://drive.google.com" target="_blank">Open Google Drive →</a>
+      <button class="note-btn" id="note-btn-marketing-drive" onclick="toggleNotePanel('marketing-drive')">+ Add Note</button>
+      <div class="note-panel" id="note-panel-marketing-drive">
+        <div class="note-list" id="note-list-marketing-drive"></div>
+        <div class="note-input-wrap">
+          <textarea class="note-textarea" id="note-ta-marketing-drive" placeholder="Add a note, status update, or action item..."></textarea>
+          <div class="note-save-row">
+            <button class="note-cancel-btn" onclick="toggleNotePanel('marketing-drive')">Cancel</button>
+            <button class="note-save-btn" onclick="saveNote('marketing-drive')">Save Note</button>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1279,7 +1290,7 @@
 
   async function initNotes() {
     const cardIds = ['claude-ai','jira','confluence','github-org','google-drive','gmail',
-                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome'];
+                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal'];
     for (const id of cardIds) { await renderNotes(id); }
   }
 
