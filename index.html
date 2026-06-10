@@ -370,6 +370,10 @@
   .cih-save-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: var(--blue-mid); color: white; }
   .cih-cancel-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--off-white); color: var(--muted); }
 
+
+  .modal-overlay { display:none;position:fixed;inset:0;background:rgba(0,20,40,0.7);z-index:1000;align-items:center;justify-content:center;padding:20px; }
+  .modal-overlay.open { display:flex; }
+
 </style>
 </head>
 <body>
@@ -423,7 +427,7 @@
 
     <div class="conn-card conn-live">
       <div class="conn-icon" style="background:#E8F5E9;font-size:20px;">✦</div>
-      <div class="conn-name">Claude AI</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-ai')">Claude AI <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">ILIA Central Intelligence Project — active with full platform context</div>
       <span class="conn-status cs-live">✓ Connected</span>
       <a class="conn-link" href="https://claude.ai" target="_blank">claude.ai →</a>
@@ -442,7 +446,7 @@
 
     <div class="conn-card conn-live">
       <div class="conn-icon" style="background:#E3F0FB;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M11.75 2L2 12l4.5 4.5L11.75 12l5.25 4.5L21.5 12 11.75 2z" fill="#0052CC"/><path d="M11.75 22L21.5 12l-4.5-4.5L11.75 12l-5.25-4.5L2 12l9.75 10z" fill="#2684FF"/></svg></div>
-      <div class="conn-name">JIRA</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('jira')">JIRA <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Sprint planning, epics, stories, bug tracking, acceptance criteria</div>
       <span class="conn-status cs-live">✓ Connected</span>
       <a class="conn-link" href="https://simplicitygh.atlassian.net/jira" target="_blank">Open JIRA →</a>
@@ -461,7 +465,7 @@
 
     <div class="conn-card conn-live">
       <div class="conn-icon" style="background:#E3F0FB;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M1.5 17.3c-.3.5-.1 1.1.4 1.4l4.2 2.4c.5.3 1.1.1 1.4-.4.8-1.4 1.7-2.6 3.5-2.6s2.7 1.2 3.5 2.6c.3.5.9.7 1.4.4l4.2-2.4c.5-.3.7-.9.4-1.4C18.7 14.1 16 12 12 12s-6.7 2.1-10.5 5.3z" fill="#0052CC"/><path d="M22.5 6.7c.3-.5.1-1.1-.4-1.4L17.9 2.9c-.5-.3-1.1-.1-1.4.4-.8 1.4-1.7 2.6-3.5 2.6S10.3 4.7 9.5 3.3C9.2 2.8 8.6 2.6 8.1 2.9L3.9 5.3c-.5.3-.7.9-.4 1.4C5.3 9.9 8 12 12 12s6.7-2.1 10.5-5.3z" fill="#2684FF"/></svg></div>
-      <div class="conn-name">Confluence</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('confluence')">Confluence <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Formal specs, architecture decisions, release notes, JIRA-linked docs</div>
       <span class="conn-status cs-live">✓ Connected</span>
       <a class="conn-link" href="https://simplicitygh.atlassian.net" target="_blank">Open Confluence →</a>
@@ -480,7 +484,7 @@
 
     <div class="conn-card conn-live">
       <div class="conn-icon" style="background:#F0F0F0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="#24292F"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></div>
-      <div class="conn-name">GitHub Org</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('github-org')">GitHub Org <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">NIW company org — all prototype repos + code mirror repos</div>
       <span class="conn-status cs-live">✓ Live</span>
       <a class="conn-link" href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">Open GitHub →</a>
@@ -499,7 +503,7 @@
 
     <div class="conn-card conn-pending">
       <div class="conn-icon" style="background:#F8F8F8;"><svg width="22" height="20" viewBox="0 0 20 18" fill="none"><path d="M6.5 11L2 18h16l-4.5-7H6.5z" fill="#FBBC05"/><path d="M13.5 11L10 5 3 18h7l3.5-7z" fill="#34A853"/><path d="M10 5l3.5 6H17L13.5 5h-7L10 5z" fill="#4285F4"/></svg></div>
-      <div class="conn-name">Google Drive</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('google-drive')">Google Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">⚠️ Disconnected pending compliance review — client data, policy records & financial files require IT/legal sign-off before reconnecting</div>
       <span class="conn-status cs-pending">⚠️ Paused — Compliance Review</span>
       <a class="conn-link" href="https://drive.google.com" target="_blank">Open Drive →</a>
@@ -518,7 +522,7 @@
 
     <div class="conn-card conn-live">
       <div class="conn-icon" style="background:#FCE8E6;"><svg width="22" height="18" viewBox="0 0 24 20" fill="none"><path d="M2 4h20v14H2V4z" fill="white" stroke="#E0E0E0"/><path d="M2 4l10 8 10-8" stroke="#EA4335" stroke-width="1.5"/><path d="M2 4v14l6-7M22 4v14l-6-7" fill="#EA4335"/></svg></div>
-      <div class="conn-name">Gmail</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('gmail')">Gmail <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Work inbox connected — Claude can read and draft emails</div>
       <span class="conn-status cs-live">✓ Connected</span>
       <a class="conn-link" href="https://mail.google.com" target="_blank">Open Gmail →</a>
@@ -537,7 +541,7 @@
 
     <div class="conn-card conn-pending">
       <div class="conn-icon" style="background:#E3F0FB;"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0052CC"><path d="M.778 1.213a.768.768 0 00-.768.892l3.263 19.81c.084.5.52.873 1.027.873h15.392c.507 0 .943-.373 1.027-.873l3.263-19.81a.768.768 0 00-.768-.892H.778zm13.71 13.443h-4.976l-1.313-6.857h7.602l-1.313 6.857z"/></svg></div>
-      <div class="conn-name">Bitbucket Mirror</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('bitbucket-mirror')">Bitbucket Mirror <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Auto-sync pipeline from Bitbucket → GitHub for Claude code access</div>
       <span class="conn-status cs-pending">⏳ Token Confirmed — Mirror Pending</span>
       <a class="conn-link" href="https://simplicitygh.atlassian.net/browse/NIWD-1734" target="_blank">JIRA: NIWD-1734 →</a>
@@ -583,7 +587,7 @@
 
     <div class="conn-card conn-pending">
       <div class="conn-icon">🖥️</div>
-      <div class="conn-name">Local Dev Environment</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('local-dev')">Local Dev Environment <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">ILIA running locally on Jamin's machine for live UI/UX prototyping</div>
       <span class="conn-status cs-pending">⏳ Pending IT Admin</span>
       <a class="conn-link" href="https://simplicitygh.atlassian.net/jira" target="_blank">Track in JIRA →</a>
@@ -602,7 +606,7 @@
 
     <div class="conn-card conn-waiting">
       <div class="conn-icon">👥</div>
-      <div class="conn-name">Claude Team Plan</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-team')">Claude Team Plan <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Shared project across NIW employees — required for team-wide rollout</div>
       <span class="conn-status cs-waiting">○ Planned</span>
       <a class="conn-link" href="https://claude.ai/settings" target="_blank">Upgrade at claude.ai →</a>
@@ -622,7 +626,7 @@
 
     <div class="conn-card conn-waiting">
       <div class="conn-icon">🌐</div>
-      <div class="conn-name">Shared NIW Drive</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('shared-drive')">Shared NIW Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">New company Shared Drive — ILIA Central Intelligence folder structure</div>
       <span class="conn-status cs-waiting">○ Planned</span>
       <a class="conn-link" href="https://drive.google.com" target="_blank">Google Drive →</a>
@@ -645,7 +649,7 @@
         <span style="font-size:8px;color:var(--muted);font-weight:900;line-height:1;">↔</span>
         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3.5" fill="white"/><circle cx="9" cy="9" r="2.5" fill="#4285F4"/><path d="M9 2.5A6.5 6.5 0 0 1 14.63 5.75H9.5A3.5 3.5 0 0 0 5.87 9H2.37A6.5 6.5 0 0 1 9 2.5Z" fill="#EA4335"/><path d="M15.5 9A6.5 6.5 0 0 1 12.13 14.63L9.5 9.5A3.5 3.5 0 0 0 12.5 7.5H15.5Z" fill="#FBBC05"/><path d="M9 15.5A6.5 6.5 0 0 1 3.37 12.25H8.5A3.5 3.5 0 0 0 12.13 9H15.13A6.5 6.5 0 0 1 9 15.5Z" fill="#34A853"/><path d="M2.5 9A6.5 6.5 0 0 1 5.87 3.37L8.5 8.5H5.5A3.5 3.5 0 0 0 2.5 9Z" fill="#4285F4"/></svg>
       </div>
-      <div class="conn-name">Claude in Chrome</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-chrome')">Claude in Chrome <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Browser automation — Claude navigates and interacts with web apps</div>
       <span class="conn-status cs-live">✓ Connected</span>
       <a class="conn-link" href="https://chromewebstore.google.com/search/claude" target="_blank">Chrome Web Store →</a>
@@ -672,7 +676,7 @@
           <circle cx="18" cy="6" r="3" fill="#7C3AED"/>
         </svg>
       </div>
-      <div class="conn-name">ILIA CIH Portal</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('ilia-cih-portal')">ILIA CIH Portal <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Branded AI workspace — role-configured seats for every NIW employee. Operations, Support, Sales, Marketing, Dev.</div>
       <span class="conn-status" style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;">🏗️ In Development</span>
       <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/" target="_blank">View Platform Vision →</a>
@@ -688,7 +692,7 @@
           <path d="M2 12H16L14 15H4L2 12Z" fill="#FBBC05"/>
         </svg>
       </div>
-      <div class="conn-name">Shared Marketing Drive</div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('marketing-drive')">Shared Marketing Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">ILIA / NIW marketing assets — videos, images, flyers, campaign materials, and brand resources managed by Rahim.</div>
       <span class="conn-status cs-pending">⏳ Pending Connection</span>
       <a class="conn-link" href="https://drive.google.com" target="_blank">Open Google Drive →</a>
@@ -1329,11 +1333,245 @@
 
   async function initNotes() {
     const cardIds = ['claude-ai','jira','confluence','github-org','google-drive','gmail',
-                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal'];
+                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal','strapi-cms'];
     for (const id of cardIds) { await renderNotes(id); }
   }
 
   document.addEventListener('DOMContentLoaded', initNotes);
+
+  // ── CONNECTION CARD MODALS ─────────────────────────────
+  const CONN_MODALS = {
+    'claude-ai': {
+      title: 'Claude AI',
+      status: '✓ Connected',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'The intelligence engine powering the entire ILIA CIH. Claude AI reads all connected sources — GitHub, JIRA, Confluence, Drive — and acts as PM assistant, workflow architect, developer, and analyst.',
+      capabilities: [
+        'Create and push prototypes to the NIW GitHub org',
+        'Read and update JIRA tickets and epics',
+        'Generate Confluence-ready documentation',
+        'Analyze ILIA codebase for workflows and architecture',
+        'Draft emails, messages, and SOPs',
+        'Answer any question about the ILIA platform'
+      ],
+      links: [{label:'Open Claude', url:'https://claude.ai'}]
+    },
+    'jira': {
+      title: 'JIRA',
+      status: '✓ Connected',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'Sprint planning, epics, stories, bug tracking, and acceptance criteria for all ILIA platform development. Connected to the NIW NIWD project board.',
+      capabilities: [
+        'Create JIRA tickets with full acceptance criteria',
+        'Update ticket status, assignee, and priority',
+        'Query open tickets and sprint backlog',
+        'Link tickets to Confluence specs',
+        'Generate sprint summaries and release notes'
+      ],
+      links: [{label:'Open JIRA', url:'https://simplicitygh.atlassian.net/jira'}, {label:'NIWD Board', url:'https://simplicitygh.atlassian.net/jira/software/projects/NIWD/boards'}]
+    },
+    'confluence': {
+      title: 'Confluence',
+      status: '✓ Connected',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'Formal feature specifications, architecture decisions, JIRA-linked requirements, and release documentation for the ILIA platform.',
+      capabilities: [
+        'Create and update Confluence pages',
+        'Generate formal feature specs from requirements',
+        'Document architecture decisions (ADRs)',
+        'Publish release notes and changelogs',
+        'Search across all ILIA documentation'
+      ],
+      links: [{label:'Open Confluence', url:'https://simplicitygh.atlassian.net'}]
+    },
+    'github-org': {
+      title: 'GitHub Org',
+      status: '✓ Live',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'The NIW Companies GitHub organization housing all ILIA prototypes, the CIH hub, and the pending codebase mirror. All prototype URLs live at niwcompanies-ilia-central-intelligence.github.io.',
+      capabilities: [
+        'Create new prototype repos and push code',
+        'Deploy GitHub Pages sites with live URLs',
+        'Read codebase once Mohit mirror is complete',
+        'Extract workflows, APIs, and DB models from source',
+        'Manage repo access for team members'
+      ],
+      links: [{label:'Open GitHub Org', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence'}]
+    },
+    'google-drive': {
+      title: 'Google Drive',
+      status: '⚠️ Paused — Compliance Review',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'Disconnected pending IT/compliance approval. When reconnected (scoped to ILIA CIH Shared Drive only), Claude can read context files, SOPs, design assets, and working documents.',
+      capabilities: [
+        'Read ILIA Master Context and architecture docs',
+        'Access living SOPs and workflow documentation',
+        'Reference design assets and brand guidelines',
+        'Read meeting notes and decision logs',
+        'NOTE: Client data, financial records, and sensitive company drives must remain separate'
+      ],
+      links: [{label:'Open Drive', url:'https://drive.google.com'}, {label:'JIRA: Compliance Ticket', url:'https://simplicitygh.atlassian.net/browse/NIWD-1734'}]
+    },
+    'gmail': {
+      title: 'Gmail',
+      status: '✓ Connected',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'Work inbox connected — Claude can read context from emails and create drafts. Note: Claude cannot send emails directly, only create drafts for your review.',
+      capabilities: [
+        'Draft reply emails for your review',
+        'Summarize email threads for context',
+        'Draft outreach emails to agents or carriers',
+        'Create email templates for operational workflows',
+        'CANNOT send emails — drafts only, you always review first'
+      ],
+      links: [{label:'Open Gmail', url:'https://mail.google.com'}]
+    },
+    'bitbucket-mirror': {
+      title: 'Bitbucket Mirror',
+      status: '⏳ Token Confirmed — Mirror Pending',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'One-way auto-sync from Bitbucket (source of truth) to GitHub. Once live, Claude gains full read access to the ILIA codebase enabling deep technical analysis.',
+      capabilities: [
+        'Read all ILIA business logic and API endpoints',
+        'Extract complete workflow map from route definitions',
+        'Identify every email trigger in the system',
+        'Audit formulas and calculations for consistency',
+        'Map AWS infrastructure and services',
+        'Identify technical debt and improvement opportunities'
+      ],
+      links: [{label:'JIRA: NIWD-1734', url:'https://simplicitygh.atlassian.net/browse/NIWD-1734'}, {label:'GitHub Repo', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-backend'}]
+    },
+    'ilia-codebase': {
+      title: 'ILIA Codebase',
+      status: '⏳ Pending Mirror',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'The full ILIA platform codebase — frontend and backend. Once the Bitbucket mirror is complete, this becomes the most powerful intelligence source in the CIH.',
+      capabilities: [
+        'Complete workflow extraction from all routes',
+        'Full formula and calculation audit',
+        'Email system inventory — every trigger and template',
+        'Database schema and relationship mapping',
+        'API endpoint documentation generation',
+        'Real-time code change and prototype workflow with local dev'
+      ],
+      links: [{label:'GitHub Backend', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-backend'}, {label:'GitHub Frontend', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-frontend'}]
+    },
+    'local-dev': {
+      title: 'Local Dev Environment',
+      status: '⏳ Pending IT Admin',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'ILIA running locally on your machine enables a real-time PM prototyping workflow — describe a UI change in plain English, Claude writes the code, you see it update live in your browser.',
+      capabilities: [
+        'Describe UI changes in plain English — Claude codes them',
+        'See ILIA update live in your browser instantly',
+        'Prototype new screens and flows without developer bottleneck',
+        'Test ideas before involving the dev team',
+        'Hand finished prototypes to developers as working code'
+      ],
+      links: [{label:'Track in JIRA', url:'https://simplicitygh.atlassian.net/jira'}]
+    },
+    'claude-team': {
+      title: 'Claude Team Plan',
+      status: 'Active — Simplicity Group',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'Simplicity Group Claude Team plan is active. The ILIA Central Intelligence project is shared — you and Kyle are both connected with full capabilities.',
+      capabilities: [
+        'Share projects across NIW team members',
+        'Shared context and connectors for all project members',
+        'Upload knowledge files visible to all members',
+        'Kyle connected — more team members can be added',
+        'Each member connects their own Gmail/Drive/Calendar'
+      ],
+      links: [{label:'Claude Settings', url:'https://claude.ai/settings'}]
+    },
+    'shared-drive': {
+      title: 'Shared NIW Drive',
+      status: '○ Planned',
+      statusStyle: 'background:var(--off-white);color:var(--muted);border:1px solid var(--border);',
+      desc: 'A dedicated Google Shared Drive for ILIA Central Intelligence — separate from all company drives containing sensitive client/financial data. Requires IT Workspace admin to create.',
+      capabilities: [
+        'Host ILIA Master Context and architecture docs',
+        'Store living SOPs and workflow documentation',
+        'Safely connect to Claude without exposing client data',
+        'Shared access for NIW team members',
+        'Foundation for the full intelligence layer'
+      ],
+      links: [{label:'Google Drive', url:'https://drive.google.com'}]
+    },
+    'claude-chrome': {
+      title: 'Claude in Chrome',
+      status: '✓ Connected',
+      statusStyle: 'background:var(--green-pale);color:var(--green);',
+      desc: 'Browser automation — Claude can see your screen, navigate pages, click buttons, and interact with web apps including ILIA, GitHub, JIRA, and Cloudflare.',
+      capabilities: [
+        'Navigate to any URL and take actions on your behalf',
+        'Approve GitHub token requests and org settings',
+        'Interact with ILIA admin interface directly',
+        'Fill and submit forms (with your confirmation)',
+        'Screenshot and analyze any web page'
+      ],
+      links: [{label:'Chrome Web Store', url:'https://chromewebstore.google.com/search/claude'}]
+    },
+    'ilia-cih-portal': {
+      title: 'ILIA CIH Portal',
+      status: '🏗️ In Development',
+      statusStyle: 'background:var(--purple-pale);color:var(--purple);',
+      desc: 'A branded AI operating platform — each NIW employee logs into their role-configured workspace. Operations, Support, Sales, Marketing, Dev, Admin each get a personalized dashboard powered by Claude.',
+      capabilities: [
+        'Role-specific dashboards (Operations, Support, Sales, Marketing, Dev, Admin)',
+        'Login system with seat type assignment',
+        'Each seat pre-configured with relevant tools and context',
+        'No Claude.ai access needed — works as standalone NIW platform',
+        'Phase 1: Browser app | Phase 2: Desktop app | Phase 3: Admin console'
+      ],
+      links: [{label:'View Platform Vision', url:'https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/'}, {label:'CIH Hub', url:'https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/'}]
+    },
+    'marketing-drive': {
+      title: 'Shared Marketing Drive',
+      status: '⏳ Pending Connection',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'ILIA/NIW marketing assets managed by Rahim — videos, images, flyers, campaign materials, and brand resources used across agent and client communications.',
+      capabilities: [
+        'Access all ILIA/NIW marketing assets',
+        'Reference approved images and videos for campaigns',
+        'Pull brand-approved materials for agent use',
+        'Understand what marketing collateral exists per product/carrier',
+        'Future: Marketing seat users create/update assets from CIH Portal'
+      ],
+      links: [{label:'Google Drive', url:'https://drive.google.com'}]
+    },
+    'strapi-cms': {
+      title: 'ILIA CMS — Strapi',
+      status: '⏳ Pending API Token',
+      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
+      desc: 'Powers all agent invitation landing pages and client-facing marketing pages. 21 configurations across carriers and product types. Agent links in ILIA map to Strapi content — Kai-Zen, Enhanced Split Dollar, and more.',
+      capabilities: [
+        'Read all current landing page content by carrier and strategy',
+        'Understand what clients see when they click agent invitation links',
+        'Audit content across all 21 carrier/strategy configurations',
+        'Future: Marketing seat users edit and publish landing pages from CIH Portal',
+        'Future: Create new landing pages for new carriers/strategies',
+        'Future: Update videos, images, and copy without developer involvement'
+      ],
+      links: [{label:'Open Strapi', url:'https://strapi-projects.simplicityniw.com/'}]
+    }
+  };
+
+  function openConnModal(cardId) {
+    const m = CONN_MODALS[cardId];
+    if (!m) return;
+    document.getElementById('conn-modal-title').textContent = m.title;
+    document.getElementById('conn-modal-status').innerHTML = '<span style="' + m.statusStyle + 'font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:12px;">' + m.status + '</span>';
+    document.getElementById('conn-modal-desc').textContent = m.desc;
+    document.getElementById('conn-modal-caps').innerHTML = m.capabilities.map(c => '<li style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--ink);">' + c + '</li>').join('');
+    document.getElementById('conn-modal-links').innerHTML = m.links.map(l => '<a href="' + l.url + '" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--blue-mid);color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;margin-right:8px;">' + l.label + ' →</a>').join('');
+    document.getElementById('connModal').classList.add('open');
+  }
+
+  function closeConnModal() {
+    document.getElementById('connModal').classList.remove('open');
+  }
+
 </script><script>
   // -- TEAM LINK COPY BUTTON
   function copyTeamLink(btn) {
@@ -1415,6 +1653,26 @@
     await renderCIHNotes();
   });
 </script>
+
+
+<!-- CONNECTION CARD DETAIL MODAL -->
+<div class="modal-overlay" id="connModal" onclick="if(event.target===this)closeConnModal()">
+  <div style="background:var(--white);border-radius:14px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.25);">
+    <div style="padding:22px 26px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:1;">
+      <div>
+        <div id="conn-modal-status"></div>
+        <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);line-height:1.2;" id="conn-modal-title"></div>
+      </div>
+      <button onclick="closeConnModal()" style="font-size:20px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px;line-height:1;">✕</button>
+    </div>
+    <div style="padding:22px 26px 26px;">
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:20px;" id="conn-modal-desc"></div>
+      <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">What CIH Users Can Do</div>
+      <ul style="list-style:none;margin-bottom:20px;" id="conn-modal-caps"></ul>
+      <div id="conn-modal-links"></div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
