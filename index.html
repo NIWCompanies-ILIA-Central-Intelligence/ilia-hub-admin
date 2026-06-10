@@ -690,25 +690,25 @@
 
   
     <div class="conn-card conn-pending" style="border-top:3px solid #8B5CF6;">
-      <div class="conn-icon" style="background:#F5F3FF;cursor:pointer;" onclick="openConnModal('strapi-cms','build-engine')" title="Click to learn more">
+      <div class="conn-icon" style="background:#F5F3FF;cursor:pointer;" onclick="openConnModal('strapi-cms','build-engine','fullstory')" title="Click to learn more">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
           <rect x="4" y="4" width="24" height="24" rx="5" fill="#8B5CF6" opacity="0.15"/>
           <path d="M20 11H12a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-8a1 1 0 00-1-1zm-4 7a3 3 0 110-6 3 3 0 010 6z" fill="#8B5CF6"/>
           <circle cx="16" cy="16" r="1.5" fill="white"/>
         </svg>
       </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('strapi-cms','build-engine')">ILIA CMS — Strapi <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('strapi-cms','build-engine','fullstory')">ILIA CMS — Strapi <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="conn-desc">Marketing landing pages and agent invitation pages across 21 carrier/strategy configurations. Powers all agent links and client-facing materials in ILIA.</div>
       <span class="conn-status cs-pending">⏳ Pending API Token</span>
       <a class="conn-link" href="https://strapi-projects.simplicityniw.com/" target="_blank">Open Strapi →</a>
-      <button class="note-btn" id="note-btn-strapi-cms" onclick="toggleNotePanel('strapi-cms','build-engine')">+ Add Note</button>
+      <button class="note-btn" id="note-btn-strapi-cms" onclick="toggleNotePanel('strapi-cms','build-engine','fullstory')">+ Add Note</button>
       <div class="note-panel" id="note-panel-strapi-cms">
         <div class="note-list" id="note-list-strapi-cms"></div>
         <div class="note-input-wrap">
           <textarea class="note-textarea" id="note-ta-strapi-cms" placeholder="Add a note, status update, or action item..."></textarea>
           <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('strapi-cms','build-engine')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('strapi-cms','build-engine')">Save Note</button>
+            <button class="note-cancel-btn" onclick="toggleNotePanel('strapi-cms','build-engine','fullstory')">Cancel</button>
+            <button class="note-save-btn" onclick="saveNote('strapi-cms','build-engine','fullstory')">Save Note</button>
           </div>
         </div>
       </div>
@@ -844,6 +844,31 @@
           <div class="note-save-row">
             <button class="note-cancel-btn" onclick="toggleNotePanel('build-engine')">Cancel</button>
             <button class="note-save-btn" onclick="saveNote('build-engine')">Save Note</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="conn-card conn-pending" style="border-top:3px solid #FF6B35;">
+      <div class="conn-icon" style="background:#FFF3EE;cursor:pointer;" onclick="openConnModal('fullstory')" title="Click to learn more">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="12" fill="#FF6B35" opacity="0.15"/>
+          <path d="M10 10h12v3H10zM10 14.5h8v3h-8zM10 19h10v3H10z" fill="#FF6B35"/>
+        </svg>
+      </div>
+      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('fullstory')">FullStory <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
+      <div class="conn-desc">Session recording and replay for ILIA — every client click, scroll, error, and rage-click captured. Support team can pull any user session instantly to diagnose issues on live calls.</div>
+      <span class="conn-status cs-pending">⏳ Pending Confirmation</span>
+      <a class="conn-link" href="https://app.fullstory.com" target="_blank">Open FullStory →</a>
+      <button class="note-btn" id="note-btn-fullstory" onclick="toggleNotePanel('fullstory')">+ Add Note</button>
+      <div class="note-panel" id="note-panel-fullstory">
+        <div class="note-list" id="note-list-fullstory"></div>
+        <div class="note-input-wrap">
+          <textarea class="note-textarea" id="note-ta-fullstory" placeholder="Add a note, status update, or action item..."></textarea>
+          <div class="note-save-row">
+            <button class="note-cancel-btn" onclick="toggleNotePanel('fullstory')">Cancel</button>
+            <button class="note-save-btn" onclick="saveNote('fullstory')">Save Note</button>
           </div>
         </div>
       </div>
@@ -1472,7 +1497,7 @@
 
   async function initNotes() {
     const cardIds = ['claude-ai','jira','confluence','github-org','google-drive','gmail',
-                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal','strapi-cms','build-engine'];
+                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal','strapi-cms','build-engine','fullstory'];
     for (const id of cardIds) { await renderNotes(id); }
   }
 
@@ -1737,6 +1762,7 @@
     "ilia-cih-portal":{t:"ILIA CIH Portal",        s:"In Development",    sc:"purple", d:"A branded AI operating platform. Each NIW employee logs into their role-configured workspace — Operations, Support, Sales, Marketing, Dev, Admin.", caps:["Role-specific dashboards for all seat types","Login system with seat type assignment","Each seat pre-configured with relevant tools","No Claude.ai needed — standalone NIW platform"], lnks:[["View Platform Vision","https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/"],["Portal Demo","https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal-demo/"]]},
     "marketing-drive":{t:"Shared Marketing Drive", s:"Pending Connection", sc:"amber",  d:"ILIA/NIW marketing assets managed by Rahim — videos, images, flyers, campaign materials, and brand resources.", caps:["Access all ILIA/NIW marketing assets","Reference approved images and videos","Future: Marketing seat users create/update assets from CIH Portal"], lnks:[["Google Drive","https://drive.google.com"]]},
     "strapi-cms":     {t:"ILIA CMS — Strapi",      s:"Pending API Token", sc:"amber",  d:"Powers all agent invitation landing pages and client-facing marketing pages. 21 configurations across carriers and product types.", caps:["Read all current landing page content by carrier and strategy","Understand what clients see when they click agent links","Future: Marketing seat users edit and publish landing pages from CIH Portal"], lnks:[["Open Strapi","https://strapi-projects.simplicityniw.com/"]]},
+    "fullstory": {t:"FullStory", s:"Pending Confirmation", sc:"amber", d:"Session recording and replay for ILIA. Every client click, scroll, error, and rage-click is captured. Support team can pull any user's session replay instantly to diagnose exactly what happened during a live support call — no more guessing.", caps:["Search sessions by client email or user ID","Pull session replay link for any client instantly","See exactly what a client clicked and where they got stuck","Identify rage-clicks, errors, and network failures in real time","Support agent asks: 'John had an issue today' — Claude finds and links the session","Future: auto-surface FullStory link whenever a client issue is reported in chat"], layers:[], lnks:[["Open FullStory","https://app.fullstory.com"],["FullStory API Docs","https://developer.fullstory.com"]]},
     "build-engine":   {
       t:"ILIA Native Build Engine", s:"Partially Active", sc:"purple",
       d:"The full capability to design, build, and deploy custom ILIA features using Claude + connected infrastructure. Replaces third-party tools like DocuSign with purpose-built native solutions owned entirely by NIW.",
