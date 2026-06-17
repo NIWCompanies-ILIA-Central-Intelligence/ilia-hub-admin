@@ -378,7 +378,7 @@
   <div class="header-inner">
     <div class="badge">NIW Companies · Simplicity Group · ILIA Platform</div>
     <h1>ILIA <em>Central Intelligence</em> Hub</h1>
-    <p>The living source of truth for the entire ILIA platform — every workflow, SOP, project, design asset, and team resource in one governed, connected space.</p>
+    <p>A Claude-powered operational platform that gives every NIW role — Support, Operations, Marketing, Product, Dev — a single place to understand their work, get answers grounded in how ILIA actually runs, and get real tasks done in plain language.</p>
     <div class="meta-row">
       <div class="meta-pill"><span class="dot"></span> Active Build — Structure Approved</div>
       <div class="meta-pill"><span class="dot-pending"></span> <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub Org Live</a></div>
@@ -391,6 +391,132 @@
 
 <main>
 
+
+  <!-- ============ CIH VISION & ARCHITECTURE ============ -->
+
+  <!-- ONE-SENTENCE VISION -->
+  <div style="background:linear-gradient(135deg,var(--blue-pale) 0%,var(--white) 100%);border:1px solid var(--border);border-left:4px solid var(--blue-mid);border-radius:12px;padding:22px 26px;margin:4px 0 26px;">
+    <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--blue-deep);line-height:1.4;margin-bottom:8px;">One intelligent workspace. Every NIW role. Plain-language help that gets real work done.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.65;">Today, how NIW⟷ILIA actually runs — what's done inside ILIA vs. outside it, who owns which process — lives scattered across people's heads, chats, and tools. CIH makes that operational reality explicit, shared, and queryable. The payoff: dramatically faster onboarding, expedited day-to-day workflows, and one NIW-owned system that knows the platform end to end.</div>
+  </div>
+
+  <!-- THE LADDER -->
+  <div class="section-label">The Core Idea — One Pattern, Every Role</div>
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:32px;">
+    <div style="background:linear-gradient(135deg,var(--blue-deep) 0%,#1a3a5c 100%);padding:18px 26px;">
+      <div style="color:white;font-weight:700;font-size:15px;margin-bottom:3px;">CIH doesn't build a different tool for each department</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:12.5px;">Every role climbs the same four-step ladder of help — they just reach different rungs depending on the job.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;">
+      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">01</div>
+        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Know</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Knows the role's processes, docs, and source-of-truth — and answers from them.</div>
+        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"How does the DBR workflow route a notice?"</div>
+      </div>
+      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">02</div>
+        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Diagnose</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Pulls signal across systems — session data, code, records — and explains what's happening.</div>
+        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Agent John can't log in — what's going on?"</div>
+      </div>
+      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">03</div>
+        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Draft</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Produces the artifact for review — a ticket, a doc, a prototype, a message.</div>
+        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Draft a new agent-onboarding training doc."</div>
+      </div>
+      <div style="padding:20px 22px;border-bottom:1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green);font-weight:600;margin-bottom:6px;">04</div>
+        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Act</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Executes into the live system — and records what it did.</div>
+        <div style="font-size:11.5px;color:#1d6b34;font-style:italic;background:var(--green-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Send Adam a DBR notice and update ILIA."</div>
+      </div>
+    </div>
+    <div style="padding:14px 24px;font-size:12px;color:var(--muted);background:var(--off-white);line-height:1.6;">Support lives mostly on <b style="color:var(--blue-mid);">Diagnose</b>. Operations reaches <b style="color:var(--green);">Act</b>. Marketing works in <b style="color:var(--blue-mid);">Draft</b>. Product &amp; Dev build on <b style="color:var(--green);">Act</b>. Same ladder, different reach — which is exactly what makes one platform serve the whole company.</div>
+  </div>
+
+  <!-- ROLE-BASED ACCESS -->
+  <div class="section-label">Role-Based Access — Everyone Stays in Their Lane</div>
+  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 14px;max-width:760px;">Each role is granted only the capabilities its job requires — nothing is assumed, and anything not explicitly granted is denied by default. This is what lets us safely give the whole company access to one powerful system.</div>
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--muted);background:var(--off-white);border-bottom:1px solid var(--border);">
+      <div style="padding:11px 20px;">Role</div><div style="padding:11px 16px;">What CIH does for them</div><div style="padding:11px 16px;">Reach</div>
+    </div>
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Product / PM <span style="display:block;font-size:10px;font-weight:600;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;">Pilot role</span></div>
+      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Builds live prototypes from plain-English descriptions, manages JIRA backlogs, writes specs and acceptance criteria, keeps Confluence current.</div>
+      <div style="padding:16px;"><span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Act</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Support</div>
+      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Diagnoses live client/agent issues, pulls the right session replay, explains the cause, drafts a ticket to the tech backlog for review.</div>
+      <div style="padding:16px;"><span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Draft</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Operations</div>
+      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Manages workflow queues, generates SOPs, and executes routine operational actions — each with a logged authorization trail.</div>
+      <div style="padding:16px;"><span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Act</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
+      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Marketing</div>
+      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Creates agent materials and training content, drafts campaigns, and (later) edits landing pages directly — no developer bottleneck.</div>
+      <div style="padding:16px;"><span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Draft</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;align-items:center;">
+      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Admin</div>
+      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">The one role that can grant and change what other roles are allowed to do. Governance itself is a controlled capability.</div>
+      <div style="padding:16px;"><span style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Governance</span></div>
+    </div>
+  </div>
+  <details style="margin-bottom:32px;">
+    <summary style="cursor:pointer;font-size:12px;font-weight:600;color:var(--blue-mid);padding:6px 0;">How access is defined under the hood — the authority grid ›</summary>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:8px;">
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;">Each role's authority is a precise grid: which systems it can touch, and to which rung. Example — the Product / PM pilot role:</div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <tr style="background:var(--off-white);"><th style="text-align:left;padding:8px 12px;border:1px solid var(--border);font-weight:700;">System</th><th style="padding:8px 12px;border:1px solid var(--border);">Know</th><th style="padding:8px 12px;border:1px solid var(--border);">Diagnose</th><th style="padding:8px 12px;border:1px solid var(--border);">Draft</th><th style="padding:8px 12px;border:1px solid var(--border);">Act</th></tr>
+          <tr><td style="padding:8px 12px;border:1px solid var(--border);">JIRA / Confluence</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--green);font-weight:600;">create / update</td></tr>
+          <tr><td style="padding:8px 12px;border:1px solid var(--border);">GitHub + local sandbox</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--green);font-weight:600;">repos / push</td></tr>
+          <tr><td style="padding:8px 12px;border:1px solid var(--border);">ILIA production data</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">read</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">—</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--red);font-weight:600;">no production writes</td></tr>
+        </table>
+      </div>
+      <div style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:12px;">Support, by contrast, has no GitHub access of any kind — "Support doesn't get a developer sandbox" is written as data, not left to guesswork. The same grid is reused at every stage of rollout: first as a rule the system follows, then as the literal configuration of each role's workspace, eventually as the access control in the portal app.</div>
+    </div>
+  </details>
+
+  <!-- THREE STAGES -->
+  <div class="section-label">How We Get There — Three Stages</div>
+  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 14px;max-width:760px;">The same access design is enforced progressively harder. Nothing gets rebuilt between stages — it gets promoted.</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:32px;">
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:20px 22px;">
+      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 1 — Shared Workspace</div>
+      <span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Available Now</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">One CIH workspace with all tools connected. Roles defined and self-enforced by the system. Fast and flexible — enough to prove every role.</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--blue-mid);border-radius:12px;padding:20px 22px;">
+      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 2 — Role-Scoped Workspaces</div>
+      <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Next</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">One workspace per role, connected only to the tools that role is allowed to use. Restriction becomes physical, not just a rule — and requires no engineering.</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--purple);border-radius:12px;padding:20px 22px;">
+      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 3 — The CIH Portal</div>
+      <span style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Future Build</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">A branded, NIW-owned web app. Per-person login, real role enforcement, full audit trail. The daily workspace for every employee — no Claude.ai needed.</div>
+    </div>
+  </div>
+
+  <!-- GOVERNANCE & SAFETY -->
+  <div class="section-label">Built With Governance &amp; Safety First</div>
+  <div style="background:var(--white);border:1px solid var(--border);border-left:4px solid var(--staging);border-radius:12px;padding:20px 26px;margin-bottom:38px;">
+    <div style="font-size:12.5px;color:var(--ink);line-height:1.6;margin-bottom:14px;">Because CIH can eventually <em>act</em> on live systems, it is designed conservatively from day one:</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Deny by default</b> — a role can only do what it has been explicitly granted. If CIH is unsure, it stops and asks.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Production is gated</b> — CIH does not read or write live ILIA client data until it clears security &amp; compliance sign-off.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Compliance-sensitive actions are logged</b> — anything touching workflows like Death Benefit Reduction requires a recorded authorization trail and human green-light.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">A reversal path comes first</b> — every "act" capability has a clear way to catch and undo a mistake before it ever goes live.</div>
+    </div>
+  </div>
 
   <!-- GLOBAL CIH NOTES -->
   <div class="section-label" style="margin-top:4px;">CIH Project Notes</div>
