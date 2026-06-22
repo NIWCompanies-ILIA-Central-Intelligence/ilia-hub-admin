@@ -129,8 +129,8 @@
     <h1>ILIA <em>Central Intelligence</em> Hub</h1>
     <p class="lede">A Claude-backed operational copilot for the people who run ILIA. One system that gives every NIW role a single place to understand their work, get answers grounded in how ILIA actually runs, and get real tasks done in plain language — built conservatively, governed from day one.</p>
     <div class="meta-row">
-      <span class="pill"><span class="dot"></span> Core v1.2 · reviewed 2026-06-22</span>
-      <span class="pill"><span class="dot"></span> GitHub via connector</span>
+      <span class="pill"><span class="dot"></span> Core v1.4 · reviewed 2026-06-22</span>
+      <span class="pill"><span class="dot"></span> GitHub via Claude in Chrome</span>
       <span class="pill">Owner: Jamin Austin</span>
       <span class="pill">📘 <a href="https://simplicitygh.atlassian.net/wiki/spaces/~712020d3366b36650b4fffa4dc40188b20971e/pages/3670212617/CIH+Core+Operating+Spec">Core Operating Spec</a></span>
     </div>
@@ -180,13 +180,13 @@
   <div class="grid g3">
     <div class="conn live"><div class="cn">JIRA</div><div class="cd">Read, search (JQL), create, update, transition, comment in project NIWD.</div><span class="st live">✓ Active</span></div>
     <div class="conn live"><div class="cn">Confluence</div><div class="cd">Read, create, update pages and comments. Home of the Core source of truth.</div><span class="st live">✓ Active</span></div>
-    <div class="conn live"><div class="cn">GitHub (org)</div><div class="cd">Create repos, push files, manage Pages under the org — via the direct GitHub connector. Auth lives in the connection, never in chat.</div><span class="st live">✓ Active · connector</span></div>
+    <div class="conn live"><div class="cn">GitHub (org)</div><div class="cd">Create repos, push files, manage Pages under the org — committed through the owner's signed-in GitHub session in Claude in Chrome. No token in chat.</div><span class="st live">✓ Active · via Chrome</span></div>
     <div class="conn live"><div class="cn">Code Sandbox</div><div class="cd">Run code, build Word / PPT / Excel / PDF, build HTML / React / SVG. Resets between tasks; no outbound network.</div><span class="st live">✓ Active</span></div>
     <div class="conn live"><div class="cn">Web</div><div class="cd">Live web search and fetch.</div><span class="st live">✓ Active</span></div>
     <div class="conn req"><div class="cn">Google Drive</div><div class="cd">Master CIH library lives here. Create, copy, read, search on request. Never deletes, renames, or changes permissions.</div><span class="st req">✓ Active · on request</span></div>
     <div class="conn con"><div class="cn">Gmail</div><div class="cd">Create drafts, search threads, manage labels.</div><span class="st con">⚠ Draft-only — no send</span></div>
-    <div class="conn con"><div class="cn">Claude in Chrome</div><div class="cd">Browser automation for web-based workflows.</div><span class="st con">⚠ Available</span></div>
-    <div class="conn dep"><div class="cn">Cloudflare Worker — broker</div><div class="cd"><code>ilia-cih-broker</code>: retired as the GitHub path (superseded by the connector). Optional owner-run local fallback only.</div><span class="st dep">Deprecated</span></div>
+    <div class="conn live"><div class="cn">Claude in Chrome</div><div class="cd">Browser automation — and the path CIH uses to publish to GitHub via the owner's signed-in session.</div><span class="st live">✓ Active · publish path</span></div>
+    <div class="conn dep"><div class="cn">Cloudflare Worker — broker</div><div class="cd"><code>ilia-cih-broker</code>: retired as the GitHub path (superseded by Claude in Chrome). Optional owner-run local fallback only.</div><span class="st dep">Deprecated</span></div>
     <div class="conn pend"><div class="cn">ILIA Codebase Mirror</div><div class="cd">Workflow &amp; formula extraction. Opens only via the live-data gate. Provider: Mohit.</div><span class="st pend">⏳ Pending · gated</span></div>
     <div class="conn pend"><div class="cn">FullStory</div><div class="cd">Session replay for the Diagnose rung. Provider: Sanjay.</div><span class="st pend">⏳ Pending</span></div>
     <div class="conn pend"><div class="cn">Strapi CMS</div><div class="cd">Marketing landing pages (21 carrier/strategy panels). Provider: Brad.</div><span class="st pend">⏳ Pending</span></div>
@@ -200,7 +200,7 @@
   <div class="grid g2">
     <div class="rule"><b>Deny by default</b><span>CIH does only what a role is explicitly granted. If unsure, it stops and asks.</span></div>
     <div class="rule"><span class="tag">Production gate</span><b>Live-data &amp; production gate</b><span>No live ILIA client data or production code until <em>both</em> are true: the owner's recorded approval <em>and</em> safeguards in place (restricted membership, read-only minimum-scope credential in a connector, audit log, minimum-disclosure).</span></div>
-    <div class="rule"><span class="tag">New in v1.2</span><b>Secrets never in chat or files</b><span>Credentials authenticate only — they live inside connectors or the project Instructions, never pasted into a chat or committed to a file. GitHub now authenticates through its connector, so no token ever touches a transcript.</span></div>
+    <div class="rule"><span class="tag">Core rule</span><b>Secrets never in chat or files</b><span>Credentials authenticate only — they live inside connectors, the project Instructions, or the owner's browser session, never pasted into a chat or committed to a file. GitHub publishes through the owner's signed-in browser session (Claude in Chrome), so no token ever touches a transcript.</span></div>
     <div class="rule"><span class="tag">Code-promotion gate</span><b>Local is free; promotion is gated</b><span>Anyone can experiment freely in their own local/sandbox environment. Nothing reaches shared / dev / live repos without explicit owner approval or a defined promotion workflow.</span></div>
     <div class="rule"><span class="tag">Audit</span><b>Server-side audit log with PII masking</b><span>Sensitive-access events are logged as structured records at a server chokepoint, with masking/redaction applied <em>before</em> any write — the log never receives raw PII. Default-deny when unsure.</span></div>
     <div class="rule"><span class="tag">Authorization</span><b>Phase-1 membership-equivalence</b><span>Live ILIA data is permitted only while project membership is limited to NIW staff who already hold ILIA admin (all-client) access — CIH surfaces nothing beyond their existing entitlement. Add anyone narrower and live access pauses until the portal.</span></div>
@@ -225,13 +225,13 @@
     <div class="item"><div class="ic">🧰</div><h3>Toolbox — Skills repo</h3><p>Reusable skill code and the files skills consume — versioned and shareable. Core holds the skills catalog.</p><div class="loc">GitHub · ilia-cih-skills (planned)</div></div>
   </div>
 
-  <p class="note" style="margin-top:26px">Operational history is never duplicated — it lives natively in JIRA, GitHub, and Confluence, plus the Core decision log. This page is a reflection of Core; when they differ, Core wins.</p>
+  <p class="note" style="margin-top:26px">Operational history is never duplicated — it lives natively in JIRA, GitHub, and Confluence, plus the Core decision log. This page is a downstream reflection of Core, re-published whenever Core changes; if the two ever differ, Core wins.</p>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <div>ILIA Central Intelligence Hub · NIW Companies / Simplicity Group · <span class="mono">Core v1.2 · 2026-06-22</span></div>
+    <div>ILIA Central Intelligence Hub · NIW Companies / Simplicity Group · <span class="mono">Core v1.4 · 2026-06-22</span></div>
     <div class="fl">
       <a href="https://simplicitygh.atlassian.net/wiki/spaces/~712020d3366b36650b4fffa4dc40188b20971e/pages/3670212617/CIH+Core+Operating+Spec">Core Spec</a>
       <a href="https://simplicitygh.atlassian.net">Confluence</a>
