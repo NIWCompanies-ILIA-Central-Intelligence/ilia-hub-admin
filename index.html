@@ -3,1958 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ILIA Central Intelligence Hub</title>
+<title>ILIA Central Intelligence Hub — System Overview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue-deep: #004372;
-    --blue-mid: #0076BD;
-    --blue-light: #66A4D9;
-    --blue-pale: #EBF4FB;
-    --green: #30934C;
-    --green-pale: #E6F5EA;
-    --white: #FFFFFF;
-    --off-white: #F5F7FA;
-    --ink: #0D1F2D;
-    --muted: #6B7E8F;
-    --border: #D4DFE9;
-    --staging: #F4A623;
-    --staging-pale: #FEF4E3;
-    --purple: #7C3AED;
-    --purple-pale: #F3EFFE;
-    --red: #DC2626;
-    --red-pale: #FEF2F2;
+  :root{
+    --blue-deep:#004372; --blue-mid:#0076BD; --blue-light:#66A4D9; --blue-pale:#EBF4FB;
+    --green:#30934C; --green-pale:#E6F5EA;
+    --white:#fff; --off-white:#F5F7FA; --ink:#0D1F2D; --muted:#6B7E8F; --border:#D4DFE9;
+    --amber:#F4A623; --amber-pale:#FEF4E3; --amber-ink:#9B5500;
+    --purple:#7C3AED; --purple-pale:#F3EFFE; --red:#DC2626; --slate:#475569; --slate-pale:#EEF2F6;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--ink); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--off-white);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif;font-weight:400}
+  code,.mono{font-family:'DM Mono',monospace}
+  a{color:var(--blue-mid);text-decoration:none}
+  a:hover{text-decoration:underline}
 
-  a { text-decoration: none; color: inherit; }
+  /* header */
+  header{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));color:#fff;padding:46px 0 40px}
+  .badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.15);padding:5px 12px;border-radius:20px;margin-bottom:16px}
+  header h1{font-size:46px;line-height:1.05;margin-bottom:10px}
+  header h1 em{font-style:italic;color:var(--blue-light)}
+  header p.lede{font-size:16px;max-width:760px;color:#dcebff;opacity:.95;color:#E6F1FA}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:6px 13px;border-radius:20px;color:#fff}
+  .pill a{color:#fff;text-decoration:underline}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:#5BE39B;box-shadow:0 0 0 3px rgba(91,227,155,.25)}
 
-  /* HEADER */
-  header {
-    background: var(--blue-deep);
-    padding: 52px 40px 40px;
-    position: relative; overflow: hidden;
-  }
-  header::before {
-    content: ''; position: absolute;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(0,118,189,0.3) 0%, transparent 65%);
-    top: -250px; right: -150px; border-radius: 50%;
-  }
-  header::after {
-    content: ''; position: absolute;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(48,147,76,0.15) 0%, transparent 70%);
-    bottom: -100px; left: 100px; border-radius: 50%;
-  }
-  .header-inner { max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
-  .badge {
-    display: inline-block;
-    background: rgba(102,164,217,0.2); color: var(--blue-light);
-    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 5px 12px; border-radius: 4px; border: 1px solid rgba(102,164,217,0.35); margin-bottom: 18px;
-  }
-  header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(34px,5vw,54px); color: #fff; line-height: 1.1; margin-bottom: 14px; }
-  header h1 em { color: var(--blue-light); font-style: italic; }
-  header p { color: rgba(255,255,255,0.6); font-size: 15px; font-weight: 300; max-width: 580px; line-height: 1.65; margin-bottom: 30px; }
-  .meta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .meta-pill {
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 20px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,0.68);
-  }
-  .meta-pill a { color: rgba(255,255,255,0.68); }
-  .meta-pill a:hover { color: white; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
-  .dot-pending { width: 6px; height: 6px; border-radius: 50%; background: var(--staging); }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  main{padding:38px 0 10px}
+  .section-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);margin:40px 0 16px;display:flex;align-items:center;gap:10px}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--border)}
 
-  /* LAYOUT */
-  main { max-width: 1160px; margin: 0 auto; padding: 44px 24px 80px; }
+  .sot{background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue-mid);border-radius:12px;padding:18px 22px;display:flex;gap:16px;align-items:flex-start}
+  .sot .ic{font-size:22px;line-height:1}
+  .sot h3{font-size:18px;margin-bottom:3px}
+  .sot p{font-size:13.5px;color:var(--muted)}
+  .sot .cta{margin-top:8px;font-size:13px;font-weight:600}
 
-  /* SECTION LABEL */
-  .section-label {
-    font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-  }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 
-  /* CONNECTION STATUS */
-  .connections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 10px; margin-bottom: 44px; }
-  .conn-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px; position: relative; overflow: hidden;
-    transition: box-shadow 0.15s, transform 0.15s;
-  }
-  .conn-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px); }
-  .conn-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .conn-live::before { background: var(--green); }
-  .conn-pending::before { background: var(--staging); }
-  .conn-waiting::before { background: var(--border); }
-  .conn-icon { font-size: 22px; margin-bottom: 10px; }
-  .conn-name { font-weight: 700; font-size: 13px; color: var(--ink); margin-bottom: 4px; }
-  .conn-desc { font-size: 11px; color: var(--muted); line-height: 1.45; margin-bottom: 10px; }
-  .conn-status { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
-  .cs-live { background: var(--green-pale); color: var(--green); }
-  .cs-pending { background: var(--staging-pale); color: #9B5500; }
-  .cs-waiting { background: var(--off-white); color: var(--muted); border: 1px solid var(--border); }
-  .conn-link { display: block; margin-top: 8px; font-size: 11px; color: var(--blue-mid); font-weight: 500; }
-  .conn-link:hover { text-decoration: underline; }
+  /* ladder */
+  .rung{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden}
+  .rung::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:var(--blue-mid)}
+  .rung .num{font-family:'DM Serif Display',serif;font-size:13px;color:var(--blue-light);letter-spacing:.05em}
+  .rung h3{font-size:20px;margin:2px 0 6px}
+  .rung p{font-size:13px;color:var(--muted)}
+  .rung .ex{margin-top:10px;font-size:12px;font-style:italic;color:var(--slate);background:var(--off-white);border:1px solid var(--border);border-radius:6px;padding:7px 10px}
+  .rung.r2::before{background:#2EA6A0}.rung.r3::before{background:var(--amber)}.rung.r4::before{background:var(--green)}
 
-  /* ONBOARDING */
-  .onboard-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 44px; }
-  .onboard-header {
-    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
-    padding: 24px 28px; display: flex; align-items: center; justify-content: space-between;
-  }
-  .onboard-header h3 { color: white; font-size: 16px; font-weight: 700; }
-  .onboard-header p { color: rgba(255,255,255,0.65); font-size: 12.5px; margin-top: 4px; }
-  .onboard-badge { background: rgba(255,255,255,0.15); color: white; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
+  /* connectors */
+  .conn{background:#fff;border:1px solid var(--border);border-radius:11px;padding:15px 16px;position:relative}
+  .conn::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;border-radius:11px 11px 0 0}
+  .conn.live::before{background:var(--green)}
+  .conn.req::before{background:var(--blue-mid)}
+  .conn.con::before{background:var(--amber)}
+  .conn.dep::before{background:var(--muted)}
+  .conn.pend::before{background:var(--slate)}
+  .conn .cn{font-weight:600;font-size:14px;margin-bottom:3px}
+  .conn .cd{font-size:12px;color:var(--muted);line-height:1.45;min-height:34px}
+  .st{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:9px;letter-spacing:.02em}
+  .st.live{background:var(--green-pale);color:var(--green)}
+  .st.req{background:var(--blue-pale);color:var(--blue-mid)}
+  .st.con{background:var(--amber-pale);color:var(--amber-ink)}
+  .st.dep{background:#EDF0F3;color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+  .st.pend{background:var(--slate-pale);color:var(--slate)}
 
-  .onboard-steps { padding: 0; }
-  .onboard-step { display: grid; grid-template-columns: 64px 1fr; border-bottom: 1px solid var(--border); }
-  .onboard-step:last-child { border-bottom: none; }
-  .step-num-wrap { display: flex; align-items: center; justify-content: center; padding: 20px; border-right: 1px solid var(--border); background: var(--off-white); }
-  .step-num-circle {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 600;
-  }
-  .snc-done { background: var(--green-pale); color: var(--green); }
-  .snc-active { background: var(--blue-pale); color: var(--blue-mid); }
-  .snc-wait { background: var(--off-white); color: var(--muted); border: 1px solid var(--border); }
-  .step-content { padding: 18px 22px; }
-  .step-title { font-weight: 700; font-size: 13.5px; color: var(--ink); margin-bottom: 4px; }
-  .step-desc { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
-  .step-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-  .step-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 6px; font-size: 11.5px; font-weight: 600;
-    transition: opacity 0.15s;
-  }
-  .step-btn:hover { opacity: 0.8; }
-  .btn-primary { background: var(--blue-mid); color: white; }
-  .btn-secondary { background: var(--off-white); color: var(--ink); border: 1px solid var(--border); }
-  .btn-green { background: var(--green); color: white; }
-  .step-status { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 20px; margin-left: 8px; }
+  /* governance */
+  .rule{background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 17px}
+  .rule b{display:block;font-size:14px;color:var(--ink);margin-bottom:4px}
+  .rule span{font-size:12.5px;color:var(--muted)}
+  .rule .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--blue-mid);background:var(--blue-pale);padding:2px 7px;border-radius:5px;margin-bottom:7px;text-transform:uppercase}
 
-  /* AGENT DIRECTORY */
-  .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 12px; margin-bottom: 44px; }
-  .agent-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
-    padding: 20px; position: relative; overflow: hidden;
-    transition: box-shadow 0.15s, transform 0.15s;
-  }
-  .agent-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px); }
-  .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .ac-ops::before { background: var(--blue-mid); }
-  .ac-marketing::before { background: #E65100; }
-  .ac-cs::before { background: var(--green); }
-  .ac-dev::before { background: var(--purple); }
-  .ac-onboard::before { background: var(--staging); }
-  .agent-icon { font-size: 28px; margin-bottom: 12px; }
-  .agent-name { font-weight: 700; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
-  .agent-role { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
-  .agent-desc { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 12px; }
-  .agent-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-  .agent-tag { background: var(--off-white); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 10.5px; color: var(--muted); }
-  .agent-status { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
-  .as-coming { background: var(--staging-pale); color: #9B5500; }
-  .as-planned { background: var(--off-white); color: var(--muted); border: 1px solid var(--border); }
+  /* owner */
+  .owner{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .owner .who{background:#fff;border:1px solid var(--border);border-radius:11px;padding:18px}
+  .owner .who .role{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+  .owner .who.approver .role{color:var(--green)}
+  .owner .who.provider .role{color:var(--amber-ink)}
+  .owner .who h3{font-size:19px;margin-bottom:5px}
+  .owner .who p{font-size:13px;color:var(--muted)}
 
-  /* DRIVE STRUCTURE */
-  .drive-wrap { margin-bottom: 44px; }
-  .drive-topbar {
-    background: var(--blue-deep); border-radius: 12px 12px 0 0;
-    padding: 15px 22px; display: flex; align-items: center; gap: 10px;
-  }
-  .drive-topbar .dtitle { color: #fff; font-weight: 700; font-size: 14px; }
-  .drive-topbar .dsub { color: rgba(255,255,255,.4); font-size: 11.5px; font-family: 'DM Mono',monospace; margin-left: auto; }
-  .drive-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; }
+  /* phases */
+  .phase{background:#fff;border:1px solid var(--border);border-radius:11px;padding:18px;border-top:4px solid var(--border)}
+  .phase.now{border-top-color:var(--green)}
+  .phase.next{border-top-color:var(--blue-mid)}
+  .phase.future{border-top-color:var(--slate)}
+  .phase .ph{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .phase h3{font-size:17px;margin:3px 0 7px}
+  .phase p{font-size:12.5px;color:var(--muted)}
+  .phase .when{display:inline-block;margin-top:10px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px}
+  .phase.now .when{background:var(--green-pale);color:var(--green)}
+  .phase.next .when{background:var(--blue-pale);color:var(--blue-mid)}
+  .phase.future .when{background:var(--slate-pale);color:var(--slate)}
 
-  .tl-folder { border-bottom: 1px solid var(--border); }
-  .tl-folder:last-child { border-bottom: none; }
-  .tl-header { display: grid; grid-template-columns: 280px 1fr; min-height: 68px; cursor: pointer; transition: background .12s; }
-  .tl-header:hover { background: #FAFBFC; }
-  .tl-left { padding: 13px 20px; display: flex; align-items: center; gap: 11px; border-right: 1px solid var(--border); }
-  .tl-num { font-family: 'DM Mono',monospace; font-size: 11px; color: var(--muted); min-width: 22px; }
-  .folder-icon-wrap { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
-  .tl-name { font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.25; }
-  .tl-tag { display: inline-block; margin-top: 3px; font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 600; letter-spacing: .04em; }
-  .tl-right { padding: 13px 18px; display: flex; align-items: center; justify-content: space-between; }
-  .chip-wrap { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
-  .chip { background: var(--off-white); border: 1px solid var(--border); border-radius: 5px; padding: 3px 9px; font-size: 11px; color: var(--muted); white-space: nowrap; }
-  .chip.pending { border-style: dashed; color: #9B7700; background: #FFFBF0; }
-  .expand-icon { font-size: 14px; color: var(--border); margin-left: 12px; transition: transform .2s; flex-shrink: 0; }
-  .tl-header.open .expand-icon { transform: rotate(90deg); }
-  .subfolder-panel { display: none; border-top: 1px solid var(--border); background: #FAFBFD; }
-  .subfolder-panel.open { display: block; }
-  .sub-category { border-bottom: 1px solid var(--border); }
-  .sub-category:last-child { border-bottom: none; }
-  .sub-cat-header { padding: 10px 20px 10px 60px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-  .sub-cat-header:hover { background: #F0F4F8; }
-  .sub-cat-name { font-size: 12.5px; font-weight: 600; color: var(--ink); flex: 1; }
-  .sub-cat-count { font-family: 'DM Mono',monospace; font-size: 10px; color: var(--muted); }
-  .sub-expand { font-size: 12px; color: var(--border); transition: transform .15s; }
-  .sub-cat-header.open .sub-expand { transform: rotate(90deg); }
-  .sub-items { display: none; padding: 0 20px 12px 76px; }
-  .sub-items.open { display: flex; flex-wrap: wrap; gap: 6px; }
-  .sub-item { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 11.5px; color: var(--ink); display: flex; align-items: center; gap: 6px; }
-  .sub-item .item-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-  .sub-item.is-pending { border-style: dashed; color: var(--muted); }
-  .sub-item.is-pending .item-dot { background: #D4A017; }
-  .sub-item .item-dot.live { background: var(--green); }
-  .simple-sublist { padding: 12px 20px 14px 60px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .simple-sublist .sub-item { background: var(--white); }
+  /* library */
+  .lib{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .lib .item{background:#fff;border:1px solid var(--border);border-radius:11px;padding:18px}
+  .lib .item .ic{font-size:24px}
+  .lib .item h3{font-size:16px;margin:6px 0 5px}
+  .lib .item p{font-size:12.5px;color:var(--muted)}
+  .lib .item .loc{margin-top:8px;font-size:11.5px;font-weight:600;color:var(--blue-mid)}
 
-  .tag-ai { background: #E3F5EA; color: #1B6B35; }
-  .tag-ops { background: #E3F0FB; color: #1454A0; }
-  .tag-working { background: var(--purple-pale); color: var(--purple); }
-  .tag-design { background: #FFF3E0; color: #C05000; }
-  .tag-assets { background: var(--staging-pale); color: #9B5500; }
-  .tag-buffer { background: #FEF4E3; color: #9B5500; }
-  .tag-ref { background: #E8F5E9; color: #1B5E20; }
-  .fi-staging { background: var(--staging-pale); }
-  .fi-intel { background: #EBF3FB; }
-  .fi-sop { background: #ECF4FF; }
-  .fi-projects { background: #EDF7F1; }
-  .fi-design { background: #F5EFFE; }
-  .fi-marketing { background: #FEF4E3; }
-  .fi-team { background: #F0F5EE; }
+  footer{margin-top:48px;background:var(--blue-deep);color:#cfe2f1;padding:26px 0;font-size:12.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+  footer a{color:#fff;text-decoration:none;font-weight:500}
+  footer a:hover{text-decoration:underline}
+  .fl{display:flex;flex-wrap:wrap;gap:18px}
 
-  /* PROTOTYPE LINKS */
-  .proto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 10px; margin-bottom: 44px; }
-  .proto-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px 18px; display: flex; align-items: center; gap: 12px;
-    transition: box-shadow 0.15s, transform 0.15s;
-  }
-  .proto-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px); }
-  .proto-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .proto-name { font-weight: 700; font-size: 13px; color: var(--ink); margin-bottom: 2px; }
-  .proto-url { font-size: 10.5px; color: var(--blue-mid); font-family: 'DM Mono', monospace; }
-  .proto-status { display: inline-block; margin-top: 5px; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
-
-  /* BUILD ORDER */
-  .build-order { display: flex; gap: 0; margin-bottom: 44px; overflow: hidden; border-radius: 10px; border: 1px solid var(--border); }
-  @media(max-width:700px){ .build-order { flex-direction: column; } }
-  .build-step { flex: 1; background: var(--white); padding: 18px 16px; border-right: 1px solid var(--border); position: relative; }
-  .build-step:last-child { border-right: none; }
-  .step-num { font-family: 'DM Mono',monospace; font-size: 22px; font-weight: 500; color: var(--border); margin-bottom: 8px; }
-  .step-title { font-size: 12.5px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
-  .step-desc { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
-  .build-step.done .step-num { color: var(--green); }
-  .build-step.active .step-num { color: var(--blue-mid); }
-  .build-step.active { background: var(--blue-pale); }
-  .step-badge { position: absolute; top: 14px; right: 14px; font-size: 9.5px; padding: 2px 7px; border-radius: 10px; font-weight: 700; letter-spacing: .05em; }
-  .sb-done { background: #E8F5E9; color: var(--green); }
-  .sb-now { background: #DBEEFF; color: var(--blue-mid); }
-  .sb-wait { background: var(--off-white); color: var(--muted); border: 1px solid var(--border); }
-
-  /* RULES */
-  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 44px; }
-  @media(max-width:640px){ .rules-grid { grid-template-columns: 1fr; } }
-  .rule-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-  .rule-card h4 { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 9px; display: flex; align-items: center; gap: 7px; }
-  .rule-card ul { list-style: none; font-size: 12px; color: var(--muted); line-height: 1.65; }
-  .rule-card ul li { padding-left: 14px; position: relative; }
-  .rule-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--blue-mid); font-size: 10px; top: 1px; }
-  .rule-card a { color: var(--blue-mid); }
-  .rule-card a:hover { text-decoration: underline; }
-
-  footer { text-align: center; padding: 24px; font-size: 11.5px; color: var(--muted); border-top: 1px solid var(--border); }
-  footer a { color: var(--blue-mid); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-
-  @media(max-width:700px){
-    .tl-header { grid-template-columns: 1fr; }
-    .tl-left { border-right: none; border-bottom: 1px solid var(--border); }
-    .tl-right { display: none; }
-  }
-
-  /* NOTES SYSTEM */
-  .conn-card { position: relative; }
-  .note-btn {
-    display: inline-flex; align-items: center; gap: 4px;
-    margin-top: 8px; padding: 4px 10px; border-radius: 5px;
-    font-size: 10.5px; font-weight: 600; cursor: pointer;
-    background: var(--off-white); border: 1px solid var(--border);
-    color: var(--muted); transition: all 0.15s; width: 100%;
-    justify-content: center;
-  }
-  .note-btn:hover { background: var(--blue-pale); color: var(--blue-mid); border-color: var(--blue-light); }
-  .note-btn.has-notes { background: var(--blue-pale); color: var(--blue-mid); border-color: var(--blue-light); }
-  .note-panel {
-    display: none; margin-top: 10px;
-    border-top: 1px solid var(--border); padding-top: 10px;
-  }
-  .note-panel.open { display: block; }
-  .note-list { margin-bottom: 8px; }
-  .note-item {
-    background: var(--off-white); border: 1px solid var(--border);
-    border-radius: 6px; padding: 8px 10px; margin-bottom: 6px;
-    position: relative;
-  }
-  .note-item-text { font-size: 11.5px; color: var(--ink); line-height: 1.5; margin-bottom: 4px; }
-  .note-item-meta { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; align-items: center; }
-  .note-delete { cursor: pointer; color: var(--muted); font-size: 11px; padding: 1px 5px; border-radius: 3px; }
-  .note-delete:hover { background: var(--red-pale); color: var(--red); }
-  .note-input-wrap { display: flex; gap: 6px; flex-direction: column; }
-  .note-textarea {
-    width: 100%; padding: 8px 10px; border-radius: 6px;
-    border: 1px solid var(--border); font-size: 12px;
-    font-family: 'DM Sans', sans-serif; resize: none;
-    background: var(--white); color: var(--ink);
-    outline: none; transition: border-color 0.15s;
-    min-height: 64px;
-  }
-  .note-textarea:focus { border-color: var(--blue-mid); }
-  .note-save-row { display: flex; gap: 6px; justify-content: flex-end; }
-  .note-save-btn {
-    padding: 5px 14px; border-radius: 5px; font-size: 11.5px; font-weight: 600;
-    cursor: pointer; border: none; background: var(--blue-mid); color: white;
-    transition: opacity 0.15s;
-  }
-  .note-save-btn:hover { opacity: 0.85; }
-  .note-cancel-btn {
-    padding: 5px 14px; border-radius: 5px; font-size: 11.5px; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--border); background: var(--off-white); color: var(--muted);
-  }
-  .note-count-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--blue-mid); color: white;
-    font-size: 9px; font-weight: 700; margin-left: 2px;
-  }
-
-
-  /* TEAM LINK BUTTON */
-  .team-link-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    margin-top: 5px; padding: 4px 10px; border-radius: 5px;
-    font-size: 10.5px; font-weight: 600; cursor: pointer;
-    background: var(--off-white); border: 1px solid var(--border);
-    color: var(--muted); transition: all 0.15s; width: 100%;
-    justify-content: center;
-  }
-  .team-link-btn:hover { background: var(--green-pale); color: var(--green); border-color: var(--green); }
-  .team-link-btn.copied { background: var(--green-pale); color: var(--green); border-color: var(--green); }
-
-  /* GLOBAL CIH NOTES */
-  .cih-notes-bar {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: 10px; margin-bottom: 44px; overflow: hidden;
-  }
-  .cih-notes-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 20px; cursor: pointer; transition: background 0.15s;
-    border-bottom: 1px solid transparent;
-  }
-  .cih-notes-header:hover { background: var(--off-white); }
-  .cih-notes-header.open { border-bottom-color: var(--border); }
-  .cih-notes-title { font-weight: 700; font-size: 13.5px; color: var(--ink); display: flex; align-items: center; gap: 8px; }
-  .cih-notes-meta { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
-  .cih-global-count { background: var(--blue-mid); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
-  .cih-notes-body { display: none; padding: 16px 20px; }
-  .cih-notes-body.open { display: block; }
-  .cih-note-list { margin-bottom: 12px; }
-  .cih-note-item { background: var(--off-white); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; }
-  .cih-note-text { font-size: 12.5px; color: var(--ink); line-height: 1.55; margin-bottom: 5px; }
-  .cih-note-meta { font-size: 10px; color: var(--muted); font-family: 'DM Mono',monospace; display: flex; justify-content: space-between; }
-  .cih-input-wrap { display: flex; flex-direction: column; gap: 8px; }
-  .cih-textarea { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 12.5px; font-family: 'DM Sans',sans-serif; resize: none; min-height: 72px; outline: none; transition: border-color 0.15s; }
-  .cih-textarea:focus { border-color: var(--blue-mid); }
-  .cih-save-row { display: flex; gap: 8px; justify-content: flex-end; }
-  .cih-save-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: var(--blue-mid); color: white; }
-  .cih-cancel-btn { padding: 6px 16px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--off-white); color: var(--muted); }
-
+  .note{font-size:12px;color:var(--muted);margin-top:8px}
+  @media(max-width:560px){header h1{font-size:34px}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="wrap">
     <div class="badge">NIW Companies · Simplicity Group · ILIA Platform</div>
     <h1>ILIA <em>Central Intelligence</em> Hub</h1>
-    <p>A Claude-powered operational platform that gives every NIW role — Support, Operations, Marketing, Product, Dev — a single place to understand their work, get answers grounded in how ILIA actually runs, and get real tasks done in plain language.</p>
+    <p class="lede">A Claude-backed operational copilot for the people who run ILIA. One system that gives every NIW role a single place to understand their work, get answers grounded in how ILIA actually runs, and get real tasks done in plain language — built conservatively, governed from day one.</p>
     <div class="meta-row">
-      <div class="meta-pill"><span class="dot"></span> Active Build — Structure Approved</div>
-      <div class="meta-pill"><span class="dot-pending"></span> <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub Org Live</a></div>
-      <div class="meta-pill">🔗 <a href="https://simplicitygh.atlassian.net" target="_blank">Confluence</a> · <a href="https://simplicitygh.atlassian.net/jira" target="_blank">JIRA</a></div>
-      <div class="meta-pill">📁 Drive · GitHub · Claude Connected</div>
-      <div class="meta-pill" style="cursor:pointer;background:rgba(48,147,76,0.2);border-color:rgba(48,147,76,0.4);" onclick="copyTeamLink(this)" id="header-team-link">🔗 Copy Team Link</div>
+      <span class="pill"><span class="dot"></span> Core v1.2 · reviewed 2026-06-22</span>
+      <span class="pill"><span class="dot"></span> GitHub via connector</span>
+      <span class="pill">Owner: Jamin Austin</span>
+      <span class="pill">📘 <a href="https://simplicitygh.atlassian.net/wiki/spaces/~712020d3366b36650b4fffa4dc40188b20971e/pages/3670212617/CIH+Core+Operating+Spec">Core Operating Spec</a></span>
     </div>
   </div>
 </header>
 
-<main>
+<main class="wrap">
 
-
-  <!-- ============ CIH VISION & ARCHITECTURE ============ -->
-
-  <!-- ONE-SENTENCE VISION -->
-  <div style="background:linear-gradient(135deg,var(--blue-pale) 0%,var(--white) 100%);border:1px solid var(--border);border-left:4px solid var(--blue-mid);border-radius:12px;padding:22px 26px;margin:4px 0 26px;">
-    <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--blue-deep);line-height:1.4;margin-bottom:8px;">One intelligent workspace. Every NIW role. Plain-language help that gets real work done.</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.65;">Today, how NIW⟷ILIA actually runs — what's done inside ILIA vs. outside it, who owns which process — lives scattered across people's heads, chats, and tools. CIH makes that operational reality explicit, shared, and queryable. The payoff: dramatically faster onboarding, expedited day-to-day workflows, and one NIW-owned system that knows the platform end to end.</div>
-  </div>
-
-  <!-- THE LADDER -->
-  <div class="section-label">The Core Idea — One Pattern, Every Role</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:32px;">
-    <div style="background:linear-gradient(135deg,var(--blue-deep) 0%,#1a3a5c 100%);padding:18px 26px;">
-      <div style="color:white;font-weight:700;font-size:15px;margin-bottom:3px;">CIH doesn't build a different tool for each department</div>
-      <div style="color:rgba(255,255,255,0.6);font-size:12.5px;">Every role climbs the same four-step ladder of help — they just reach different rungs depending on the job.</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;">
-      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">01</div>
-        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Know</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Knows the role's processes, docs, and source-of-truth — and answers from them.</div>
-        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"How does the DBR workflow route a notice?"</div>
-      </div>
-      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">02</div>
-        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Diagnose</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Pulls signal across systems — session data, code, records — and explains what's happening.</div>
-        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Agent John can't log in — what's going on?"</div>
-      </div>
-      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-mid);font-weight:600;margin-bottom:6px;">03</div>
-        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Draft</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Produces the artifact for review — a ticket, a doc, a prototype, a message.</div>
-        <div style="font-size:11.5px;color:var(--blue-deep);font-style:italic;background:var(--blue-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Draft a new agent-onboarding training doc."</div>
-      </div>
-      <div style="padding:20px 22px;border-bottom:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green);font-weight:600;margin-bottom:6px;">04</div>
-        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Act</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Executes into the live system — and records what it did.</div>
-        <div style="font-size:11.5px;color:#1d6b34;font-style:italic;background:var(--green-pale);padding:8px 10px;border-radius:8px;line-height:1.5;">"Send Adam a DBR notice and update ILIA."</div>
-      </div>
-    </div>
-    <div style="padding:14px 24px;font-size:12px;color:var(--muted);background:var(--off-white);line-height:1.6;">Support lives mostly on <b style="color:var(--blue-mid);">Diagnose</b>. Operations reaches <b style="color:var(--green);">Act</b>. Marketing works in <b style="color:var(--blue-mid);">Draft</b>. Product &amp; Dev build on <b style="color:var(--green);">Act</b>. Same ladder, different reach — which is exactly what makes one platform serve the whole company.</div>
-  </div>
-
-  <!-- ROLE-BASED ACCESS -->
-  <div class="section-label">Role-Based Access — Everyone Stays in Their Lane</div>
-  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 14px;max-width:760px;">Each role is granted only the capabilities its job requires — nothing is assumed, and anything not explicitly granted is denied by default. This is what lets us safely give the whole company access to one powerful system.</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--muted);background:var(--off-white);border-bottom:1px solid var(--border);">
-      <div style="padding:11px 20px;">Role</div><div style="padding:11px 16px;">What CIH does for them</div><div style="padding:11px 16px;">Reach</div>
-    </div>
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
-      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Product / PM <span style="display:block;font-size:10px;font-weight:600;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;">Pilot role</span></div>
-      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Builds live prototypes from plain-English descriptions, manages JIRA backlogs, writes specs and acceptance criteria, keeps Confluence current.</div>
-      <div style="padding:16px;"><span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Act</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
-      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Support</div>
-      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Diagnoses live client/agent issues, pulls the right session replay, explains the cause, drafts a ticket to the tech backlog for review.</div>
-      <div style="padding:16px;"><span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Draft</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
-      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Operations</div>
-      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Manages workflow queues, generates SOPs, and executes routine operational actions — each with a logged authorization trail.</div>
-      <div style="padding:16px;"><span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Act</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;border-bottom:1px solid var(--border);align-items:center;">
-      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Marketing</div>
-      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">Creates agent materials and training content, drafts campaigns, and (later) edits landing pages directly — no developer bottleneck.</div>
-      <div style="padding:16px;"><span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Know → Draft</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:160px 1fr 130px;gap:0;align-items:center;">
-      <div style="padding:16px 20px;font-weight:700;font-size:13px;color:var(--blue-deep);">Admin</div>
-      <div style="padding:16px;font-size:12px;color:var(--muted);line-height:1.6;">The one role that can grant and change what other roles are allowed to do. Governance itself is a controlled capability.</div>
-      <div style="padding:16px;"><span style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">Governance</span></div>
-    </div>
-  </div>
-  <details style="margin-bottom:32px;">
-    <summary style="cursor:pointer;font-size:12px;font-weight:600;color:var(--blue-mid);padding:6px 0;">How access is defined under the hood — the authority grid ›</summary>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:8px;">
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;">Each role's authority is a precise grid: which systems it can touch, and to which rung. Example — the Product / PM pilot role:</div>
-      <div style="overflow-x:auto;">
-        <table style="width:100%;border-collapse:collapse;font-size:12px;">
-          <tr style="background:var(--off-white);"><th style="text-align:left;padding:8px 12px;border:1px solid var(--border);font-weight:700;">System</th><th style="padding:8px 12px;border:1px solid var(--border);">Know</th><th style="padding:8px 12px;border:1px solid var(--border);">Diagnose</th><th style="padding:8px 12px;border:1px solid var(--border);">Draft</th><th style="padding:8px 12px;border:1px solid var(--border);">Act</th></tr>
-          <tr><td style="padding:8px 12px;border:1px solid var(--border);">JIRA / Confluence</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--green);font-weight:600;">create / update</td></tr>
-          <tr><td style="padding:8px 12px;border:1px solid var(--border);">GitHub + local sandbox</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--green);font-weight:600;">repos / push</td></tr>
-          <tr><td style="padding:8px 12px;border:1px solid var(--border);">ILIA production data</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">read</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">✅</td><td style="text-align:center;padding:8px 12px;border:1px solid var(--border);">—</td><td style="padding:8px 12px;border:1px solid var(--border);color:var(--red);font-weight:600;">no production writes</td></tr>
-        </table>
-      </div>
-      <div style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:12px;">Support, by contrast, has no GitHub access of any kind — "Support doesn't get a developer sandbox" is written as data, not left to guesswork. The same grid is reused at every stage of rollout: first as a rule the system follows, then as the literal configuration of each role's workspace, eventually as the access control in the portal app.</div>
-    </div>
-  </details>
-
-  <!-- THREE STAGES -->
-  <div class="section-label">How We Get There — Three Stages</div>
-  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 14px;max-width:760px;">The same access design is enforced progressively harder. Nothing gets rebuilt between stages — it gets promoted.</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:32px;">
-    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:20px 22px;">
-      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 1 — Shared Workspace</div>
-      <span style="background:var(--green-pale);color:#1d6b34;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Available Now</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">One CIH workspace with all tools connected. Roles defined and self-enforced by the system. Fast and flexible — enough to prove every role.</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--blue-mid);border-radius:12px;padding:20px 22px;">
-      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 2 — Role-Scoped Workspaces</div>
-      <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Next</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">One workspace per role, connected only to the tools that role is allowed to use. Restriction becomes physical, not just a rule — and requires no engineering.</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--purple);border-radius:12px;padding:20px 22px;">
-      <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:8px;">Stage 3 — The CIH Portal</div>
-      <span style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">Future Build</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">A branded, NIW-owned web app. Per-person login, real role enforcement, full audit trail. The daily workspace for every employee — no Claude.ai needed.</div>
+  <!-- SOURCE OF TRUTH -->
+  <div class="section-label">Single source of truth</div>
+  <div class="sot">
+    <div class="ic">🧭</div>
+    <div>
+      <h3>Core Operating Spec is the one source of truth</h3>
+      <p>Identity, hard rules, the live connector inventory, the roadmap, and the decision log all live on one Confluence page — not duplicated anywhere. Files live in Drive; skill code lives in GitHub; <em>decisions and rules live in Core.</em> Every CIH session reads it live before acting.</p>
+      <div class="cta"><a href="https://simplicitygh.atlassian.net/wiki/spaces/~712020d3366b36650b4fffa4dc40188b20971e/pages/3670212617/CIH+Core+Operating+Spec">Open the CIH Core Operating Spec →</a></div>
     </div>
   </div>
 
-  <!-- GOVERNANCE & SAFETY -->
-  <div class="section-label">Built With Governance &amp; Safety First</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-left:4px solid var(--staging);border-radius:12px;padding:20px 26px;margin-bottom:38px;">
-    <div style="font-size:12.5px;color:var(--ink);line-height:1.6;margin-bottom:14px;">Because CIH can eventually <em>act</em> on live systems, it is designed conservatively from day one:</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Deny by default</b> — a role can only do what it has been explicitly granted. If CIH is unsure, it stops and asks.</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Production is gated</b> — CIH does not read or write live ILIA client data until it clears security &amp; compliance sign-off.</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">Compliance-sensitive actions are logged</b> — anything touching workflows like Death Benefit Reduction requires a recorded authorization trail and human green-light.</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;"><b style="color:var(--ink);">A reversal path comes first</b> — every "act" capability has a clear way to catch and undo a mistake before it ever goes live.</div>
+  <!-- THE PATTERN -->
+  <div class="section-label">One pattern, every role — the capability ladder</div>
+  <p class="note" style="margin:-6px 0 16px">CIH doesn't build a different tool per department. Every role climbs the same four rungs and reaches a different height depending on the job.</p>
+  <div class="grid g4">
+    <div class="rung r1"><div class="num">01</div><h3>Know</h3><p>Answers from the role's processes, docs, and source-of-truth.</p><div class="ex">"How does the DBR workflow route a notice?"</div></div>
+    <div class="rung r2"><div class="num">02</div><h3>Diagnose</h3><p>Pulls signal across systems and explains what's happening.</p><div class="ex">"Agent John can't log in — what's going on?"</div></div>
+    <div class="rung r3"><div class="num">03</div><h3>Draft</h3><p>Produces an artifact for review — a ticket, doc, prototype, or message.</p><div class="ex">"Draft an agent-onboarding training doc."</div></div>
+    <div class="rung r4"><div class="num">04</div><h3>Act</h3><p>Executes into a live system and records what it did — tiered, with owner green-light on compliance-sensitive actions.</p><div class="ex">"Create the JIRA ticket with acceptance criteria."</div></div>
+  </div>
+
+  <!-- OWNERSHIP -->
+  <div class="section-label">Ownership &amp; decision authority</div>
+  <div class="owner">
+    <div class="who approver">
+      <div class="role">● Platform owner · sole approver</div>
+      <h3>Jamin Austin</h3>
+      <p>Platform owner and the single admin approver for every CIH gate. A gate opens only on the owner's recorded decision — verbal isn't enough; it's written into the Core decision log.</p>
+    </div>
+    <div class="who provider">
+      <div class="role">● Resource provider · not an approver</div>
+      <h3>Mohit — ILIA Lead Developer</h3>
+      <p>External (not a Simplicity employee). Provides the ILIA codebase and technical access. Providers supply access; only the owner approves opening a gate. The two are never conflated.</p>
     </div>
   </div>
 
-  <!-- GLOBAL CIH NOTES -->
-  <div class="section-label" style="margin-top:4px;">CIH Project Notes</div>
-  <div class="cih-notes-bar">
-    <div class="cih-notes-header" onclick="toggleCIHNotes(this)">
-      <div class="cih-notes-title">
-        📋 ILIA Central Intelligence Hub — Project Notes
-        <span class="cih-global-count" id="cih-global-count">0</span>
-      </div>
-      <div class="cih-notes-meta">
-        <span id="cih-last-note-meta">No notes yet</span>
-        <span style="font-size:13px;color:var(--border);" id="cih-expand-icon">›</span>
-      </div>
-    </div>
-    <div class="cih-notes-body" id="cih-notes-body">
-      <div class="cih-note-list" id="cih-note-list"></div>
-      <div class="cih-input-wrap">
-        <textarea class="cih-textarea" id="cih-note-ta" placeholder="Add a project-level note — decisions, updates, action items for the entire CIH..."></textarea>
-        <div class="cih-save-row">
-          <button class="cih-cancel-btn" onclick="toggleCIHNotes(document.querySelector('.cih-notes-header'))">Cancel</button>
-          <button class="cih-save-btn" onclick="saveCIHNote()">Save Note</button>
-        </div>
-      </div>
-    </div>
+  <!-- CONNECTORS -->
+  <div class="section-label">Connected systems — current inventory</div>
+  <div class="grid g3">
+    <div class="conn live"><div class="cn">JIRA</div><div class="cd">Read, search (JQL), create, update, transition, comment in project NIWD.</div><span class="st live">✓ Active</span></div>
+    <div class="conn live"><div class="cn">Confluence</div><div class="cd">Read, create, update pages and comments. Home of the Core source of truth.</div><span class="st live">✓ Active</span></div>
+    <div class="conn live"><div class="cn">GitHub (org)</div><div class="cd">Create repos, push files, manage Pages under the org — via the direct GitHub connector. Auth lives in the connection, never in chat.</div><span class="st live">✓ Active · connector</span></div>
+    <div class="conn live"><div class="cn">Code Sandbox</div><div class="cd">Run code, build Word / PPT / Excel / PDF, build HTML / React / SVG. Resets between tasks; no outbound network.</div><span class="st live">✓ Active</span></div>
+    <div class="conn live"><div class="cn">Web</div><div class="cd">Live web search and fetch.</div><span class="st live">✓ Active</span></div>
+    <div class="conn req"><div class="cn">Google Drive</div><div class="cd">Master CIH library lives here. Create, copy, read, search on request. Never deletes, renames, or changes permissions.</div><span class="st req">✓ Active · on request</span></div>
+    <div class="conn con"><div class="cn">Gmail</div><div class="cd">Create drafts, search threads, manage labels.</div><span class="st con">⚠ Draft-only — no send</span></div>
+    <div class="conn con"><div class="cn">Claude in Chrome</div><div class="cd">Browser automation for web-based workflows.</div><span class="st con">⚠ Available</span></div>
+    <div class="conn dep"><div class="cn">Cloudflare Worker — broker</div><div class="cd"><code>ilia-cih-broker</code>: retired as the GitHub path (superseded by the connector). Optional owner-run local fallback only.</div><span class="st dep">Deprecated</span></div>
+    <div class="conn pend"><div class="cn">ILIA Codebase Mirror</div><div class="cd">Workflow &amp; formula extraction. Opens only via the live-data gate. Provider: Mohit.</div><span class="st pend">⏳ Pending · gated</span></div>
+    <div class="conn pend"><div class="cn">FullStory</div><div class="cd">Session replay for the Diagnose rung. Provider: Sanjay.</div><span class="st pend">⏳ Pending</span></div>
+    <div class="conn pend"><div class="cn">Strapi CMS</div><div class="cd">Marketing landing pages (21 carrier/strategy panels). Provider: Brad.</div><span class="st pend">⏳ Pending</span></div>
+    <div class="conn pend"><div class="cn">Shared Marketing Drive</div><div class="cd">Marketing assets — videos, flyers, brand resources. Provider: Rahim.</div><span class="st pend">⏳ Pending</span></div>
+  </div>
+  <p class="note">Reachable but unassigned (dormant under deny-by-default until a role needs them): ClickUp · monday · Notion · Figma · Google Calendar · Microsoft 365.</p>
+
+  <!-- GOVERNANCE -->
+  <div class="section-label">Built with governance &amp; safety first</div>
+  <p class="note" style="margin:-6px 0 16px">Because CIH can act on live systems, it's designed conservatively. These rules hold in every session and outrank any request.</p>
+  <div class="grid g2">
+    <div class="rule"><b>Deny by default</b><span>CIH does only what a role is explicitly granted. If unsure, it stops and asks.</span></div>
+    <div class="rule"><span class="tag">Production gate</span><b>Live-data &amp; production gate</b><span>No live ILIA client data or production code until <em>both</em> are true: the owner's recorded approval <em>and</em> safeguards in place (restricted membership, read-only minimum-scope credential in a connector, audit log, minimum-disclosure).</span></div>
+    <div class="rule"><span class="tag">New in v1.2</span><b>Secrets never in chat or files</b><span>Credentials authenticate only — they live inside connectors or the project Instructions, never pasted into a chat or committed to a file. GitHub now authenticates through its connector, so no token ever touches a transcript.</span></div>
+    <div class="rule"><span class="tag">Code-promotion gate</span><b>Local is free; promotion is gated</b><span>Anyone can experiment freely in their own local/sandbox environment. Nothing reaches shared / dev / live repos without explicit owner approval or a defined promotion workflow.</span></div>
+    <div class="rule"><span class="tag">Audit</span><b>Server-side audit log with PII masking</b><span>Sensitive-access events are logged as structured records at a server chokepoint, with masking/redaction applied <em>before</em> any write — the log never receives raw PII. Default-deny when unsure.</span></div>
+    <div class="rule"><span class="tag">Authorization</span><b>Phase-1 membership-equivalence</b><span>Live ILIA data is permitted only while project membership is limited to NIW staff who already hold ILIA admin (all-client) access — CIH surfaces nothing beyond their existing entitlement. Add anyone narrower and live access pauses until the portal.</span></div>
+    <div class="rule"><b>Review before acting</b><span>Drafts, tickets, comms, and pushes are reviewed by a human before they go out.</span></div>
+    <div class="rule"><b>Map, not territory · minimum disclosure</b><span>One source of truth, never a drifting duplicate. When handling client data, surface only the specific item asked for and never persist it to memory, files, or repos.</span></div>
   </div>
 
-  <!-- CONNECTION STATUS -->
-  <div class="section-label" style="margin-top:4px;">Connection Status</div>
-  <div class="connections-grid">
-
-    <div class="conn-card conn-live">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('claude-ai')" title="Click to learn more">✦</div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-ai')">Claude AI <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">ILIA Central Intelligence Project — active with full platform context</div>
-      <span class="conn-status cs-live">✓ Connected</span>
-      <a class="conn-link" href="https://claude.ai" target="_blank">claude.ai →</a>
-            <button class="note-btn" id="note-btn-claude-ai" onclick="toggleNotePanel('claude-ai')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-claude-ai">
-        <div class="note-list" id="note-list-claude-ai"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-claude-ai" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('claude-ai')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('claude-ai')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-live">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('jira')" title="Click to learn more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M11.75 2L2 12l4.5 4.5L11.75 12l5.25 4.5L21.5 12 11.75 2z" fill="#0052CC"/><path d="M11.75 22L21.5 12l-4.5-4.5L11.75 12l-5.25-4.5L2 12l9.75 10z" fill="#2684FF"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('jira')">JIRA <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Sprint planning, epics, stories, bug tracking, acceptance criteria</div>
-      <span class="conn-status cs-live">✓ Connected</span>
-      <a class="conn-link" href="https://simplicitygh.atlassian.net/jira" target="_blank">Open JIRA →</a>
-            <button class="note-btn" id="note-btn-jira" onclick="toggleNotePanel('jira')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-jira">
-        <div class="note-list" id="note-list-jira"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-jira" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('jira')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('jira')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-live">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('confluence')" title="Click to learn more"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M1.5 17.3c-.3.5-.1 1.1.4 1.4l4.2 2.4c.5.3 1.1.1 1.4-.4.8-1.4 1.7-2.6 3.5-2.6s2.7 1.2 3.5 2.6c.3.5.9.7 1.4.4l4.2-2.4c.5-.3.7-.9.4-1.4C18.7 14.1 16 12 12 12s-6.7 2.1-10.5 5.3z" fill="#0052CC"/><path d="M22.5 6.7c.3-.5.1-1.1-.4-1.4L17.9 2.9c-.5-.3-1.1-.1-1.4.4-.8 1.4-1.7 2.6-3.5 2.6S10.3 4.7 9.5 3.3C9.2 2.8 8.6 2.6 8.1 2.9L3.9 5.3c-.5.3-.7.9-.4 1.4C5.3 9.9 8 12 12 12s6.7-2.1 10.5-5.3z" fill="#2684FF"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('confluence')">Confluence <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Formal specs, architecture decisions, release notes, JIRA-linked docs</div>
-      <span class="conn-status cs-live">✓ Connected</span>
-      <a class="conn-link" href="https://simplicitygh.atlassian.net" target="_blank">Open Confluence →</a>
-            <button class="note-btn" id="note-btn-confluence" onclick="toggleNotePanel('confluence')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-confluence">
-        <div class="note-list" id="note-list-confluence"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-confluence" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('confluence')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('confluence')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-live">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('github-org')" title="Click to learn more"><svg width="22" height="22" viewBox="0 0 24 24" fill="#24292F"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('github-org')">GitHub Org <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">NIW company org — all prototype repos + code mirror repos</div>
-      <span class="conn-status cs-live">✓ Live</span>
-      <a class="conn-link" href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">Open GitHub →</a>
-            <button class="note-btn" id="note-btn-github-org" onclick="toggleNotePanel('github-org')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-github-org">
-        <div class="note-list" id="note-list-github-org"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-github-org" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('github-org')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('github-org')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-pending">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('google-drive')" title="Click to learn more"><svg width="22" height="20" viewBox="0 0 20 18" fill="none"><path d="M6.5 11L2 18h16l-4.5-7H6.5z" fill="#FBBC05"/><path d="M13.5 11L10 5 3 18h7l3.5-7z" fill="#34A853"/><path d="M10 5l3.5 6H17L13.5 5h-7L10 5z" fill="#4285F4"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('google-drive')">Google Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">⚠️ Disconnected pending compliance review — client data, policy records & financial files require IT/legal sign-off before reconnecting</div>
-      <span class="conn-status cs-pending">⚠️ Paused — Compliance Review</span>
-      <a class="conn-link" href="https://drive.google.com" target="_blank">Open Drive →</a>
-            <button class="note-btn" id="note-btn-google-drive" onclick="toggleNotePanel('google-drive')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-google-drive">
-        <div class="note-list" id="note-list-google-drive"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-google-drive" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('google-drive')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('google-drive')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-live">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('gmail')" title="Click to learn more"><svg width="22" height="18" viewBox="0 0 24 20" fill="none"><path d="M2 4h20v14H2V4z" fill="white" stroke="#E0E0E0"/><path d="M2 4l10 8 10-8" stroke="#EA4335" stroke-width="1.5"/><path d="M2 4v14l6-7M22 4v14l-6-7" fill="#EA4335"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('gmail')">Gmail <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Work inbox connected — Claude can read and draft emails</div>
-      <span class="conn-status cs-live">✓ Connected</span>
-      <a class="conn-link" href="https://mail.google.com" target="_blank">Open Gmail →</a>
-            <button class="note-btn" id="note-btn-gmail" onclick="toggleNotePanel('gmail')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-gmail">
-        <div class="note-list" id="note-list-gmail"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-gmail" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('gmail')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('gmail')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-pending">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('bitbucket-mirror')" title="Click to learn more"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0052CC"><path d="M.778 1.213a.768.768 0 00-.768.892l3.263 19.81c.084.5.52.873 1.027.873h15.392c.507 0 .943-.373 1.027-.873l3.263-19.81a.768.768 0 00-.768-.892H.778zm13.71 13.443h-4.976l-1.313-6.857h7.602l-1.313 6.857z"/></svg></div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('bitbucket-mirror')">Bitbucket Mirror <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Auto-sync pipeline from Bitbucket → GitHub for Claude code access</div>
-      <span class="conn-status cs-pending">⏳ Token Confirmed — Mirror Pending</span>
-      <a class="conn-link" href="https://simplicitygh.atlassian.net/browse/NIWD-1734" target="_blank">JIRA: NIWD-1734 →</a>
-            <button class="note-btn" id="note-btn-bitbucket-mirror" onclick="toggleNotePanel('bitbucket-mirror')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-bitbucket-mirror">
-        <div class="note-list" id="note-list-bitbucket-mirror"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-bitbucket-mirror" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('bitbucket-mirror')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('bitbucket-mirror')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-pending">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('ilia-codebase')" title="Click to learn more">
-        <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="2" y="28" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#0076BD">ilia</text>
-          <circle cx="7" cy="33" r="3" fill="#0076BD"/>
-          <circle cx="17" cy="33" r="3" fill="#30934C"/>
-          <circle cx="27" cy="33" r="3" fill="#DC2626"/>
-          <circle cx="37" cy="33" r="3" fill="#F4A623"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;" onclick="openConnModal('ilia-codebase')">ILIA Local Studio <span style="font-size:11px;font-weight:500;color:var(--blue-mid);">(A personal Brad on your computer)</span> <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">ILIA running on your personal machine — pull the latest codebase from GitHub, describe a change in plain English, Claude builds it, and you see it live in your browser. Your private sandbox connected to real ILIA code.</div>
-      <span class="conn-status cs-pending">⏳ Pending: Codebase Mirror + Node.js (IT Admin)</span>
-      <a class="conn-link" href="https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-backend" target="_blank">GitHub Repo →</a>
-            <button class="note-btn" id="note-btn-ilia-codebase" onclick="toggleNotePanel('ilia-codebase')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-ilia-codebase">
-        <div class="note-list" id="note-list-ilia-codebase"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-ilia-codebase" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('ilia-codebase')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('ilia-codebase')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-
-    <div class="conn-card conn-waiting">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('claude-team')" title="Click to learn more">👥</div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-team')">Claude Team Plan <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Shared project across NIW employees — required for team-wide rollout</div>
-      <span class="conn-status cs-waiting">○ Planned</span>
-      <a class="conn-link" href="https://claude.ai/settings" target="_blank">Upgrade at claude.ai →</a>
-            <button class="note-btn" id="note-btn-claude-team" onclick="toggleNotePanel('claude-team')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-claude-team">
-        <div class="note-list" id="note-list-claude-team"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-claude-team" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('claude-team')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('claude-team')">Save Note</button>
-          </div>
-        </div>
-      </div>
-            
-    </div>
-
-    <div class="conn-card conn-waiting">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('shared-drive')" title="Click to learn more">🌐</div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('shared-drive')">Shared NIW Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">New company Shared Drive — ILIA Central Intelligence folder structure</div>
-      <span class="conn-status cs-waiting">○ Planned</span>
-      <a class="conn-link" href="https://drive.google.com" target="_blank">Google Drive →</a>
-            <button class="note-btn" id="note-btn-shared-drive" onclick="toggleNotePanel('shared-drive')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-shared-drive">
-        <div class="note-list" id="note-list-shared-drive"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-shared-drive" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('shared-drive')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('shared-drive')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="conn-card conn-waiting">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('claude-chrome')" title="Click to learn more">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L9.8 6.2H14.8L10.7 9L12.4 13.8L8 11L3.6 13.8L5.3 9L1.2 6.2H6.2L8 1.5Z" fill="#7C3AED"/></svg>
-        <span style="font-size:8px;color:var(--muted);font-weight:900;line-height:1;">↔</span>
-        <svg width="12" height="12" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3.5" fill="white"/><circle cx="9" cy="9" r="2.5" fill="#4285F4"/><path d="M9 2.5A6.5 6.5 0 0 1 14.63 5.75H9.5A3.5 3.5 0 0 0 5.87 9H2.37A6.5 6.5 0 0 1 9 2.5Z" fill="#EA4335"/><path d="M15.5 9A6.5 6.5 0 0 1 12.13 14.63L9.5 9.5A3.5 3.5 0 0 0 12.5 7.5H15.5Z" fill="#FBBC05"/><path d="M9 15.5A6.5 6.5 0 0 1 3.37 12.25H8.5A3.5 3.5 0 0 0 12.13 9H15.13A6.5 6.5 0 0 1 9 15.5Z" fill="#34A853"/><path d="M2.5 9A6.5 6.5 0 0 1 5.87 3.37L8.5 8.5H5.5A3.5 3.5 0 0 0 2.5 9Z" fill="#4285F4"/></svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('claude-chrome')">Claude in Chrome <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Browser automation — Claude navigates and interacts with web apps</div>
-      <span class="conn-status cs-live">✓ Connected</span>
-      <a class="conn-link" href="https://chromewebstore.google.com/search/claude" target="_blank">Chrome Web Store →</a>
-            <button class="note-btn" id="note-btn-claude-chrome" onclick="toggleNotePanel('claude-chrome')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-claude-chrome">
-        <div class="note-list" id="note-list-claude-chrome"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-claude-chrome" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('claude-chrome')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('claude-chrome')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="conn-card conn-waiting" style="border:1px solid rgba(124,58,237,0.3);">
-      <div class="conn-card::before" style="background:var(--purple);"></div>
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('ilia-cih-portal')" title="Click to learn more">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="3" width="18" height="18" rx="4" stroke="#7C3AED" stroke-width="1.5" fill="none"/>
-          <path d="M8 12h8M8 8h5M8 16h6" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="18" cy="6" r="3" fill="#7C3AED"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('ilia-cih-portal')">ILIA CIH Portal <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Branded AI workspace — role-configured seats for every NIW employee. Operations, Support, Sales, Marketing, Dev.</div>
-      <span class="conn-status" style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;">🏗️ In Development</span>
-      <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/" target="_blank">View Platform Vision →</a>
-      <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/" target="_blank" style="margin-top:2px;">CIH Hub →</a>
-    </div>
-
-
-    <div class="conn-card conn-pending" style="border-top-color:#E65100;">
-      <div class="conn-icon" style="cursor:pointer;" onclick="openConnModal('marketing-drive')" title="Click to learn more">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M2 12L6 5L10 12H2Z" fill="#34A853"/>
-          <path d="M6 5L12 5L16 12H10L6 5Z" fill="#4285F4"/>
-          <path d="M2 12H16L14 15H4L2 12Z" fill="#FBBC05"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('marketing-drive')">Shared Marketing Drive <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">ILIA / NIW marketing assets — videos, images, flyers, campaign materials, and brand resources managed by Rahim.</div>
-      <span class="conn-status cs-pending">⏳ Pending Connection</span>
-      <a class="conn-link" href="https://drive.google.com" target="_blank">Open Google Drive →</a>
-      <button class="note-btn" id="note-btn-marketing-drive" onclick="toggleNotePanel('marketing-drive')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-marketing-drive">
-        <div class="note-list" id="note-list-marketing-drive"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-marketing-drive" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('marketing-drive')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('marketing-drive')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  
-    <div class="conn-card conn-pending" style="border-top:3px solid #8B5CF6;">
-      <div class="conn-icon" style="background:#F5F3FF;cursor:pointer;" onclick="openConnModal('strapi-cms','build-engine','fullstory')" title="Click to learn more">
-        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-          <rect x="4" y="4" width="24" height="24" rx="5" fill="#8B5CF6" opacity="0.15"/>
-          <path d="M20 11H12a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-8a1 1 0 00-1-1zm-4 7a3 3 0 110-6 3 3 0 010 6z" fill="#8B5CF6"/>
-          <circle cx="16" cy="16" r="1.5" fill="white"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('strapi-cms','build-engine','fullstory')">ILIA CMS — Strapi <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Marketing landing pages and agent invitation pages across 21 carrier/strategy configurations. Powers all agent links and client-facing materials in ILIA.</div>
-      <span class="conn-status cs-pending">⏳ Pending API Token</span>
-      <a class="conn-link" href="https://strapi-projects.simplicityniw.com/" target="_blank">Open Strapi →</a>
-      <button class="note-btn" id="note-btn-strapi-cms" onclick="toggleNotePanel('strapi-cms','build-engine','fullstory')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-strapi-cms">
-        <div class="note-list" id="note-list-strapi-cms"></div>
-
-    <div class="conn-card conn-pending" style="border-top:3px solid #FF6B35;">
-      <div class="conn-icon" style="background:#FFF3EE;cursor:pointer;" onclick="openConnModal('fullstory')" title="Click to learn more">
-        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="12" fill="#FF6B35" opacity="0.15"/>
-          <path d="M10 10h12v3H10zM10 14.5h8v3h-8zM10 19h10v3H10z" fill="#FF6B35"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="cursor:pointer;color:var(--blue-mid);" onclick="openConnModal('fullstory')">FullStory <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Session recording and replay for ILIA — every client click, scroll, error, and rage-click captured. Support team can pull any user session instantly to diagnose issues on live calls.</div>
-      <span class="conn-status cs-pending">⏳ Pending Confirmation — Sanjay</span>
-      <a class="conn-link" href="https://app.fullstory.com" target="_blank">Open FullStory →</a>
-    </div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-strapi-cms" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('strapi-cms','build-engine','fullstory')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('strapi-cms','build-engine','fullstory')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-
-
-
-  <!-- CIH CAPABILITIES -->
-  <div class="section-label" style="margin-top:8px;">CIH — Platform Capabilities</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:44px;">
-
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,var(--blue-deep) 0%,#1a3a5c 100%);padding:20px 26px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="openConnModal('build-engine')" title="Click to learn more">
-      <div>
-        <div style="color:white;font-weight:700;font-size:15px;margin-bottom:4px;">What This System Can Do For NIW <span style="font-size:11px;opacity:0.6;">ⓘ</span></div>
-        <div style="color:rgba(255,255,255,0.55);font-size:12.5px;">Powered by connected intelligence — Claude + Codebase + GitHub + AWS + JIRA + Confluence</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;white-space:nowrap;pointer-events:none;">🔓 Click to see ILIA Build Engine</div>
-    </div>
-
-    <!-- Capability Grid -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;">
-
-      <!-- Build & Replace -->
-      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;font-size:16px;">🔧</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">Build & Replace</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Design and build custom ILIA features that replace third-party dependencies — eSign, document generation, notification engines, form workflows — owned entirely by NIW.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:#EDE9FE;color:var(--purple);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Native eSign</span>
-          <span style="background:#EDE9FE;color:var(--purple);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">PDF Generation</span>
-          <span style="background:#EDE9FE;color:var(--purple);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Custom Forms</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:var(--purple);">Requires: Codebase + Local Dev + AWS</div>
-      </div>
-
-      <!-- PM & Product Design -->
-      <div style="padding:20px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:16px;">🎨</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">PM & Product Design</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Describe a UI change in plain English — Claude writes the code, pushes a prototype, and you see it live in 60 seconds. No developer bottleneck for ideation and design validation.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Live Prototypes</span>
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">UI/UX Iteration</span>
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">JIRA Tickets</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:var(--blue-mid);">Requires: GitHub + Local Dev ✓ Partial</div>
-      </div>
-
-      <!-- Workflow Intelligence -->
-      <div style="padding:20px 22px;border-bottom:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;font-size:16px;">🧠</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">Workflow Intelligence</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Extract every workflow, email trigger, formula, and business rule that exists in the ILIA codebase. Build the most complete operational documentation of the platform ever created.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:var(--green-pale);color:var(--green);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Flow Extraction</span>
-          <span style="background:var(--green-pale);color:var(--green);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Formula Audit</span>
-          <span style="background:var(--green-pale);color:var(--green);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Email Map</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:var(--green);">Requires: Codebase Mirror ⏳ Mohit</div>
-      </div>
-
-      <!-- Marketing & Content -->
-      <div style="padding:20px 22px;border-right:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;font-size:16px;">📣</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">Marketing & Content</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Edit and publish landing pages, create new agent materials, update videos and copy — all from the CIH Portal. Marketing seat users work directly against Strapi without developer involvement.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:#FFF3E0;color:#C05000;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Landing Pages</span>
-          <span style="background:#FFF3E0;color:#C05000;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Agent Materials</span>
-          <span style="background:#FFF3E0;color:#C05000;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">CMS Control</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:#C05000;">Requires: Strapi CMS + Marketing Drive ⏳</div>
-      </div>
-
-      <!-- Operations & Project Mgmt -->
-      <div style="padding:20px 22px;border-right:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:16px;">📊</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">Operations & Project Mgmt</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Manage JIRA backlogs, generate SOPs, track project status, draft status updates, and answer any operational question about ILIA — all from a single conversation.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">JIRA Mgmt</span>
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">SOP Generation</span>
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Confluence Docs</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:var(--green);">✓ Available Now — JIRA + Confluence Connected</div>
-      </div>
-
-      <!-- Client & Agent Intelligence -->
-      <div style="padding:20px 22px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:var(--amber-pale);display:flex;align-items:center;justify-content:center;font-size:16px;">🎧</div>
-          <div style="font-weight:700;font-size:13.5px;color:var(--ink);">Client & Agent Intelligence</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Support staff and sales teams get an AI that knows every ILIA workflow, every carrier rule, every product detail — answering client and agent questions accurately and compliantly in real time.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span style="background:var(--amber-pale);color:#9B5500;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Policy Status</span>
-          <span style="background:var(--amber-pale);color:#9B5500;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Carrier Rules</span>
-          <span style="background:var(--amber-pale);color:#9B5500;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">Kai-Zen Q&A</span>
-        </div>
-        <div style="margin-top:10px;font-size:10.5px;font-weight:600;color:var(--amber);">Requires: Codebase + CIH Portal Phase 2</div>
-      </div>
-
-    </div>
-
-    <div class="conn-card" style="border-top:3px solid #7C3AED;cursor:pointer;" onclick="openConnModal('build-engine')">
-      <div class="conn-icon" style="background:#F3EFFE;cursor:pointer;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#7C3AED" opacity="0.3"/>
-          <path d="M2 17l10 5 10-5" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M2 12l10 5 10-5" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="conn-name" style="color:var(--purple);">ILIA Native Build Engine <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
-      <div class="conn-desc">Claude + Codebase + GitHub + AWS — the capability to design, build, and deploy custom ILIA features. Replace third-party tools with purpose-built native solutions owned entirely by NIW.</div>
-      <span class="conn-status" style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;">⚡ Partially Active</span>
-      <button class="note-btn" id="note-btn-build-engine" onclick="event.stopPropagation();toggleNotePanel('build-engine')">+ Add Note</button>
-      <div class="note-panel" id="note-panel-build-engine">
-        <div class="note-list" id="note-list-build-engine"></div>
-        <div class="note-input-wrap">
-          <textarea class="note-textarea" id="note-ta-build-engine" placeholder="Add a note, status update, or action item..."></textarea>
-          <div class="note-save-row">
-            <button class="note-cancel-btn" onclick="toggleNotePanel('build-engine')">Cancel</button>
-            <button class="note-save-btn" onclick="saveNote('build-engine')">Save Note</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    
-
+  <!-- ROADMAP -->
+  <div class="section-label">How we get there — three phases</div>
+  <div class="grid g3">
+    <div class="phase now"><div class="ph">Phase 1</div><h3>Shared workspace</h3><p>Owner + CIH build and test in Claude chat. Prove every capability — prototypes, skills, gated lookups, staging code help. Core is the live logbook.</p><span class="when">● Now</span></div>
+    <div class="phase next"><div class="ph">Phase 2</div><h3>CIH portal</h3><p>A branded, NIW-owned web app. Admin first, then onboarding and per-user permission mapping that mirrors each user's ILIA tier.</p><span class="when">Next</span></div>
+    <div class="phase future"><div class="ph">Phase 3</div><h3>Scoped users live</h3><p>Real users (e.g. Support) log into their own role-bounded web chat — same engine, behaving exactly like this one, inside their lane.</p><span class="when">Future</span></div>
   </div>
 
-  <!-- ONBOARDING GUIDE -->
-  <div class="section-label">
-    Claude ↔ ILIA Intelligence Hub — Onboarding Guide
-    <span style="font-size:10px;color:var(--blue-mid);font-family:'DM Sans',sans-serif;font-weight:600;text-transform:none;letter-spacing:0;margin-left:4px;">For new NIW team members</span>
+  <!-- LIBRARY -->
+  <div class="section-label">The central library</div>
+  <p class="note" style="margin:-6px 0 16px">One brain, one filing cabinet, one toolbox — distinct homes by type, with Core as the card catalog.</p>
+  <div class="lib">
+    <div class="item"><div class="ic">🧠</div><h3>Brain — Core</h3><p>The single source of truth: rules, plan, roadmap, and decision log.</p><div class="loc">Confluence · this page's spec</div></div>
+    <div class="item"><div class="ic">🗄️</div><h3>Filing cabinet — Master CIH</h3><p>Files, assets, reference data, restricted PII, and the audit log. Built and active in Google Drive (on request).</p><div class="loc">Google Drive · Master CIH</div></div>
+    <div class="item"><div class="ic">🧰</div><h3>Toolbox — Skills repo</h3><p>Reusable skill code and the files skills consume — versioned and shareable. Core holds the skills catalog.</p><div class="loc">GitHub · ilia-cih-skills (planned)</div></div>
   </div>
 
-  <div class="onboard-wrap">
-    <div class="onboard-header">
-      <div>
-        <h3>Getting Connected to the ILIA Intelligence Hub</h3>
-        <p>Two phases — Phase 1 is available now. Phase 2 coming as the CIH Portal is built out.</p>
-      </div>
-      <span class="onboard-badge">Phase 1 Active · Phase 2 In Development</span>
-    </div>
-    <div class="onboard-steps">
-
-      <!-- PHASE 1 HEADER -->
-      <div style="background:var(--blue-pale);border-bottom:1px solid var(--border);padding:12px 22px;display:flex;align-items:center;gap:10px;">
-        <span style="background:var(--blue-mid);color:white;font-size:11px;font-weight:700;padding:3px 12px;border-radius:10px;">PHASE 1</span>
-        <span style="font-weight:700;font-size:13px;color:var(--blue-deep);">Simplicity Claude Account — Shared ILIA Project</span>
-        <span style="margin-left:auto;font-size:11px;color:var(--green);font-weight:700;background:var(--green-pale);padding:3px 10px;border-radius:10px;">✓ Available Now</span>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-done">1</div></div>
-        <div class="step-content">
-          <div class="step-title">Log Into Your Simplicity Claude Account</div>
-          <div class="step-desc">Sign in at claude.ai using your Simplicity Group work email. Make sure you're on the <strong>Simplicity Group · Team plan</strong> — visible at the bottom left of the screen.</div>
-          <div class="step-actions">
-            <a href="https://claude.ai/login" target="_blank" class="step-btn btn-primary">→ Go to claude.ai</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-done">2</div></div>
-        <div class="step-content">
-          <div class="step-title">Open the ILIA Central Intelligence Project</div>
-          <div class="step-desc">Click <strong>Projects</strong> in the left sidebar → click the <strong>Shared with you</strong> tab → open <strong>ILIA Central Intelligence</strong>. This is the shared project with full ILIA platform context, GitHub access, JIRA, Confluence, and all connectors pre-configured.</div>
-          <div class="step-actions">
-            <a href="https://claude.ai" target="_blank" class="step-btn btn-primary">→ Open Claude Projects</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-done">3</div></div>
-        <div class="step-content">
-          <div class="step-title">Enable Your Connectors</div>
-          <div class="step-desc">In Claude Settings → Connectors, connect your personal tools. The shared project tools (JIRA, Confluence, GitHub) are already configured — you just need your own Gmail, Drive, and Calendar.</div>
-          <div class="step-actions" style="flex-wrap:wrap;gap:6px;">
-            <a href="https://claude.ai/settings" target="_blank" class="step-btn btn-secondary">📧 Gmail</a>
-            <a href="https://claude.ai/settings" target="_blank" class="step-btn btn-secondary">📁 Google Drive</a>
-            <a href="https://claude.ai/settings" target="_blank" class="step-btn btn-secondary">📅 Calendar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-done">4</div></div>
-        <div class="step-content">
-          <div class="step-title">Install Claude in Chrome (Recommended)</div>
-          <div class="step-desc">Install the Claude Chrome extension to enable browser automation — Claude can navigate pages, click buttons, and assist with ILIA and other web-based workflows directly.</div>
-          <div class="step-actions">
-            <a href="https://chromewebstore.google.com/search/claude" target="_blank" class="step-btn btn-primary">→ Chrome Web Store</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step" style="border-bottom:none;">
-        <div class="step-num-wrap"><div class="step-num-circle snc-done">5</div></div>
-        <div class="step-content">
-          <div class="step-title">Start Working — You're Connected</div>
-          <div class="step-desc">Open any chat inside the ILIA Central Intelligence project and start working. Claude already knows the full ILIA platform, your team, active projects, and all connected tools. Example prompts to get started:</div>
-          <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-            <div style="background:var(--off-white);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--muted);font-style:italic;">"Create a new prototype called ilia-[name] and push it to the NIW GitHub org"</div>
-            <div style="background:var(--off-white);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--muted);font-style:italic;">"What's the current status of the DBR project and are there any open blockers?"</div>
-            <div style="background:var(--off-white);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--muted);font-style:italic;">"Create a JIRA ticket for [feature] with acceptance criteria"</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PHASE 2 HEADER -->
-      <div style="background:var(--purple-pale);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 22px;display:flex;align-items:center;gap:10px;">
-        <span style="background:var(--purple);color:white;font-size:11px;font-weight:700;padding:3px 12px;border-radius:10px;">PHASE 2</span>
-        <span style="font-weight:700;font-size:13px;color:var(--purple);">ILIA CIH Portal — Role-Configured Web Stations</span>
-        <span style="margin-left:auto;font-size:11px;color:var(--purple);font-weight:700;background:var(--purple-pale);padding:3px 10px;border-radius:10px;border:1px solid rgba(124,58,237,0.2);">🏗️ In Development</span>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-wait">6</div></div>
-        <div class="step-content">
-          <div class="step-title">Get Your CIH Portal Invite</div>
-          <div class="step-desc">When the ILIA CIH Portal launches, each employee will receive an invite to their role-configured workspace. Your seat type (Operations, Support, Sales, Marketing, Dev, Admin) determines your personalized dashboard and tools.</div>
-          <div class="step-actions">
-            <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/" target="_blank" class="step-btn btn-secondary">○ View Portal Vision →</a>
-            <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/" target="_blank" class="step-btn btn-primary">→ CIH Hub Prototype</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step">
-        <div class="step-num-wrap"><div class="step-num-circle snc-wait">7</div></div>
-        <div class="step-content">
-          <div class="step-title">Log Into Your Role Dashboard</div>
-          <div class="step-desc">A branded NIW web app — your role-specific dashboard with AI chat, connected tools, and panels built for your function. Operations sees JIRA queues and SOPs. Support sees client flows. Marketing sees asset library and campaign tools. No Claude.ai needed.</div>
-          <div class="step-actions">
-            <span class="step-btn btn-secondary" style="opacity:0.5;cursor:default;">○ Coming Soon</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="onboard-step" style="border-bottom:none;">
-        <div class="step-num-wrap"><div class="step-num-circle snc-wait">8</div></div>
-        <div class="step-content">
-          <div class="step-title">Work From Your Station</div>
-          <div class="step-desc">Phase 2 replaces the need to work inside Claude.ai directly. Your CIH Portal station is your daily workspace — all intelligence, all tools, all context — in one NIW-owned platform purpose-built for your role.</div>
-          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-            <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;">Operations</span>
-            <span style="background:var(--green-pale);color:var(--green);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;">Support</span>
-            <span style="background:var(--amber-pale);color:#9B5500;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;">Sales</span>
-            <span style="background:#FFF3E0;color:#C05000;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;">Marketing</span>
-            <span style="background:var(--purple-pale);color:var(--purple);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;">Dev / PM</span>
-            <span style="background:var(--off-white);color:var(--ink);font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid var(--border);">Admin</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- AGENT DIRECTORY -->
-  <div class="section-label" id="agents">Agent Directory — Specialized Claude Configurations</div>
-  <div class="agents-grid">
-
-    <div class="agent-card ac-ops">
-      <div class="agent-icon">📊</div>
-      <div class="agent-name">Operations Agent</div>
-      <div class="agent-role">For: Ops team, PMs, admin staff</div>
-      <div class="agent-desc">Manages JIRA tickets, updates Confluence docs, tracks project status, generates SOPs, and answers operational questions about ILIA workflows.</div>
-      <div class="agent-tags">
-        <span class="agent-tag">JIRA</span>
-        <span class="agent-tag">Confluence</span>
-        <span class="agent-tag">Drive</span>
-        <span class="agent-tag">Workflow SOPs</span>
-      </div>
-      <span class="agent-status as-coming">⏳ Coming Soon</span>
-    </div>
-
-    <div class="agent-card ac-marketing">
-      <div class="agent-icon">📣</div>
-      <div class="agent-name">Marketing Agent</div>
-      <div class="agent-role">For: Marketing team, content creators</div>
-      <div class="agent-desc">Creates agent materials, drafts emails and social posts, accesses brand assets, knows ILIA product details and Kai-Zen talking points.</div>
-      <div class="agent-tags">
-        <span class="agent-tag">Brand Guide</span>
-        <span class="agent-tag">Drive Assets</span>
-        <span class="agent-tag">Gmail</span>
-        <span class="agent-tag">Kai-Zen / IUL</span>
-      </div>
-      <span class="agent-status as-coming">⏳ Coming Soon</span>
-    </div>
-
-    <div class="agent-card ac-cs">
-      <div class="agent-icon">🎧</div>
-      <div class="agent-name">Customer Service Agent</div>
-      <div class="agent-role">For: Support team, client-facing staff</div>
-      <div class="agent-desc">Knows ILIA client workflows, policy status language, enrollment process, and escalation rules. Answers client questions with compliant, accurate responses.</div>
-      <div class="agent-tags">
-        <span class="agent-tag">Client Flows</span>
-        <span class="agent-tag">Policy Status</span>
-        <span class="agent-tag">Enrollment</span>
-        <span class="agent-tag">Escalation Rules</span>
-      </div>
-      <span class="agent-status as-coming">⏳ Coming Soon</span>
-    </div>
-
-    <div class="agent-card ac-dev">
-      <div class="agent-icon">💻</div>
-      <div class="agent-name">Dev Assistant</div>
-      <div class="agent-role">For: Developers, technical PMs</div>
-      <div class="agent-desc">Connected to the ILIA codebase. Reviews code, writes tickets, extracts workflows from source, identifies bugs, and translates business requirements into technical direction.</div>
-      <div class="agent-tags">
-        <span class="agent-tag">GitHub</span>
-        <span class="agent-tag">Codebase</span>
-        <span class="agent-tag">JIRA</span>
-        <span class="agent-tag">API Docs</span>
-      </div>
-      <span class="agent-status as-planned">○ Planned — Awaiting Code Access</span>
-    </div>
-
-    <div class="agent-card ac-onboard">
-      <div class="agent-icon">🚀</div>
-      <div class="agent-name">Onboarding Agent</div>
-      <div class="agent-role">For: New agents, new NIW employees</div>
-      <div class="agent-desc">Guides new agents through ILIA setup step by step. Answers product questions, explains Kai-Zen strategy, walks through enrollment, and knows carrier requirements.</div>
-      <div class="agent-tags">
-        <span class="agent-tag">Agent Guide</span>
-        <span class="agent-tag">Enrollment</span>
-        <span class="agent-tag">Carrier Info</span>
-        <span class="agent-tag">Kai-Zen</span>
-      </div>
-      <span class="agent-status as-planned">○ Planned</span>
-    </div>
-
-  </div>
-
-  <!-- TEAM MEMBER PROJECTS -->
-  <div class="section-label">View Team Member Projects</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:44px;">
-
-    <!-- Jamin Austin -->
-    <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-project-board/" target="_blank"
-       style="display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--border);transition:background 0.15s;text-decoration:none;color:inherit;"
-       onmouseover="this.style.background='var(--off-white)'" onmouseout="this.style.background=''">
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--blue-deep));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:white;flex-shrink:0;">JA</div>
-      <div>
-        <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:3px;">Jamin Austin <span style="font-size:11px;font-weight:400;color:var(--muted);">· Product Manager</span></div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <span style="background:var(--red-pale);color:var(--red);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">🚨 1 Blocked</span>
-          <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">⚡ 1 In Progress</span>
-          <span style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;">👁 1 In Review</span>
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--border);">→</div>
-    </a>
-
-    <!-- Add team member placeholder -->
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:center;gap:14px;padding:16px 22px;opacity:0.5;">
-      <div style="width:44px;height:44px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted);">+</div>
-      <div style="font-size:12.5px;color:var(--muted);">Additional team members appear here as they start P- projects in Claude</div>
-    </div>
-
-  </div>
-
-  <!-- DRIVE STRUCTURE -->
-  <div class="section-label">Google Drive — Full End-State Structure <span style="font-size:10px;color:var(--blue-mid);margin-left:6px;font-family:'DM Sans',sans-serif;font-weight:600;text-transform:none;letter-spacing:0;">Click folders to expand</span></div>
-  <div class="drive-wrap">
-    <div class="drive-topbar">
-      <svg width="20" height="16" viewBox="0 0 20 16" fill="none"><path d="M2 12L6 5L10 12H2Z" fill="#34A853"/><path d="M6 5L12 5L16 12H10L6 5Z" fill="#4285F4"/><path d="M2 12H16L14 15H4L2 12Z" fill="#FBBC05"/></svg>
-      <span class="dtitle">ILIA Central Intelligence</span>
-      <span class="dsub">Shared Drive · NIW Companies / Simplicity Group</span>
-    </div>
-    <div class="drive-body">
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">00</span><div class="folder-icon-wrap fi-staging">📥</div><div><div class="tl-name">Staging</div><span class="tl-tag tag-buffer">Intake Buffer</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">Drop new files here</span><span class="chip">Admin reviews & places</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot" style="background:var(--staging);"></span> Unsorted Uploads</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--staging);"></span> Pending Review</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">01</span><div class="folder-icon-wrap fi-intel">🧠</div><div><div class="tl-name">Intelligence Layer</div><span class="tl-tag tag-ai">Claude reads this</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">ILIA-Master-Context.md</span><span class="chip">Architecture</span><span class="chip">API Docs</span><span class="chip">Data Models</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot live"></span> ILIA-Master-Context.md</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--blue-mid)"></span> Platform Architecture Overview</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--blue-mid)"></span> Database Schema & Data Models</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--blue-mid)"></span> API Documentation</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--blue-mid)"></span> Integration Reference</div>
-            <div class="sub-item"><span class="item-dot" style="background:var(--blue-mid)"></span> Role & Permissions Map</div>
-            <div class="sub-item is-pending"><span class="item-dot"></span> GitHub Codebase Reference (Mohit)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">02</span><div class="folder-icon-wrap fi-sop">⚙️</div><div><div class="tl-name">Workflows & SOPs</div><span class="tl-tag tag-ops">Living Operational Docs</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">By User Role</span><span class="chip">By Process</span><span class="chip">By Integration</span><span class="chip pending">~30–50 flows</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="sub-category">
-            <div class="sub-cat-header" onclick="toggleSub(this)"><span>👥</span><span class="sub-cat-name">By User Role</span><span class="sub-cat-count">6 role groups</span><span class="sub-expand">›</span></div>
-            <div class="sub-items">
-              <div class="sub-item"><span class="item-dot live"></span> Agent Flows</div>
-              <div class="sub-item"><span class="item-dot live"></span> Client / Insured Flows</div>
-              <div class="sub-item"><span class="item-dot live"></span> Admin Flows</div>
-              <div class="sub-item"><span class="item-dot live"></span> Trustee Flows</div>
-              <div class="sub-item"><span class="item-dot live"></span> IMO / Aggregator Flows</div>
-              <div class="sub-item"><span class="item-dot live"></span> Carrier Flows</div>
-            </div>
-          </div>
-          <div class="sub-category">
-            <div class="sub-cat-header" onclick="toggleSub(this)"><span>🔄</span><span class="sub-cat-name">By Process</span><span class="sub-cat-count">11+ documented · more via code</span><span class="sub-expand">›</span></div>
-            <div class="sub-items">
-              <div class="sub-item"><span class="item-dot live"></span> Enrollment</div>
-              <div class="sub-item"><span class="item-dot live"></span> DBR</div>
-              <div class="sub-item"><span class="item-dot live"></span> eApplication</div>
-              <div class="sub-item"><span class="item-dot live"></span> Agent Onboarding</div>
-              <div class="sub-item"><span class="item-dot live"></span> Premium Finance & Tranche</div>
-              <div class="sub-item"><span class="item-dot live"></span> Trust & Settlor Setup</div>
-              <div class="sub-item"><span class="item-dot live"></span> Servicing</div>
-              <div class="sub-item"><span class="item-dot live"></span> Document & Signature</div>
-              <div class="sub-item"><span class="item-dot live"></span> Notifications & Status</div>
-              <div class="sub-item"><span class="item-dot live"></span> Kai-Zen Strategy</div>
-              <div class="sub-item"><span class="item-dot live"></span> IUL Product Flows</div>
-              <div class="sub-item is-pending"><span class="item-dot"></span> + More from codebase</div>
-            </div>
-          </div>
-          <div class="sub-category">
-            <div class="sub-cat-header" onclick="toggleSub(this)"><span>🔗</span><span class="sub-cat-name">By Integration</span><span class="sub-cat-count">4 areas</span><span class="sub-expand">›</span></div>
-            <div class="sub-items">
-              <div class="sub-item"><span class="item-dot live"></span> Carrier Integrations</div>
-              <div class="sub-item"><span class="item-dot live"></span> Banking & Tranche</div>
-              <div class="sub-item"><span class="item-dot live"></span> eSign</div>
-              <div class="sub-item"><span class="item-dot live"></span> API & Data Sync</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">03</span><div class="folder-icon-wrap fi-projects">🚀</div><div><div class="tl-name">Active Projects</div><span class="tl-tag tag-working">Working Files</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">Master Settlor</span><span class="chip">DBR Automation</span><span class="chip">IUL LifeLink</span><span class="chip">Paper App</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot live"></span> Master Settlor Portal</div>
-            <div class="sub-item"><span class="item-dot live"></span> DBR Automation</div>
-            <div class="sub-item"><span class="item-dot live"></span> IUL LifeLink Integration</div>
-            <div class="sub-item"><span class="item-dot live"></span> Paper Application Workflow</div>
-            <div class="sub-item is-pending"><span class="item-dot"></span> Future projects added as initiated</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">04</span><div class="folder-icon-wrap fi-design">🎨</div><div><div class="tl-name">Design System</div><span class="tl-tag tag-design">UI/UX Assets</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">ILIA Design Guide</span><span class="chip">Brand Style Guide</span><span class="chip">Components</span><span class="chip">Prototypes</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot live"></span> ILIA Design Guide</div>
-            <div class="sub-item"><span class="item-dot live"></span> Simplicity Group Brand Style Guide</div>
-            <div class="sub-item"><span class="item-dot live"></span> Component Library & Tokens</div>
-            <div class="sub-item"><span class="item-dot live"></span> Prototypes & Mockups</div>
-            <div class="sub-item"><span class="item-dot live"></span> Screen Flows & Wireframes</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">05</span><div class="folder-icon-wrap fi-marketing">📣</div><div><div class="tl-name">Marketing & Agent Assets</div><span class="tl-tag tag-assets">Distribution Resources</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">PDFs & Flyers</span><span class="chip">Videos</span><span class="chip">Agent Materials</span><span class="chip">Carrier Info</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot live"></span> PDFs & Flyers</div>
-            <div class="sub-item"><span class="item-dot live"></span> Videos & Presentations</div>
-            <div class="sub-item"><span class="item-dot live"></span> Agent-Facing Materials</div>
-            <div class="sub-item"><span class="item-dot live"></span> Carrier Information Sheets</div>
-            <div class="sub-item"><span class="item-dot live"></span> Kai-Zen & IUL Product Materials</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-folder">
-        <div class="tl-header" onclick="toggle(this)">
-          <div class="tl-left"><span class="tl-num">06</span><div class="folder-icon-wrap fi-team">📋</div><div><div class="tl-name">Team & Operations</div><span class="tl-tag tag-ref">Internal Reference</span></div></div>
-          <div class="tl-right"><div class="chip-wrap"><span class="chip">Meeting Notes</span><span class="chip">Decision Log</span><span class="chip">Agent Guide</span><span class="chip">Trust & Legal</span></div><span class="expand-icon">›</span></div>
-        </div>
-        <div class="subfolder-panel">
-          <div class="simple-sublist">
-            <div class="sub-item"><span class="item-dot live"></span> Meeting Notes & Decision Log</div>
-            <div class="sub-item"><span class="item-dot live"></span> Agent Guide</div>
-            <div class="sub-item"><span class="item-dot live"></span> Trust & Legal Templates</div>
-            <div class="sub-item"><span class="item-dot live"></span> Compliance Reference</div>
-            <div class="sub-item"><span class="item-dot live"></span> Internal Onboarding Materials</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- BUILD ORDER -->
-  <div class="section-label">Build Order</div>
-  <div class="build-order">
-    <div class="build-step done"><div class="step-num">01</div><div class="step-title">Design Structure</div><div class="step-desc">Folder architecture & governance approved</div><span class="step-badge sb-done">✓ Done</span></div>
-    <div class="build-step done"><div class="step-num">02</div><div class="step-title">GitHub Org</div><div class="step-desc">NIWCompanies org live, all repos created</div><span class="step-badge sb-done">✓ Done</span></div>
-    <div class="build-step active"><div class="step-num">03</div>
-
-    <div class="step-title">Bitbucket Mirror</div><div class="step-desc">Mohit configuring pipeline — backend first</div><span class="step-badge sb-now">Mohit</span></div>
-    <div class="build-step"><div class="step-num">04</div><div class="step-title">Create Shared Drive</div><div class="step-desc">Build ILIA Central Intelligence Drive structure</div><span class="step-badge sb-wait">Next</span></div>
-    <div class="build-step"><div class="step-num">05</div><div class="step-title">Claude Team Plan</div><div class="step-desc">Upgrade for shared projects across NIW team</div><span class="step-badge sb-wait">Pending</span></div>
-    <div class="build-step"><div class="step-num">06</div><div class="step-title">Team Rollout</div><div class="step-desc">Invite NIW team, configure agent roles</div><span class="step-badge sb-wait">Final</span></div>
-  </div>
-
-  <!-- RULES -->
-  <div class="section-label">Ground Rules</div>
-  <div class="rules-grid">
-    <div class="rule-card">
-      <h4>📁 What lives in Drive</h4>
-      <ul>
-        <li>ILIA-Master-Context.md — primary AI context</li>
-        <li>Living SOPs updated regularly</li>
-        <li>Working drafts before formal specs</li>
-        <li>Design assets, PDFs, videos</li>
-        <li>Meeting notes and decision logs</li>
-      </ul>
-    </div>
-    <div class="rule-card">
-      <h4>📘 What lives in <a href="https://simplicitygh.atlassian.net" target="_blank">Confluence</a></h4>
-      <ul>
-        <li>Formal feature specifications</li>
-        <li>Epics with JIRA ticket links</li>
-        <li>Architecture decision records</li>
-        <li>Release notes and changelogs</li>
-        <li>Confluence links to Drive — never duplicates</li>
-      </ul>
-    </div>
-    <div class="rule-card">
-      <h4>🤖 How Claude uses this Hub</h4>
-      <ul>
-        <li>Reads Drive Folder 01 for full platform context</li>
-        <li>Code access → extracts all flows automatically</li>
-        <li>Generates Confluence specs and JIRA stories</li>
-        <li>Designs and updates ILIA UI on local machine</li>
-        <li>Powers specialized agents per team role</li>
-      </ul>
-    </div>
-    <div class="rule-card">
-      <h4>🔗 Key Links</h4>
-      <ul>
-        <li><a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub Org — NIWCompanies</a></li>
-        <li><a href="https://simplicitygh.atlassian.net" target="_blank">Confluence — simplicitygh</a></li>
-        <li><a href="https://simplicitygh.atlassian.net/browse/NIWD-1734" target="_blank">JIRA — NIWD-1734 (GitHub Setup)</a></li>
-        <li><a href="https://claude.ai" target="_blank">Claude AI — claude.ai</a></li>
-        <li><a href="https://myilia.com" target="_blank">ILIA Platform — myilia.com</a></li>
-      </ul>
-    </div>
-  </div>
+  <p class="note" style="margin-top:26px">Operational history is never duplicated — it lives natively in JIRA, GitHub, and Confluence, plus the Core decision log. This page is a reflection of Core; when they differ, Core wins.</p>
 
 </main>
 
 <footer>
-  ILIA Central Intelligence Hub · NIW Companies / Simplicity Group ·
-  <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub</a> ·
-  <a href="https://simplicitygh.atlassian.net" target="_blank">Confluence</a> ·
-  <a href="https://simplicitygh.atlassian.net/jira" target="_blank">JIRA</a> ·
-  <a href="https://claude.ai" target="_blank">Claude AI</a>
+  <div class="wrap">
+    <div>ILIA Central Intelligence Hub · NIW Companies / Simplicity Group · <span class="mono">Core v1.2 · 2026-06-22</span></div>
+    <div class="fl">
+      <a href="https://simplicitygh.atlassian.net/wiki/spaces/~712020d3366b36650b4fffa4dc40188b20971e/pages/3670212617/CIH+Core+Operating+Spec">Core Spec</a>
+      <a href="https://simplicitygh.atlassian.net">Confluence</a>
+      <a href="https://simplicitygh.atlassian.net/jira">JIRA</a>
+      <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence">GitHub Org</a>
+    </div>
+  </div>
 </footer>
 
-<script>
-  function toggle(header) {
-    header.classList.toggle('open');
-    header.nextElementSibling.classList.toggle('open');
-  }
-  function toggleSub(header) {
-    header.classList.toggle('open');
-    header.nextElementSibling.classList.toggle('open');
-  }
-</script>
-
-<script>
-  // ── NOTES SYSTEM v2 — Raw read + Anthropic relay write ──
-
-  const NOTES_RAW_URL = 'https://raw.githubusercontent.com/NIWCompanies-ILIA-Central-Intelligence/ilia-hub-admin/main/notes.json';
-  const RELAY_TOKEN = atob('Z2hwX3VVa0ZqOFpNTnhxTEtaTU1jdTREWGVCaVBUSHVEMVlDUWo5');
-
-  async function fetchNotes() {
-    try {
-      const r = await fetch(NOTES_RAW_URL + '?nocache=' + Date.now());
-      if (!r.ok) throw new Error('Failed to fetch notes');
-      return await r.json();
-    } catch(e) {
-      console.warn('fetchNotes fallback:', e);
-      return { notes: [], card_statuses: {} };
-    }
-  }
-
-  async function persistNote(cardId, text, noteId) {
-    // Use Anthropic API as server-side relay to write to GitHub (avoids CORS)
-    const payload = {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 200,
-      system: 'You are a server-side GitHub API relay. Your only job is to add a note to a JSON file on GitHub. Use the GitHub token provided. Reply with exactly: SAVED or ERROR.',
-      messages: [{
-        role: 'user',
-        content: JSON.stringify({
-          action: 'add_note',
-          github_token: RELAY_TOKEN,
-          owner: 'NIWCompanies-ILIA-Central-Intelligence',
-          repo: 'ilia-hub-admin',
-          file: 'notes.json',
-          note: { id: noteId, cardId: cardId, text: text, ts: Date.now() }
-        })
-      }]
-    };
-
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const data = await r.json();
-    const reply = (data.content?.[0]?.text || '').toUpperCase();
-    return reply.includes('SAVED');
-  }
-
-  async function deleteNoteFromGitHub(noteId) {
-    const payload = {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 200,
-      system: 'You are a server-side GitHub API relay. Remove a note from notes.json on GitHub by its ID. Reply with exactly: DELETED or ERROR.',
-      messages: [{
-        role: 'user',
-        content: JSON.stringify({
-          action: 'delete_note',
-          github_token: RELAY_TOKEN,
-          owner: 'NIWCompanies-ILIA-Central-Intelligence',
-          repo: 'ilia-hub-admin',
-          file: 'notes.json',
-          note_id: noteId
-        })
-      }]
-    };
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    return true;
-  }
-
-  function formatDate(ts) {
-    const d = new Date(ts);
-    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' · ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  }
-
-  async function renderNotes(cardId) {
-    const data = await fetchNotes();
-    const notes = (data.notes || []).filter(n => n.cardId === cardId);
-    const list = document.getElementById('note-list-' + cardId);
-    const btn = document.getElementById('note-btn-' + cardId);
-    if (!list) return;
-    list.innerHTML = notes.length
-      ? notes.map(n => `
-          <div class="note-item">
-            <div class="note-item-text">${n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-            <div class="note-item-meta">
-              <span>${formatDate(n.ts)}</span>
-              <span class="note-delete" onclick="confirmDelete('${cardId}','${n.id}', this)">✕ remove</span>
-            </div>
-          </div>`).join('')
-      : '<div style="font-size:11px;color:var(--muted);padding:4px 0;">No notes yet.</div>';
-    if (btn) {
-      btn.classList.toggle('has-notes', notes.length > 0);
-      btn.innerHTML = notes.length > 0
-        ? `📝 Notes <span class="note-count-badge">${notes.length}</span>`
-        : '+ Add Note';
-    }
-  }
-
-  async function toggleNotePanel(cardId) {
-    const panel = document.getElementById('note-panel-' + cardId);
-    panel.classList.toggle('open');
-    if (panel.classList.contains('open')) await renderNotes(cardId);
-  }
-
-  async function saveNote(cardId) {
-    const ta = document.getElementById('note-ta-' + cardId);
-    const text = ta.value.trim();
-    if (!text) return;
-    const panel = document.getElementById('note-panel-' + cardId);
-    const saveBtn = panel.querySelector('.note-save-btn');
-    const orig = saveBtn.innerHTML;
-    saveBtn.innerHTML = '⏳ Saving...';
-    saveBtn.disabled = true;
-    try {
-      const noteId = Date.now().toString();
-      const saved = await persistNote(cardId, text, noteId);
-      ta.value = '';
-      saveBtn.innerHTML = '✓ Saved!';
-      setTimeout(() => { saveBtn.innerHTML = orig; saveBtn.disabled = false; }, 1500);
-      setTimeout(() => renderNotes(cardId), 3000);
-    } catch(e) {
-      saveBtn.innerHTML = '❌ Error — try again';
-      saveBtn.disabled = false;
-      setTimeout(() => { saveBtn.innerHTML = orig; }, 2000);
-      console.error('saveNote error:', e);
-    }
-  }
-
-  async function confirmDelete(cardId, noteId, el) {
-    // Replace the remove link with inline confirm
-    const orig = el.outerHTML;
-    el.outerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;">
-      <span style="color:var(--muted);">Remove?</span>
-      <span onclick="deleteNote('${cardId}','${noteId}')" style="color:var(--red);font-weight:700;cursor:pointer;padding:1px 5px;background:var(--red-pale);border-radius:3px;">Yes</span>
-      <span onclick="renderNotes('${cardId}')" style="color:var(--muted);cursor:pointer;padding:1px 5px;background:var(--off-white);border-radius:3px;border:1px solid var(--border);">No</span>
-    </span>`;
-  }
-
-  async function confirmDeleteCIH(noteId, el) {
-    el.outerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;">
-      <span style="color:var(--muted);">Remove?</span>
-      <span onclick="deleteCIHNote('${noteId}')" style="color:var(--red);font-weight:700;cursor:pointer;padding:1px 5px;background:var(--red-pale);border-radius:3px;">Yes</span>
-      <span onclick="renderCIHNotes()" style="color:var(--muted);cursor:pointer;padding:1px 5px;background:var(--off-white);border-radius:3px;border:1px solid var(--border);">No</span>
-    </span>`;
-  }
-
-  async function deleteNote(cardId, noteId) {
-    await deleteNoteFromGitHub(noteId);
-    setTimeout(() => renderNotes(cardId), 2000);
-  }
-
-  async function initNotes() {
-    const cardIds = ['claude-ai','jira','confluence','github-org','google-drive','gmail',
-                     'bitbucket-mirror','ilia-codebase','local-dev','claude-team','shared-drive','claude-chrome','marketing-drive','ilia-cih-portal','strapi-cms','build-engine','fullstory'];
-    for (const id of cardIds) { await renderNotes(id); }
-  }
-
-  document.addEventListener('DOMContentLoaded', initNotes);
-
-  // ── CONNECTION CARD MODALS ─────────────────────────────
-  const CONN_MODALS = {
-    'claude-ai': {
-      title: 'Claude AI',
-      status: '✓ Connected',
-      statusStyle: 'background:var(--green-pale);color:var(--green);',
-      desc: 'The intelligence engine powering the entire ILIA CIH. Claude AI reads all connected sources — GitHub, JIRA, Confluence, Drive — and acts as PM assistant, workflow architect, developer, and analyst.',
-      capabilities: [
-        'Create and push prototypes to the NIW GitHub org',
-        'Read and update JIRA tickets and epics',
-        'Generate Confluence-ready documentation',
-        'Analyze ILIA codebase for workflows and architecture',
-        'Draft emails, messages, and SOPs',
-        'Answer any question about the ILIA platform'
-      ],
-      links: [{label:'Open Claude', url:'https://claude.ai'}]
-    },
-    'jira': {
-      title: 'JIRA',
-      status: '✓ Connected',
-      statusStyle: 'background:var(--green-pale);color:var(--green);',
-      desc: 'Sprint planning, epics, stories, bug tracking, and acceptance criteria for all ILIA platform development. Connected to the NIW NIWD project board.',
-      capabilities: [
-        'Create JIRA tickets with full acceptance criteria',
-        'Update ticket status, assignee, and priority',
-        'Query open tickets and sprint backlog',
-        'Link tickets to Confluence specs',
-        'Generate sprint summaries and release notes'
-      ],
-      links: [{label:'Open JIRA', url:'https://simplicitygh.atlassian.net/jira'}, {label:'NIWD Board', url:'https://simplicitygh.atlassian.net/jira/software/projects/NIWD/boards'}]
-    },
-    'confluence': {
-      title: 'Confluence',
-      status: '✓ Connected',
-      statusStyle: 'background:var(--green-pale);color:var(--green);',
-      desc: 'Formal feature specifications, architecture decisions, JIRA-linked requirements, and release documentation for the ILIA platform.',
-      capabilities: [
-        'Create and update Confluence pages',
-        'Generate formal feature specs from requirements',
-        'Document architecture decisions (ADRs)',
-        'Publish release notes and changelogs',
-        'Search across all ILIA documentation'
-      ],
-      links: [{label:'Open Confluence', url:'https://simplicitygh.atlassian.net'}]
-    },
-    'github-org': {
-      title: 'GitHub Org',
-      status: '✓ Live',
-      statusStyle: 'background:var(--green-pale);color:var(--green);',
-      desc: 'The NIW Companies GitHub organization housing all ILIA prototypes, the CIH hub, and the pending codebase mirror. All prototype URLs live at niwcompanies-ilia-central-intelligence.github.io.',
-      capabilities: [
-        'Create new prototype repos and push code',
-        'Deploy GitHub Pages sites with live URLs',
-        'Read codebase once Mohit mirror is complete',
-        'Extract workflows, APIs, and DB models from source',
-        'Manage repo access for team members'
-      ],
-      links: [{label:'Open GitHub Org', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence'}]
-    },
-    'google-drive': {
-      title: 'Google Drive',
-      status: '⚠️ Paused — Compliance Review',
-      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
-      desc: 'Disconnected pending IT/compliance approval. When reconnected (scoped to ILIA CIH Shared Drive only), Claude can read context files, SOPs, design assets, and working documents.',
-      capabilities: [
-        'Read ILIA Master Context and architecture docs',
-        'Access living SOPs and workflow documentation',
-        'Reference design assets and brand guidelines',
-        'Read meeting notes and decision logs',
-        'NOTE: Client data, financial records, and sensitive company drives must remain separate'
-      ],
-      links: [{label:'Open Drive', url:'https://drive.google.com'}, {label:'JIRA: Compliance Ticket', url:'https://simplicitygh.atlassian.net/browse/NIWD-1734'}]
-    },
-    'gmail': {
-      title: 'Gmail',
-      status: '✓ Connected',
-      statusStyle: 'background:var(--green-pale);color:var(--green);',
-      desc: 'Work inbox connected — Claude can read context from emails and create drafts. Note: Claude cannot send emails directly, only create drafts for your review.',
-      capabilities: [
-        'Draft reply emails for your review',
-        'Summarize email threads for context',
-        'Draft outreach emails to agents or carriers',
-        'Create email templates for operational workflows',
-        'CANNOT send emails — drafts only, you always review first'
-      ],
-      links: [{label:'Open Gmail', url:'https://mail.google.com'}]
-    },
-    'bitbucket-mirror': {
-      title: 'Bitbucket Mirror',
-      status: '⏳ Token Confirmed — Mirror Pending',
-      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
-      desc: 'One-way auto-sync from Bitbucket (source of truth) to GitHub. Once live, Claude gains full read access to the ILIA codebase enabling deep technical analysis.',
-      capabilities: [
-        'Read all ILIA business logic and API endpoints',
-        'Extract complete workflow map from route definitions',
-        'Identify every email trigger in the system',
-        'Audit formulas and calculations for consistency',
-        'Map AWS infrastructure and services',
-        'Identify technical debt and improvement opportunities'
-      ],
-      links: [{label:'JIRA: NIWD-1734', url:'https://simplicitygh.atlassian.net/browse/NIWD-1734'}, {label:'GitHub Repo', url:'https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-backend'}]
-    },
-    'ilia-codebase': {
-      title: 'ILIA Codebase',
-      status: '⏳ Pending Mirror',
-      statusStyle: 'background:var(--amber-pale);color:#9B5500;',
-   ' +
-        '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
-        '<thead><tr style="background:var(--off-white);">' +
-        '<th style="padding:7px 10px;text-align:left;color:var(--muted);font-weight:600;border:1px solid var(--border);">Layer</th>' +
-        '<th style="padding:7px 10px;text-align:left;color:var(--muted);font-weight:600;border:1px solid var(--border);">What\'s Needed</th>' +
-        '<th style="padding:7px 10px;text-align:left;color:var(--muted);font-weight:600;border:1px solid var(--border);">Status</th>' +
-        '</tr></thead><tbody>' +
-        m.layers.map(l => '<tr><td style="padding:7px 10px;border:1px solid var(--border);font-weight:600;color:var(--ink);">' + l.layer + '</td><td style="padding:7px 10px;border:1px solid var(--border);color:var(--muted);">' + l.item + '</td><td style="padding:7px 10px;border:1px solid var(--border);"><span class="list-badge ' + l.cls + '">' + l.status + '</span></td></tr>').join('') +
-        '</tbody></table>';
-    } else {
-      layersEl.style.display = 'none';
-    }
-    
-    document.getElementById('conn-modal-links').innerHTML = m.links.map(l => '<a href="' + l.url + '" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--blue-mid);color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;margin-right:8px;">' + l.label + ' →</a>').join('');
-    document.getElementById('connModal').classList.add('open');
-  }
-
-  function closeConnModal() {
-    document.getElementById('connModal').classList.remove('open');
-  }
-
-</script><script>
-  // -- TEAM LINK COPY BUTTON
-  function copyTeamLink(btn) {
-    var url = 'https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/';
-    var orig = btn.innerHTML;
-    navigator.clipboard.writeText(url).then(function() {
-      btn.innerHTML = '✓ Team Link Copied!';
-      setTimeout(function() { btn.innerHTML = orig; }, 2000);
-    }).catch(function() {
-      var ta = document.createElement('textarea');
-      ta.value = url; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy');
-      document.body.removeChild(ta);
-      btn.innerHTML = '✓ Copied!';
-      setTimeout(function() { btn.innerHTML = orig; }, 2000);
-    });
-  }
-
-  // ── GLOBAL CIH NOTES ──────────────────────────────────
-  const CIH_NOTE_KEY = 'cih-global';
-
-  function toggleCIHNotes(header) {
-    header.classList.toggle('open');
-    const body = document.getElementById('cih-notes-body');
-    const icon = document.getElementById('cih-expand-icon');
-    body.classList.toggle('open');
-    icon.style.transform = body.classList.contains('open') ? 'rotate(90deg)' : '';
-    renderCIHNotes();
-  }
-
-  async function renderCIHNotes() {
-    const data  = await fetchNotes();
-    const notes = (data.notes || []).filter(n => n.cardId === CIH_NOTE_KEY);
-    const list  = document.getElementById('cih-note-list');
-    const count = document.getElementById('cih-global-count');
-    const meta  = document.getElementById('cih-last-note-meta');
-    if (!list) return;
-    count.textContent = notes.length;
-    if (notes.length > 0) meta.textContent = 'Last: ' + formatDate(notes[0].ts);
-    list.innerHTML = notes.length
-      ? notes.map(n => `
-          <div class="cih-note-item">
-            <div class="cih-note-text">${n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-            <div class="cih-note-meta">
-              <span>${formatDate(n.ts)}</span>
-              <span class="note-delete" onclick="confirmDeleteCIH('${n.id}', this)">✕ remove</span>
-            </div>
-          </div>`).join('')
-      : '<div style="font-size:11.5px;color:var(--muted);padding:4px 0 10px;">No project notes yet.</div>';
-  }
-
-  async function saveCIHNote() {
-    const ta = document.getElementById('cih-note-ta');
-    const text = ta.value.trim();
-    if (!text) return;
-    const saveBtn = document.querySelector('.cih-save-btn');
-    const origText = saveBtn.innerHTML;
-    saveBtn.innerHTML = '⏳ Saving...';
-    saveBtn.disabled = true;
-    try {
-      await persistNote(CIH_NOTE_KEY, text, Date.now().toString());
-      ta.value = '';
-      saveBtn.innerHTML = '✓ Saved!';
-      setTimeout(() => { saveBtn.innerHTML = origText; saveBtn.disabled = false; }, 1500);
-      setTimeout(() => renderCIHNotes(), 3000);
-    } catch(e) {
-      saveBtn.innerHTML = '❌ Error';
-      saveBtn.disabled = false;
-      setTimeout(() => { saveBtn.innerHTML = origText; }, 2000);
-    }
-  }
-
-  async function deleteCIHNote(noteId) {
-    await deleteNoteFromGitHub(noteId);
-    setTimeout(() => renderCIHNotes(), 2000);
-  }
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    await renderCIHNotes();
-  });
-</script>
-
-
-<!-- CONNECTION CARD DETAIL MODAL -->
-
-      <button onclick="closeConnModal()" style="font-size:20px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px;line-height:1;">✕</button>
-    </div>
-    <div style="padding:22px 26px 26px;">
-      <div style="font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:20px;" id="conn-modal-desc"></div>
-      <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">What CIH Users Can Do</div>
-      <ul style="list-style:none;margin-bottom:20px;" id="conn-modal-caps"></ul>
-      <div id="conn-modal-layers" style="display:none;"></div>
-      <div id="conn-modal-links"></div>
-    </div>
-  </div>
-</div>
-
-
-
-<div id="connModal" style="display:none;position:fixed;inset:0;background:rgba(0,20,40,0.72);z-index:9999;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#fff;border-radius:14px;max-width:620px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.28);">
-    <div style="padding:22px 26px 16px;border-bottom:1px solid #D4DFE9;display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1;">
-      <div><div id="cmi-status"></div><div id="cmi-title" style="font-family:'DM Serif Display',serif;font-size:22px;color:#0D1F2D;line-height:1.2;"></div></div>
-      <button onclick="closeConnModal()" style="font-size:22px;color:#6B7E8F;background:none;border:none;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">&times;</button>
-    </div>
-    <div style="padding:22px 26px 28px;">
-      <div id="cmi-desc" style="font-size:13.5px;color:#6B7E8F;line-height:1.65;margin-bottom:18px;"></div>
-      <p style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B7E8F;margin-bottom:8px;">What CIH Users Can Do</p>
-      <ul id="cmi-caps" style="list-style:none;margin-bottom:4px;"></ul>
-      <div id="cmi-layers" style="display:none;"></div>
-      <div id="cmi-links" style="margin-top:16px;"></div>
-    </div>
-  </div>
-</div>
-<script>
-(function() {
-  var MODALS = {
-    "claude-ai":      {t:"Claude AI",              s:"Connected",         sc:"green",  d:"The intelligence engine powering the entire ILIA CIH. Reads all connected sources and acts as PM assistant, workflow architect, developer, and analyst.", caps:["Create and push prototypes to the NIW GitHub org","Read and update JIRA tickets and epics","Generate Confluence-ready documentation","Analyze ILIA codebase for workflows and architecture","Draft emails, messages, and SOPs","Answer any question about the ILIA platform"], lnks:[["Open Claude","https://claude.ai"]]},
-    "jira":           {t:"JIRA",                   s:"Connected",         sc:"green",  d:"Sprint planning, epics, stories, bug tracking, and acceptance criteria for all ILIA platform development.", caps:["Create JIRA tickets with full acceptance criteria","Update ticket status, assignee, and priority","Query open tickets and sprint backlog","Generate sprint summaries and release notes"], lnks:[["Open JIRA","https://simplicitygh.atlassian.net/jira"]]},
-    "confluence":     {t:"Confluence",             s:"Connected",         sc:"green",  d:"Formal feature specifications, architecture decisions, JIRA-linked requirements, and release documentation.", caps:["Create and update Confluence pages","Generate formal feature specs from requirements","Document architecture decisions","Publish release notes and changelogs"], lnks:[["Open Confluence","https://simplicitygh.atlassian.net"]]},
-    "github-org":     {t:"GitHub Org",             s:"Live",              sc:"green",  d:"The NIW Companies GitHub organization housing all ILIA prototypes, the CIH hub, and the pending codebase mirror.", caps:["Create new prototype repos and push code","Deploy GitHub Pages sites with live URLs","Read codebase once Mohit mirror is complete","Manage repo access for team members"], lnks:[["Open GitHub Org","https://github.com/NIWCompanies-ILIA-Central-Intelligence"]]},
-    "google-drive":   {t:"Google Drive",           s:"Paused — Compliance Review", sc:"amber", d:"Disconnected pending IT/compliance approval. When reconnected (scoped to ILIA CIH Shared Drive only), Claude can read context files, SOPs, design assets, and working documents.", caps:["Read ILIA Master Context and architecture docs","Access living SOPs and workflow documentation","Reference design assets and brand guidelines","NOTE: Client data and financial records must remain separate"], lnks:[["Open Drive","https://drive.google.com"]]},
-    "gmail":          {t:"Gmail",                  s:"Connected",         sc:"green",  d:"Work inbox connected. Claude can read context from emails and create drafts. Cannot send emails — drafts only, you always review first.", caps:["Draft reply emails for your review","Summarize email threads for context","Draft outreach emails to agents or carriers","Create email templates for operational workflows","CANNOT send emails — drafts only"], lnks:[["Open Gmail","https://mail.google.com"]]},
-    "bitbucket-mirror":{t:"Bitbucket Mirror",      s:"Token Confirmed — Mirror Pending", sc:"amber", d:"One-way auto-sync from Bitbucket (source of truth) to GitHub. Once live, Claude gains full read access to the ILIA codebase.", caps:["Read all ILIA business logic and API endpoints","Extract complete workflow map from route definitions","Identify every email trigger in the system","Audit formulas and calculations"], lnks:[["JIRA: NIWD-1734","https://simplicitygh.atlassian.net/browse/NIWD-1734"]]},
-    "ilia-codebase":  {t:"ILIA Local Studio",          s:"Pending Mirror",    sc:"amber",  d:"Your personal ILIA development environment running on your own machine. Pull the latest codebase, describe a change in plain English, Claude builds it, and you see it live in your browser instantly — your own private sandbox.", caps:["Complete workflow extraction from all routes","Full formula and calculation audit","Email system inventory","Database schema and relationship mapping","API endpoint documentation generation"], lnks:[["GitHub Backend","https://github.com/NIWCompanies-ILIA-Central-Intelligence/ilia-backend"]]},
-    "local-dev":      {t:"Local Dev Environment",  s:"Pending IT Admin",  sc:"amber",  d:"ILIA running locally enables a real-time PM prototyping workflow. Describe a UI change in plain English, Claude writes the code, you see it live.", caps:["Pull latest ILIA codebase with one git pull — always on newest code","Describe UI or logic changes in plain English — Claude builds them live","See ILIA update in your browser instantly — your private sandbox","Test full end-to-end workflows against real data","Hand finished working code directly to Mohit for production","Connected to GitHub mirror — auto-updated every time devs ship"], lnks:[["Track in JIRA","https://simplicitygh.atlassian.net/jira"]]},
-    "claude-team":    {t:"Claude Team Plan",       s:"Active — Simplicity Group", sc:"green", d:"Simplicity Group Claude Team plan is active. The ILIA Central Intelligence project is shared with you and Kyle.", caps:["Share projects across NIW team members","Shared context and connectors for all project members","Upload knowledge files visible to all members","Kyle connected — more team members can be added"], lnks:[["Claude Settings","https://claude.ai/settings"]]},
-    "shared-drive":   {t:"Shared NIW Drive",       s:"Planned",           sc:"muted",  d:"A dedicated Google Shared Drive for ILIA Central Intelligence — separate from all company drives containing sensitive data.", caps:["Host ILIA Master Context and architecture docs","Store living SOPs and workflow documentation","Safely connect to Claude without exposing client data"], lnks:[["Google Drive","https://drive.google.com"]]},
-    "claude-chrome":  {t:"Claude in Chrome",       s:"Connected",         sc:"green",  d:"Browser automation — Claude can see your screen, navigate pages, click buttons, and interact with web apps.", caps:["Navigate to any URL and take actions on your behalf","Interact with ILIA admin interface directly","Screenshot and analyze any web page"], lnks:[["Chrome Web Store","https://chromewebstore.google.com/search/claude"]]},
-    "ilia-cih-portal":{t:"ILIA CIH Portal",        s:"In Development",    sc:"purple", d:"A branded AI operating platform. Each NIW employee logs into their role-configured workspace — Operations, Support, Sales, Marketing, Dev, Admin.", caps:["Role-specific dashboards for all seat types","Login system with seat type assignment","Each seat pre-configured with relevant tools","No Claude.ai needed — standalone NIW platform"], lnks:[["View Platform Vision","https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/"],["Portal Demo","https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal-demo/"]]},
-    "marketing-drive":{t:"Shared Marketing Drive", s:"Pending Connection", sc:"amber",  d:"ILIA/NIW marketing assets managed by Rahim — videos, images, flyers, campaign materials, and brand resources.", caps:["Access all ILIA/NIW marketing assets","Reference approved images and videos","Future: Marketing seat users create/update assets from CIH Portal"], lnks:[["Google Drive","https://drive.google.com"]]},
-    "strapi-cms":     {t:"ILIA CMS — Strapi",      s:"Pending API Token", sc:"amber",  d:"Powers all agent invitation landing pages and client-facing marketing pages. 21 configurations across carriers and product types.", caps:["Read all current landing page content by carrier and strategy","Understand what clients see when they click agent links","Future: Marketing seat users edit and publish landing pages from CIH Portal"], lnks:[["Open Strapi","https://strapi-projects.simplicityniw.com/"]]},
-    "fullstory": {t:"FullStory", s:"Pending Confirmation", sc:"amber", d:"Session recording and replay for ILIA. Every client click, scroll, error, and rage-click is captured. Support team can pull any user's session replay instantly to diagnose exactly what happened during a live support call — no more guessing.", caps:["Search sessions by client email or user ID","Pull session replay link for any client instantly","See exactly what a client clicked and where they got stuck","Identify rage-clicks, errors, and network failures in real time","Support agent asks: 'John had an issue today' — Claude finds and links the session","Future: auto-surface FullStory link whenever a client issue is reported in chat"], layers:[], lnks:[["Open FullStory","https://app.fullstory.com"],["FullStory API Docs","https://developer.fullstory.com"]]},
-    "build-engine":   {
-      t:"ILIA Native Build Engine", s:"Partially Active", sc:"purple",
-      d:"The full capability to design, build, and deploy custom ILIA features using Claude + connected infrastructure. Replaces third-party tools like DocuSign with purpose-built native solutions owned entirely by NIW.",
-      caps:[
-        "Build native eSign — PDF generation, signature capture, multi-party routing, legal audit trail",
-        "Design and prototype new ILIA screens in plain English — Claude codes, you review live",
-        "Extract every workflow, formula, and email trigger from the codebase once mirror is live",
-        "Deploy new features to production via GitHub Actions + AWS infrastructure",
-        "Replace any third-party dependency with a purpose-built NIW-owned solution",
-        "Deep technical analysis — identify bugs, debt, and improvement opportunities"
-      ],
-      layers:[
-        ["Intelligence","Claude AI + ILIA Master Context","Active","green"],
-        ["Codebase Read","GitHub mirror (Bitbucket to GitHub)","Mohit","amber"],
-        ["Codebase Write","Local dev environment + GitHub push","IT Admin","amber"],
-        ["Infrastructure","AWS credentials (SES, S3, Lambda, RDS)","Not connected","red"],
-        ["Deployment","Cloudflare Workers / GitHub Actions","Partial","green"],
-        ["Design","ILIA Design System + Brand Guide","In Drive","green"],
-        ["Requirements","JIRA + Confluence","Connected","green"],
-        ["Review","GitHub PR workflow","Org Live","green"]
-      ],
-      lnks:[["GitHub Org","https://github.com/NIWCompanies-ILIA-Central-Intelligence"],["CIH Portal Vision","https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/"]]
-    }
-  };
-
-  var statusColors = {
-    green:  "background:#E6F5EA;color:#30934C;",
-    amber:  "background:#FEF4E3;color:#9B5500;",
-    red:    "background:#FEF2F2;color:#DC2626;",
-    purple: "background:#F3EFFE;color:#7C3AED;",
-    muted:  "background:#F5F7FA;color:#6B7E8F;border:1px solid #D4DFE9;"
-  };
-
-  window.openConnModal = function(id) {
-    var m = MODALS[id];
-    if (!m) { console.warn("No modal for:", id); return; }
-    var overlay = document.getElementById("connModal");
-    if (!overlay) { console.warn("connModal not found"); return; }
-    
-    document.getElementById("cmi-title").textContent = m.t;
-    document.getElementById("cmi-status").innerHTML = '<span style="' + statusColors[m.sc] + 'font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;display:inline-block;margin-bottom:10px;">' + m.s + '</span>';
-    document.getElementById("cmi-desc").textContent = m.d;
-    document.getElementById("cmi-caps").innerHTML = m.caps.map(function(c){ return '<li style="padding:6px 0;border-bottom:1px solid #D4DFE9;font-size:13px;color:#0D1F2D;">'+c+'</li>'; }).join('');
-    
-    var layersEl = document.getElementById("cmi-layers");
-    if (m.layers && m.layers.length) {
-      var rows = m.layers.map(function(l){
-        var badge = '<span style="' + statusColors[l[3]] + 'font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">' + l[2] + '</span>';
-        return '<tr><td style="padding:8px 10px;border:1px solid #D4DFE9;font-weight:600;color:#0D1F2D;font-size:12px;">'+l[0]+'</td><td style="padding:8px 10px;border:1px solid #D4DFE9;color:#6B7E8F;font-size:12px;">'+l[1]+'</td><td style="padding:8px 10px;border:1px solid #D4DFE9;">'+badge+'</td></tr>';
-      }).join('');
-      layersEl.innerHTML = '<p style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B7E8F;margin:16px 0 8px;">What\'s Required</p><table style="width:100%;border-collapse:collapse;"><thead><tr style="background:#F5F7FA;"><th style="padding:8px 10px;text-align:left;border:1px solid #D4DFE9;font-size:11px;color:#6B7E8F;">Layer</th><th style="padding:8px 10px;text-align:left;border:1px solid #D4DFE9;font-size:11px;color:#6B7E8F;">What\'s Needed</th><th style="padding:8px 10px;text-align:left;border:1px solid #D4DFE9;font-size:11px;color:#6B7E8F;">Status</th></tr></thead><tbody>'+rows+'</tbody></table>';
-      layersEl.style.display = "block";
-    } else {
-      layersEl.style.display = "none";
-    }
-    
-    document.getElementById("cmi-links").innerHTML = m.lnks.map(function(l){
-      return '<a href="'+l[1]+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;background:#0076BD;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;margin-right:8px;margin-top:4px;">'+l[0]+' &rarr;</a>';
-    }).join('');
-    
-    overlay.style.display = "flex";
-  };
-
-  window.closeConnModal = function() {
-    var overlay = document.getElementById("connModal");
-    if (overlay) overlay.style.display = "none";
-  };
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var overlay = document.getElementById("connModal");
-    if (overlay) overlay.addEventListener("click", function(e){ if(e.target===overlay) closeConnModal(); });
-  });
-})();
-</script>
 </body>
 </html>
