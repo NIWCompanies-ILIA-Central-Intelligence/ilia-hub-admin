@@ -510,6 +510,68 @@ Content-Type: text/plain; charset=utf-8
     </div>
   </div>
 
+  
+  <!-- PATH TO LIVE -->
+  <div class="section-label">Path to Live — Phase 2 Readiness</div>
+  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 12px;max-width:760px;">What it takes to move the CIH portal from prototype to a live, NIW-owned, multi-user app — and where each piece stands today. <span>(Mirrors the internal plan; not a source of truth.)</span></div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;margin:-4px 0 14px;font-size:10.5px;color:var(--muted);"><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--green);"></span>Decided</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--blue-mid);"></span>In motion</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--staging);"></span>Awaiting approval</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--purple);"></span>Ready to set up</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--muted);"></span>Pending / gated</span></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:32px;">
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--staging);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Claude API access</div>
+      <span style="background:var(--staging-pale);color:#9a6a12;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Awaiting approval</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">A dedicated, company-owned Claude API account — the backend’s connection to Claude.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Manish (approve) → Mario (set up)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--staging);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Cloud hosting</div>
+      <span style="background:var(--staging-pale);color:#9a6a12;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Awaiting approval</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Company-owned Cloudflare account that runs the app — UI, backend, database, and login.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Manish (approve) → Mario (set up)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--blue-mid);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Web address (domain)</div>
+      <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">◐ In motion</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">An NIW-owned URL (cih.niwcorp.com) and its DNS.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Jamin + John Lane (NIW)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Sign-in (SSO)</div>
+      <span style="background:var(--green-pale);color:#1d6b34;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">✓ Decided</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">“Sign in with Google” via the company directory; carries each person’s role.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Google Workspace · IT registers the app</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Database</div>
+      <span style="background:var(--green-pale);color:#1d6b34;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">✓ Decided</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Stores users, their permissions, saved chats, and the audit log.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Included with Cloudflare</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--purple);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Safe-build pipeline</div>
+      <span style="background:var(--purple-pale);color:var(--purple);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">○ Ready to set up</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Controlled dev → staging → live code flow (GitHub App + branch protection).</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Jamin (owner)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">ILIA integration</div>
+      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending · gated</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Mirror each user’s ILIA permission tier and (gated) read ILIA data.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Mohit provides · behind the security gate</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Test data</div>
+      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Confirm scrubbed / synthetic data so we can build &amp; test safely.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Simsaw</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;">
+      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Go-live security gate</div>
+      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending</span>
+      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Owner sign-off + safeguards before any live client data.</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;"><b style="color:var(--ink);">Who:</b> Jamin (owner)</div>
+    </div>
+  </div>
+
   <!-- GOVERNANCE & SAFETY -->
   <div class="section-label">Built With Governance &amp; Safety First</div>
   <div style="background:var(--white);border:1px solid var(--border);border-left:4px solid var(--staging);border-radius:12px;padding:20px 26px;margin-bottom:38px;">
