@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIH Structure — ILIA Central Intelligence Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue-deep:#004372;--blue-mid:#0076BD;--blue-light:#66A4D9;--blue-pale:#EBF4FB;--green:#30934C;--green-pale:#E6F5EA;--white:#fff;--off-white:#F5F7FA;--ink:#0D1F2D;--muted:#6B7E8F;--border:#D4DFE9;--staging:#F4A623;--staging-pale:#FEF4E3;--purple:#7C3AED;--purple-pale:#F3EFFE;--red:#DC2626;}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--off-white);color:var(--ink);}
+header{background:linear-gradient(135deg,#00243d 0%,var(--blue-deep) 55%,var(--blue-mid) 130%);color:#fff;padding:38px 24px 30px;}
+.header-inner{max-width:1160px;margin:0 auto;}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;margin-bottom:16px;}
+h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;margin:0 0 10px;line-height:1.05;}
+h1 em{font-style:italic;color:var(--blue-light);}
+header p{color:rgba(255,255,255,.62);font-size:15px;font-weight:300;max-width:640px;line-height:1.65;margin:0;}
+.cihtabs{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;gap:6px;border-bottom:1px solid var(--border);background:var(--white);}
+.cihtab{display:inline-block;text-decoration:none;border-bottom:3px solid transparent;padding:15px 18px;font-size:14px;font-weight:600;color:var(--muted);}
+.cihtab:hover{color:var(--blue-deep);}
+.cihtab.active{color:var(--blue-deep);border-bottom-color:var(--blue-mid);font-weight:700;}
+main{max-width:1160px;margin:0 auto;padding:36px 24px 80px;}
+.section-label{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);font-weight:600;margin:0 0 6px;}
+.arch-intro{font-size:13px;color:var(--muted);line-height:1.65;max-width:840px;margin:2px 0 22px;}
+.layer{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:6px;}
+.lyr-h{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--blue-mid);margin-bottom:3px;}
+.lyr-sub{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:12px;max-width:900px;}
+.nrow{display:flex;flex-wrap:wrap;gap:10px;}
+.node{flex:1 1 200px;min-width:180px;background:var(--off-white);border:1px solid var(--border);border-left:4px solid var(--blue-mid);border-radius:10px;padding:11px 14px;}
+.node b{display:block;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.node span{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.node.k{border-left-color:var(--blue-deep);background:#eef4fb;}
+.node.s{border-left-color:var(--purple);}.node.w{border-left-color:var(--green);}
+.node.q{border-left-color:var(--staging);}.node.t{border-left-color:var(--staging);}
+.node.d{border-left-color:var(--blue-light);}.node.p{border-left-color:var(--purple);}
+.flow{text-align:center;color:var(--blue-light);font-size:20px;line-height:1;margin:2px 0;}
+.grp-h{font-size:11.5px;font-weight:700;color:var(--ink);margin:6px 0;}
+.archlegend{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.6;background:var(--white);border:1px dashed var(--border);border-radius:10px;padding:12px 16px;}
+</style></head><body>
+<header><div class="header-inner">
+  <div class="badge">NIW Companies · Simplicity Group · ILIA Platform</div>
+  <h1>ILIA <em>Central Intelligence</em> Hub</h1>
+  <p>How everything in CIH is organized and connected — from the master project, down through the lanes that do the work, to the connectors, living docs, and (soon) the role-based portals for end users.</p>
+</div></header>
+<nav class="cihtabs">
+  <a class="cihtab" href="./">Overview</a>
+  <a class="cihtab active" href="./structure.html">CIH Structure</a>
+</nav>
+<main>
+  <div class="section-label">CIH Structure — How Everything Is Organized &amp; Connected</div>
+  <div class="arch-intro">A living map of the system we're building. It flows top to bottom: the master project in Claude, the lanes that do the work, the source-of-truth and living docs that keep every lane in sync, the connectors and tools they use, and out to the downstream views and (soon) the role-based portals for end users. This page updates as we build.</div>
+
+  <div class="layer"><div class="lyr-h">1 · Source of Truth</div><div class="lyr-sub">One brain every lane reads before doing anything — so nothing drifts.</div>
+    <div class="nrow"><div class="node k"><b>Core Operating Spec (Confluence)</b><span>Identity, hard rules, connector inventory, roadmap, and decision log. Files live in Drive; skill code in GitHub; decisions live here.</span></div></div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">2 · Master Project (Claude Cowork)</div><div class="lyr-sub">The home base where CIH runs, with Core + credentials wired in.</div>
+    <div class="nrow"><div class="node k"><b>NIW &#10231; ILIA Central Intelligence Master</b><span>The Cowork project. Every lane below is a chat opened inside it, inheriting the same rules, connectors, and source of truth.</span></div></div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">3 · Lanes (Claude chats under the project)</div><div class="lyr-sub">Each lane is a focused chat with its own job. Control lanes work <em>on</em> CIH; project lanes do the ILIA work <em>inside</em> it. A lane proposes changes; the owner approves.</div>
+    <div class="grp-h">Control lanes — work on CIH</div>
+    <div class="nrow">
+      <div class="node s"><b>S-CIH-CC · Central Command</b><span>Maintains Core, runs change-control, keeps every surface in sync, stands up new lanes.</span></div>
+      <div class="node s"><b>S-CIH-LAB · Tool Lab</b><span>Builds reusable tools/scripts/skills; owns the toolbox (ilia-cih-skills + catalog).</span></div>
+      <div class="node s"><b>S-CIH-PORTAL · Portal</b><span>Plans &amp; builds the future CIH web portal.</span></div>
+      <div class="node q"><b>Q-DESK · Quick Desk</b><span>Small one-off tasks &amp; leadership requests (drafted).</span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Project lanes — work inside CIH</div>
+    <div class="nrow">
+      <div class="node w"><b>W-GWT</b><span>Greatest Wealth Transfer workflow.</span></div>
+      <div class="node w"><b>W-MSP</b><span>Master Settlor Portal.</span></div>
+      <div class="node w"><b>W-DBR</b><span>DBR automation.</span></div>
+      <div class="node w"><b>W-1035</b><span>1035 &#8594; Kai-Zen conversions.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">4 · Living Docs (anti-drift sync)</div><div class="lyr-sub">Because Lane A can't see Lane B's chat, every lane logs to a shared Working Log. That's how the whole system stays in sync.</div>
+    <div class="nrow">
+      <div class="node d"><b>Working Logs (per lane)</b><span>Each lane's current state + dated history. Read at start, updated at end of every session.</span></div>
+      <div class="node d"><b>Active Projects Index</b><span>One page listing every lane and its status.</span></div>
+      <div class="node d"><b>Daily Reconciliation</b><span>Central Command sweeps all logs each day and flags anything out of sync.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">5 · Connectors &amp; Tools</div><div class="lyr-sub">What the lanes reach out to — third-party systems we integrate with, and tools we build in-house.</div>
+    <div class="grp-h">Connected systems (integrations)</div>
+    <div class="nrow">
+      <div class="node b"><b>Jira · Confluence</b><span>Tickets + source-of-truth docs.</span></div>
+      <div class="node b"><b>GitHub · Claude in Chrome</b><span>Code, prototypes &amp; publishing.</span></div>
+      <div class="node b"><b>Google Drive · Gmail</b><span>Files (on request) &amp; drafts.</span></div>
+      <div class="node b"><b>Web · Code Sandbox</b><span>Live research + safe code execution.</span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Built in-house (Tool Lab &#8594; ilia-cih-skills)</div>
+    <div class="nrow">
+      <div class="node t"><b>Tech Dashboard</b><span>Live plain-language Jira tracker for leadership.</span></div>
+      <div class="node t"><b>Enrollment Seeder</b><span>Auto-seeds test enrollments (in build).</span></div>
+      <div class="node t"><b>Prototypes &amp; skills</b><span>Reusable, installable capabilities.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">6 · Downstream Views</div><div class="lyr-sub">Read-only reflections of Core — kept in sync, never a second source of truth.</div>
+    <div class="nrow">
+      <div class="node d"><b>Hub-Admin (Overview)</b><span>Admin/owner view of the whole system.</span></div>
+      <div class="node d"><b>Hub-Team</b><span>Shareable team-facing view.</span></div>
+      <div class="node d"><b>Tech Dashboard</b><span>Project status for NIW admin.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer" style="border-left:4px solid var(--purple);"><div class="lyr-h" style="color:var(--purple);">7 · CIH Web Portals — End Users (future)</div><div class="lyr-sub">A NIW-owned web app where each employee logs into a role-scoped seat that mirrors their ILIA permission tier.</div>
+    <div class="nrow">
+      <div class="node p"><b>Role-scoped seats</b><span>Support · Sales · Operations · Marketing · Admin — each bounded to what that role may see &amp; do.</span></div>
+      <div class="node p"><b>Built-in request workflow</b><span>Users submit ideas/changes; owner approves; nothing auto-updates.</span></div>
+    </div>
+  </div>
+
+  <div class="archlegend"><b>Governance spine (applies at every layer):</b> Owner / sole approver = Jamin Austin · Provider / dev team = Simsaw (Mohit, lead) · Hard rules = deny by default, review before acting, security gates production, one source of truth.<br><b>Legend:</b> <span style="color:var(--blue-deep);font-weight:700;">Source</span> · <span style="color:var(--purple);font-weight:700;">Control lane (S-)</span> · <span style="color:var(--green);font-weight:700;">Project lane (W-)</span> · <span style="color:var(--staging);font-weight:700;">Tool / Quick Desk</span> · <span style="color:var(--blue-light);font-weight:700;">Living doc / view</span></div>
+</main></body></html>
