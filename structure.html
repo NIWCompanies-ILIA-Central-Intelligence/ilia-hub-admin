@@ -131,16 +131,17 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
   <div class="flow">&#9660;</div>
 
   <div class="layer"><div class="lyr-h">5 · Connectors &amp; Tools</div><div class="lyr-sub">What the lanes reach out to — third-party systems we integrate with, and tools we build in-house.</div>
-    <div class="grp-h">Connected systems (integrations) — each shows the account it's tied to</div>
+    <div class="grp-h">Connected systems (integrations) — account it's tied to + go-live flag</div>
+    <div style="font-size:11px;color:var(--muted);margin:-2px 0 8px;">Go-live flag: <b style="color:var(--staging);">🏢 needs company account</b> (currently on a personal login) · <b style="color:var(--green);">✅ already corporate / shareable</b> · <b style="color:var(--blue-mid);">👤 per-user (no shared account)</b>.</div>
     <div class="nrow">
-      <div class="node b"><b>Jira · Confluence</b><span>Tickets + source-of-truth docs.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Atlassian · simplicitygh</span></span></div>
-      <div class="node b"><b>Claude · AI · Team · Chrome</b><span>Cowork project + browser agent.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Anthropic Claude</span></span></div>
-      <div class="node b"><b>GitHub · Bitbucket mirror</b><span>Code, prototypes &amp; publishing.<span class="acct">👤 org NIWCompanies-ILIA-Central-Intelligence<br>🔗 GitHub · src user j••••</span></span></div>
-      <div class="node b"><b>Google Drive · Gmail</b><span>Files (on request) &amp; drafts.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Google Workspace</span></span></div>
-      <div class="node b"><b>ILIA Local Studio</b><span>Live ILIA codebase mirror.<span class="acct">👤 b••••@simplicitygroup.com<br>🔗 Brad’s workstation</span></span></div>
-      <div class="node b"><b>Shared &amp; Marketing Drives</b><span>Team + campaign assets.<span class="acct">👤 Rahim-managed<br>🔗 Google Shared Drives</span></span></div>
-      <div class="node b"><b>Strapi CMS · FullStory</b><span>Agent pages; session replay.<span class="acct">👤 pending tokens<br>🔗 Rahim / Sanjay</span></span></div>
-      <div class="node b"><b>Web · Code Sandbox</b><span>Live research + safe code execution.<span class="acct">👤 CIH internal<br>🔗 sandbox</span></span></div>
+      <div class="node b"><b>Jira · Confluence</b><span>Tickets + source-of-truth docs.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Atlassian · simplicitygh<br><b style="color:var(--green);">✅ already corporate — shareable to others</b></span></span></div>
+      <div class="node b"><b>Claude · AI · Team · Chrome</b><span>Cowork project + browser agent.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Anthropic Claude<br><b style="color:var(--staging);">🏢 needs company Anthropic account @ go-live</b></span></span></div>
+      <div class="node b"><b>GitHub · Bitbucket mirror</b><span>Code, prototypes &amp; publishing.<span class="acct">👤 org NIWCompanies-ILIA-Central-Intelligence<br>🔗 GitHub · src user j••••<br><b style="color:var(--staging);">🏢 org is company; source user still personal → company/service acct</b></span></span></div>
+      <div class="node b"><b>Google Drive · Gmail</b><span>Files (on request) &amp; drafts.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Google Workspace<br><b style="color:var(--blue-mid);">👤 per-user (each user's own login) — no shared account</b></span></span></div>
+      <div class="node b"><b>ILIA Local Studio</b><span>Live ILIA codebase mirror.<span class="acct">👤 b••••@simplicitygroup.com<br>🔗 Brad’s workstation<br><b style="color:var(--staging);">🏢 move to company / ILIA-provisioned</b></span></span></div>
+      <div class="node b"><b>Shared &amp; Marketing Drives</b><span>Team + campaign assets.<span class="acct">👤 Rahim-managed<br>🔗 Google Shared Drives<br><b style="color:var(--green);">✅ company Shared Drives</b></span></span></div>
+      <div class="node b"><b>Strapi CMS · FullStory</b><span>Agent pages; session replay.<span class="acct">👤 pending tokens<br>🔗 Rahim / Sanjay<br><b style="color:var(--staging);">🏢 set up company account + tokens</b></span></span></div>
+      <div class="node b"><b>Web · Code Sandbox</b><span>Live research + safe code execution.<span class="acct">👤 CIH internal<br>🔗 sandbox<br><b style="color:var(--blue-mid);">👤 CIH internal — n/a</b></span></span></div>
     </div>
     <div class="grp-h" style="margin-top:12px;">Built in-house (Tool Lab &#8594; ilia-cih-skills)</div>
     <div class="nrow">
@@ -208,7 +209,7 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
 
   <div class="flow">&#9660;</div>
 
-  <div class="layer"><div class="lyr-h">F · Storage &amp; Cost</div><div class="lyr-sub">Three homes by data type; shared documents in company-owned Google Shared Drives; cost is one variable line (Claude API) over a flat, cheap base.</div>
+  <div class="layer"><div class="lyr-h">F · Storage &amp; Cost <button onclick="openCost()" style="float:right;margin-top:-4px;background:var(--blue-mid);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;">💵 View expected cost →</button></div><div class="lyr-sub">Three homes by data type; shared documents in company-owned Google Shared Drives; cost is one variable line (Claude API) over a flat, cheap base. <b>Click “View expected cost” for line items at 5 · 10 · 25 seats.</b></div>
     <div class="grp-h">Where things are stored</div>
     <div class="nrow">
       <div class="node d"><b>Text &rarr; Markdown-in-git</b><span>Lane logs, specs, prompts, skills, code. Git history = the audit. Cost: <strong>$0</strong> (Free org) · optional ~$4/user Team for SSO.</span></div>
@@ -226,4 +227,27 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
   </div>
 
   <div class="archlegend"><b>Governance spine (applies at every layer):</b> Owner / sole approver = Jamin Austin · Provider / dev team = Simsaw (Mohit, lead) · Hard rules = deny by default, review before acting, security gates production, one source of truth.<br><b>Legend:</b> <span style="color:var(--blue-deep);font-weight:700;">Source / company account</span> · <span style="color:var(--purple);font-weight:700;">Runtime (app DB)</span> · <span style="color:var(--green);font-weight:700;">Project lane (W-)</span> · <span style="color:var(--staging);font-weight:700;">Gated / pending</span> · <span style="color:var(--blue-light);font-weight:700;">Living doc / view</span>. <b>No new vendor required</b> — Cloudflare covers host + database + access.</div>
+
+<div id="costModal" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(13,31,45,.55);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeCost()">
+  <div style="background:#fff;border-radius:16px;max-width:660px;width:100%;padding:24px 26px;box-shadow:0 24px 60px rgba(0,0,0,.32);font-family:'Inter',-apple-system,'Segoe UI',Arial,sans-serif;max-height:88vh;overflow:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <h3 style="margin:0;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-mid);">Expected monthly cost to go live</h3>
+      <button onclick="closeCost()" style="border:none;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--muted);">&times;</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 14px;line-height:1.5;">Planning estimate — the only variable line is <b>Claude API</b> (usage / tokens), which scales with how heavily each seat chats. Confirm against live pricing at build; start with a spend cap.</p>
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;color:var(--ink);">
+      <thead><tr style="color:var(--muted);border-bottom:1px solid var(--border);"><th style="text-align:left;padding:7px 4px;">Line item</th><th style="text-align:right;padding:7px 4px;">5 seats</th><th style="text-align:right;padding:7px 4px;">10 seats</th><th style="text-align:right;padding:7px 4px;">25 seats</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px dashed var(--border);"><td style="padding:7px 4px;">Cloudflare — host + DB + access</td><td style="text-align:right;">~$5</td><td style="text-align:right;">~$5</td><td style="text-align:right;">~$7</td></tr>
+        <tr style="border-bottom:1px dashed var(--border);"><td style="padding:7px 4px;"><b>Claude API</b> — usage (the variable)</td><td style="text-align:right;">$150–250</td><td style="text-align:right;">$300–500</td><td style="text-align:right;">$700–1,150</td></tr>
+        <tr style="border-bottom:1px dashed var(--border);"><td style="padding:7px 4px;">GitHub — Free (opt. Team SSO +$4/user)</td><td style="text-align:right;">$0</td><td style="text-align:right;">$0</td><td style="text-align:right;">$0</td></tr>
+        <tr style="border-bottom:1px dashed var(--border);"><td style="padding:7px 4px;">Storage — D1/KV + R2</td><td style="text-align:right;">~$1</td><td style="text-align:right;">~$2</td><td style="text-align:right;">~$5</td></tr>
+        <tr style="border-bottom:1px dashed var(--border);"><td style="padding:7px 4px;">Google Workspace</td><td style="text-align:right;color:var(--muted);">already paid</td><td style="text-align:right;color:var(--muted);">already paid</td><td style="text-align:right;color:var(--muted);">already paid</td></tr>
+        <tr style="border-top:2px solid var(--border);font-weight:700;color:var(--blue-deep);"><td style="padding:9px 4px;">Est. monthly total</td><td style="text-align:right;">~$156–261</td><td style="text-align:right;">~$307–512</td><td style="text-align:right;">~$712–1,162</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin:14px 0 0;line-height:1.6;background:var(--blue-pale);border-radius:10px;padding:11px 13px;"><b style="color:var(--blue-deep);">One Claude account runs all of CIH.</b> The portal calls the Claude <b>API</b> (usage-billed), so a <b>single company Anthropic account</b> covers every seat and user — no per-user Claude logins. Get the API on the company account; Claude Team/Enterprise seats are separate and only needed if people use claude.ai directly. GitHub is $0 on Free; Google Workspace seats you already pay for.</p>
+  </div>
+</div>
+<script>function openCost(){document.getElementById('costModal').style.display='flex';}function closeCost(){document.getElementById('costModal').style.display='none';}</script>
 </main></body></html>
