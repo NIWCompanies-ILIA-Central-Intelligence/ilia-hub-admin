@@ -1,3 +1,7 @@
+https://raw.githubusercontent.com/NIWCompanies-ILIA-Central-Intelligence/ilia-hub-admin/main/index.html
+→ https://raw.githubusercontent.com/NIWCompanies-ILIA-Central-Intelligence/ilia-hub-admin/main/index.html
+Content-Type: text/plain; charset=utf-8
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,6 +377,68 @@
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('cihlock');</script>
+<style>
+html.cihlock body>*:not(#cihGate){display:none!important;}
+html:not(.cihlock) #cihGate{display:none;}
+#cihGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(900px 480px at 50% -10%,#dbe8f6 0%,#eef2f7 60%);font-family:'Inter',-apple-system,'Segoe UI',Arial,sans-serif;}
+#cihGate .gcard{width:min(400px,92vw);background:#fff;border:1px solid #D9E2EC;border-radius:20px;box-shadow:0 18px 44px rgba(13,31,45,.16);padding:34px 32px 26px;text-align:center;}
+#cihGate .gmark{width:54px;height:54px;margin:0 auto 15px;border-radius:15px;background:linear-gradient(135deg,#0076BD,#7C3AED);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:19px;}
+#cihGate h1{font-size:18px;margin:0 0 3px;color:#0D1F2D;}
+#cihGate .gsub{font-size:12.5px;color:#6B7E8F;margin:0 0 20px;}
+#cihGate .grow{display:flex;gap:8px;}
+#cihGate input{flex:1;padding:11px 13px;border:1px solid #D9E2EC;border-radius:10px;font-size:14px;font-family:inherit;}
+#cihGate input:focus{outline:none;border-color:#0076BD;box-shadow:0 0 0 3px rgba(0,118,189,.14);}
+#cihGate button{background:#0076BD;color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+#cihGate button:hover{background:#005c94;}
+#cihGate .gerr{color:#DC2626;font-size:12px;font-weight:600;margin:12px 0 0;min-height:15px;}
+#cihGate .gnote{font-size:11px;color:#6B7E8F;margin:14px 0 0;line-height:1.5;}
+#cihGate .gfoot{font-size:10.5px;color:#94a3b8;margin-top:16px;}
+.conn-acct{margin-top:9px;padding-top:8px;border-top:1px dashed #D4DFE9;font-size:10.5px;color:#6B7E8F;line-height:1.6;}
+.conn-acct b{color:#0D1F2D;font-weight:600;font-family:'DM Mono',monospace;}
+</style>
+<div id="cihGate"><div class="gcard"><div class="gmark">CIH</div><h1>ILIA Central Intelligence Hub</h1><p class="gsub">Private · enter the team passcode</p><form onsubmit="return cihUnlock(event)"><div class="grow"><input id="cihPass" type="password" placeholder="Passcode" autocomplete="current-password" autofocus><button type="submit">Unlock</button></div></form><p class="gerr" id="cihErr"></p><p class="gnote">Enter once — this device stays unlocked. A new device will ask again.</p><p class="gfoot">Simplicity / NIW internal</p></div></div>
+<script>
+(function(){
+var GS="44b99bacd54515bf",GH="00319720fdbd5ce33664ad6133393dd8c2d0d9b44afab710baa9e6d7ac11f696",GK="cih_hubadmin_gate_v1";
+async function _gh(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(GS+t));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+function _open(){document.documentElement.classList.remove('cihlock');}
+window.cihUnlock=async function(e){e.preventDefault();var v=document.getElementById('cihPass').value;var h=await _gh(v);if(h===GH){try{localStorage.setItem(GK,GH);}catch(_){ }_open();}else{document.getElementById('cihErr').textContent='Incorrect passcode. Try again.';document.getElementById('cihPass').value='';document.getElementById('cihPass').focus();}return false;};
+try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
+})();
+document.addEventListener('DOMContentLoaded',function(){
+ var A={
+  'claude-ai':['j••••@simplicitygroup.com','Anthropic Claude — NIW seat'],
+  'jira':['j••••@simplicitygroup.com','Atlassian · simplicitygh.atlassian.net'],
+  'confluence':['j••••@simplicitygroup.com','Atlassian · simplicitygh.atlassian.net'],
+  'github-org':['org: NIWCompanies-ILIA-Central-Intelligence','GitHub · source user j•••• (personal)'],
+  'google-drive':['j••••@simplicitygroup.com','Google Workspace · simplicitygroup.com'],
+  'gmail':['j••••@simplicitygroup.com','Google Workspace · simplicitygroup.com'],
+  'bitbucket-mirror':['IT-managed service account','Bitbucket ↔ GitHub mirror'],
+  'ilia-codebase':['b••••@simplicitygroup.com','Local Studio · Brad’s workstation'],
+  'claude-team':['Simplicity NIW (planned)','Anthropic Claude Team'],
+  'shared-drive':['NIW shared drive (planned)','Google Workspace'],
+  'claude-chrome':['j••••@simplicitygroup.com','Anthropic Claude · Chrome extension'],
+  'ilia-cih-portal':['NIW-hosted (in dev)','CIH web portal'],
+  'marketing-drive':['Rahim-managed','Google Shared Drive'],
+  'fullstory':['pending (Sanjay)','FullStory analytics']
+ };
+ var NM=[['Strapi',['pending API token','Strapi CMS · Rahim-managed']],['ILIA CMS',['pending API token','Strapi CMS · Rahim-managed']]];
+ document.querySelectorAll('.conn-card').forEach(function(card){
+   if(card.querySelector('.conn-acct'))return;
+   var el=card.querySelector('[onclick*="openConnModal"]');
+   var id=el?((el.getAttribute('onclick').match(/openConnModal\('([^']+)'\)/)||[])[1]):null;
+   var a=id&&A[id];
+   if(!a){var nm=(card.querySelector('.conn-name')||{}).textContent||'';for(var i=0;i<NM.length;i++){if(nm.indexOf(NM[i][0])>=0){a=NM[i][1];break;}}}
+   if(!a)return;
+   var d=document.createElement('div');d.className='conn-acct';
+   d.innerHTML='👤 <b>'+a[0]+'</b><br>🔗 '+a[1];
+   var link=card.querySelector('.conn-link');
+   if(link&&link.parentNode)link.parentNode.insertBefore(d,link.nextSibling);else card.appendChild(d);
+ });
+});
+</script>
+
 
 <header>
   <div class="header-inner">
@@ -384,10 +450,10 @@
       <div class="meta-pill"><span class="dot-pending"></span> <a href="https://github.com/NIWCompanies-ILIA-Central-Intelligence" target="_blank">GitHub Org Live</a></div>
       <div class="meta-pill">🔗 <a href="https://simplicitygh.atlassian.net" target="_blank">Confluence</a> · <a href="https://simplicitygh.atlassian.net/jira" target="_blank">JIRA</a></div>
       <div class="meta-pill">📁 Drive · GitHub · Claude Connected</div>
-      <a class="meta-pill" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-tech-dashboard/office.html" target="_blank" rel="noopener" style="cursor:pointer;text-decoration:none;background:rgba(219,39,119,0.18);border-color:rgba(219,39,119,0.45);">Live Work Cam</a>
+      <div class="meta-pill" style="cursor:pointer;background:rgba(48,147,76,0.2);border-color:rgba(48,147,76,0.4);" onclick="copyTeamLink(this)" id="header-team-link">🔗 Copy Team Link</div>
     </div>
   </div>
-</header><nav style="max-width:1160px;margin:0 auto;padding:0 24px;display:flex;gap:6px;border-bottom:1px solid var(--border);background:#fff;"><span style="border-bottom:3px solid var(--blue-mid);padding:15px 18px;font-weight:700;color:var(--blue-deep);font-family:inherit;">Overview</span><a href="./structure.html" style="border-bottom:3px solid transparent;padding:15px 18px;font-weight:600;color:var(--muted);text-decoration:none;">CIH Structure &#8594;</a></nav>
+</header>
 
 <main>
 
@@ -505,100 +571,6 @@
       <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;">A branded, NIW-owned web app. Per-person login, real role enforcement, full audit trail. The daily workspace for every employee — no Claude.ai needed.</div>
     </div>
   </div>
-
-  
-    <!-- PATH TO LIVE -->
-  <div class="section-label">Path to Live — Phase 2 Readiness</div>
-  <div style="font-size:12.5px;color:var(--muted);line-height:1.65;margin:-8px 0 12px;max-width:760px;">What it takes to move the CIH portal from prototype to a live, NIW-owned, multi-user app — and where each piece stands. <b>Click any card for the specifics + steps.</b> <span>(Mirrors the internal plan; not a source of truth.)</span></div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;margin:-4px 0 14px;font-size:10.5px;color:var(--muted);"><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--green);"></span>Decided</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--blue-mid);"></span>In motion</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--staging);"></span>Awaiting approval</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--purple);"></span>Ready / designing</span><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:var(--muted);"></span>Pending / gated</span></div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:24px;">
-    <div onclick="openReady('1')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--staging);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Claude API access</div>
-      <span style="background:var(--staging-pale);color:#9a6a12;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Awaiting approval</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">A dedicated, company-owned Claude API account — the backend’s connection to Claude.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('2')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--staging);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Cloud hosting (Cloudflare)</div>
-      <span style="background:var(--staging-pale);color:#9a6a12;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Awaiting approval</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Company-owned Cloudflare account that runs the app — UI, backend, database, login.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('3')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--blue-mid);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Web address (domain)</div>
-      <span style="background:var(--blue-pale);color:var(--blue-mid);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">◐ In motion</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">An NIW-owned URL + DNS (cih.niwcorp.com).</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('4')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Sign-in (SSO)</div>
-      <span style="background:var(--green-pale);color:#1d6b34;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">✓ Decided</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">“Sign in with Google” via the company directory; carries each person’s role.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('5')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Database</div>
-      <span style="background:var(--green-pale);color:#1d6b34;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">✓ Decided</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Stores users, permissions, saved chats and the audit log.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('6')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--purple);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Safe-build pipeline</div>
-      <span style="background:var(--purple-pale);color:var(--purple);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">○ Ready to set up</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Controlled dev → staging → live code flow (GitHub App + branch protection).</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('7')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">ILIA integration</div>
-      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending · gated</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Mirror each user’s ILIA permission tier and (gated) read ILIA data.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('8')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Test data</div>
-      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Confirm scrubbed/synthetic data so we can build & test safely.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('9')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--muted);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Go-live security gate</div>
-      <span style="background:var(--off-white);color:var(--muted);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">⏳ Pending</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Owner sign-off + safeguards before any live client data.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-    <div onclick="openReady('10')" style="background:var(--white);border:1px solid var(--border);border-top:4px solid var(--purple);border-radius:12px;padding:18px 20px;cursor:pointer;transition:transform .1s,box-shadow .1s;" onmouseover="this.style.boxShadow='0 6px 18px rgba(13,31,45,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-      <div style="font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:8px;">Governance &amp; per-seat rules</div>
-      <span style="background:var(--purple-pale);color:var(--purple);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">◑ Designing</span>
-      <div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px;">Guardrails baked into the master logic so users can’t prompt the system to change itself or commit code — out-of-scope asks become requests.</div>
-      <div style="font-size:11px;font-weight:700;color:var(--blue-mid);margin-top:10px;">View steps ›</div>
-    </div>
-  </div>
-  <div id="ready-modal" style="display:none;position:fixed;inset:0;background:rgba(13,31,45,0.55);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeReady()">
-    <div style="background:var(--white);max-width:560px;width:100%;max-height:85vh;overflow:auto;border-radius:16px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(13,31,45,.3);">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 24px 16px;border-bottom:1px solid var(--border);">
-        <div><div id="rm-title" style="font-weight:700;font-size:16px;color:var(--ink);"></div><div id="rm-status" style="margin-top:7px;"></div></div>
-        <button onclick="closeReady()" aria-label="Close" style="background:none;border:none;font-size:24px;line-height:1;color:var(--muted);cursor:pointer;">×</button>
-      </div>
-      <div id="rm-body" style="padding:18px 24px 24px;"></div>
-    </div>
-  </div>
-  <script>
-  var READY = {"1": {"title": "Claude API access", "pbg": "var(--staging-pale)", "pfg": "#9a6a12", "status": "\u23f3 Awaiting approval", "what": "The portal backend calls Claude over the Anthropic API. We need a dedicated, company-owned (NIW/Simplicity) account with its own billing, spending caps and ownership \u2014 separate from the Cowork app.", "who": "Manish (approve) \u2192 Mario (create + own)", "steps": ["Manish approves a company-owned Anthropic account + billing.", "Mario creates the account and a project-specific API key.", "Set a spending cap (~$150/mo to start) with alerts at 50% and 80%.", "Key stored server-side in the Worker only \u2014 never in chat/email.", "Model tiering: Haiku (routing) \u00b7 Sonnet (default) \u00b7 Opus (heavy)."]}, "2": {"title": "Cloud hosting (Cloudflare)", "pbg": "var(--staging-pale)", "pfg": "#9a6a12", "status": "\u23f3 Awaiting approval", "what": "Cloudflare runs the whole portal: Pages (UI), Workers (backend that holds the key + calls connectors), D1/KV (database), Access (SSO). ~$5/mo, no AWS. Must be company-owned, not personal.", "who": "Manish (approve) \u2192 Mario (create) \u00b7 Jamin (admin)", "steps": ["Manish approves a company-owned Cloudflare account.", "Mario creates it; adds Jamin as admin.", "We stand up Workers + D1 + Pages + Access.", "Point the domain at the Cloudflare app (Route 53 CNAME)."]}, "3": {"title": "Web address (domain)", "pbg": "var(--blue-pale)", "pfg": "var(--blue-mid)", "status": "\u25d0 In motion", "what": "NIW DNS lives in AWS Route 53 (Mohit owns the account). Plan: stag.cih.niwcorp.com \u2192 the prototype now (testing); cih.niwcorp.com \u2192 the production app later.", "who": "Mohit (Route 53) + Jamin \u00b7 John Lane confirmed DNS", "steps": ["NIWD-1851 (Mohit): add CNAME stag.cih.niwcorp.com \u2192 niwcompanies-ilia-central-intelligence.github.io.", "CIH sets the GitHub custom-domain + TLS on the prototype.", "Later: cih.niwcorp.com \u2192 the Cloudflare app (separate record).", "Least-privilege: Mohit adds the record; no broad AWS access."]}, "4": {"title": "Sign-in (SSO)", "pbg": "var(--green-pale)", "pfg": "#1d6b34", "status": "\u2713 Decided", "what": "Simplicity is all-Google, so logins use Google Workspace. An invite = a real company account, and the login carries the person\u2019s seat/role.", "who": "Manish/IT (register app) \u00b7 Jamin (owner)", "steps": ["IT registers a company-owned Google OAuth app (consent screen = Internal).", "Redirect URL = the portal domain.", "Define a Google Group of NIW staff who can be invited.", "Client ID + secret \u2192 backend config only (never in chat)."]}, "5": {"title": "Database", "pbg": "var(--green-pale)", "pfg": "#1d6b34", "status": "\u2713 Decided", "what": "Cloudflare D1/KV holds accounts, each user\u2019s permission tier, saved chat sessions and the audit log (Core \u00a77). Comes with the Cloudflare account \u2014 nothing separate to buy.", "who": "Build team (with Cloudflare)", "steps": ["Comes bundled with the Cloudflare account.", "Define schema: users \u00b7 seats/roles \u00b7 sessions \u00b7 audit events.", "Audit log: server-side masking before any write (Core \u00a77)."]}, "6": {"title": "Safe-build pipeline", "pbg": "var(--purple-pale)", "pfg": "var(--purple)", "status": "\u25cb Ready to set up", "what": "A GitHub App gives the build pipeline scoped, auditable access (instead of personal tokens) so code flows dev \u2192 staging \u2192 live with branch protection. Owner-doable, no cost, no Manish needed.", "who": "Jamin (owner) \u00b7 CIH preps the config", "steps": ["CIH prepares the permission set + branch-protection ruleset + CODEOWNERS + ilia-staging plan.", "Owner creates the GitHub App on the org and installs it.", "Branch protection so nothing reaches dev/live without a gated PR."]}, "7": {"title": "ILIA integration", "pbg": "var(--off-white)", "pfg": "var(--muted)", "status": "\u23f3 Pending \u00b7 gated", "what": "The integration that makes the portal useful per role: mirror each user\u2019s ILIA entitlement so they never see more than ILIA would show them, and (gated) read ILIA data. The main production dependency.", "who": "Mohit (provides, gated) \u00b7 Jamin (gate)", "steps": ["Mohit provides read-only, minimum-scope ILIA API + the permission-tier model.", "Phase-2 auth model maps portal seats \u2192 ILIA tiers (read as the requesting user).", "Opens only via the production gate (Core \u00a710).", "Build/pilot proceeds on snapshot data until the gate is green."]}, "8": {"title": "Test data", "pbg": "var(--off-white)", "pfg": "var(--muted)", "status": "\u23f3 Pending", "what": "Before any real client data, confirm staging uses scrubbed/synthetic data so the team can build and test safely.", "who": "Simsaw (confirm)", "steps": ["Simsaw confirms staging data classification (scrubbed/synthetic vs real).", "If real data is ever used, it inherits the full live-data safeguards (Core \u00a710)."]}, "9": {"title": "Go-live security gate", "pbg": "var(--off-white)", "pfg": "var(--muted)", "status": "\u23f3 Pending", "what": "Live ILIA client data only flows when BOTH are true: the owner\u2019s recorded approval AND the safeguards are in place. Approval alone isn\u2019t enough (Core \u00a710).", "who": "Jamin (owner)", "steps": ["Owner records approval (a verbal yes isn\u2019t the record).", "Safeguards: restricted membership; read-only minimum-scope credential in a connector; server-side audit log; minimum-disclosure + no-persistence.", "Gate is green only when approval AND safeguards both hold."]}, "10": {"title": "Governance &amp; per-seat rules", "pbg": "var(--purple-pale)", "pfg": "var(--purple)", "status": "\u25d1 Designing", "what": "When users access the portal, behavior is bounded by their seat \u2014 even when an admin is logged in. Users can\u2019t prompt the system to change its own structure/capabilities or commit code/system changes; the system recognizes such asks and routes them to \u201cSubmit a Request\u201d (\u00a78a). A Support agent can\u2019t \u201ccreate a prototype\u201d or \u201cchange code\u201d; a Dev gets their own repo + local sandbox but promotion stays gated. Enforced two ways: the session prompt (master logic) AND tool-scoping (each seat only gets the connectors it\u2019s allowed).", "who": "Jamin (owner) + Central Command (Core change)", "steps": ["Define seats + a per-seat authority matrix (in-scope vs out-of-scope): PM \u00b7 Support \u00b7 Operations \u00b7 Marketing \u00b7 Dev \u00b7 Admin.", "Add a \u201cscope_guard\u201d rule to Core: recognize a system-change/out-of-scope prompt \u2192 decline \u2192 route to Submit a Request. Applies to every seat incl. Admin (who approves via triage, not free-prompting).", "Enforce in two layers: (a) each seat\u2019s session prompt = Core rules + that seat\u2019s scope; (b) the backend only mounts the tools that seat is allowed (defense in depth).", "Promotion/production gates: nothing commits to dev/live or alters the system without review \u2192 approve \u2192 JIRA \u2192 docs \u2192 current sprint workflow.", "Demo the scope-guard live in the prototype (e.g. a Support seat asking to \u201cchange code\u201d gets the redirect).", "Apply to Core via change-control (Central Command + owner approval)."]}};
-  function openReady(id){var d=READY[id];if(!d)return;
-    document.getElementById("rm-title").textContent=d.title.replace(/&amp;/g,"&");
-    document.getElementById("rm-status").innerHTML='<span style="background:'+d.pbg+';color:'+d.pfg+';font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:10px;">'+d.status+'</span>';
-    var b='<div style="font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:16px;">'+d.what+'</div>';
-    b+='<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-bottom:8px;">Steps</div>';
-    b+='<ol style="margin:0 0 16px;padding-left:18px;font-size:12.5px;color:var(--ink);line-height:1.7;">';
-    for(var i=0;i<d.steps.length;i++){b+='<li>'+d.steps[i]+'</li>';}
-    b+='</ol>';
-    b+='<div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;"><b style="color:var(--ink);">Who:</b> '+d.who+'</div>';
-    document.getElementById("rm-body").innerHTML=b;
-    document.getElementById("ready-modal").style.display="flex";
-  }
-  function closeReady(){document.getElementById("ready-modal").style.display="none";}
-  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeReady();});
-  </script>
 
   <!-- GOVERNANCE & SAFETY -->
   <div class="section-label">Built With Governance &amp; Safety First</div>
@@ -880,7 +852,6 @@
       <span class="conn-status" style="background:var(--purple-pale);color:var(--purple);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;">🏗️ In Development</span>
       <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/" target="_blank">View Platform Vision →</a>
       <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/" target="_blank" style="margin-top:2px;">CIH Hub →</a>
-      <a class="conn-link" href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-pm-portal/" target="_blank" style="margin-top:2px;font-weight:700;color:var(--purple);">▶ PM Portal — Live Preview →</a>
     </div>
 
 
@@ -1185,7 +1156,6 @@
           <div class="step-actions">
             <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-portal/" target="_blank" class="step-btn btn-secondary">○ View Portal Vision →</a>
             <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-hub-team/" target="_blank" class="step-btn btn-primary">→ CIH Hub Prototype</a>
-            <a href="https://niwcompanies-ilia-central-intelligence.github.io/ilia-cih-pm-portal/" target="_blank" class="step-btn btn-primary">▶ PM Portal — Live Preview</a>
           </div>
         </div>
       </div>
