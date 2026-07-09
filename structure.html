@@ -206,5 +206,24 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
     </div>
   </div>
 
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">F · Storage &amp; Cost</div><div class="lyr-sub">Three homes by data type; shared documents in company-owned Google Shared Drives; cost is one variable line (Claude API) over a flat, cheap base.</div>
+    <div class="grp-h">Where things are stored</div>
+    <div class="nrow">
+      <div class="node d"><b>Text &rarr; Markdown-in-git</b><span>Lane logs, specs, prompts, skills, code. Git history = the audit. Cost: <strong>$0</strong> (Free org) · optional ~$4/user Team for SSO.</span></div>
+      <div class="node p"><b>Runtime data &rarr; Cloudflare D1 / KV</b><span>Per-user &amp; per-lane logs, events, conflicts, rule versions.</span></div>
+      <div class="node b"><b>Documents &rarr; Google Shared Drives</b><span>Company-owned, per lane: Marketing · Compliance/Disclosures · Carrier Apps · ILIA KB. Scoped per seat. Optional Cloudflare R2 mirror for in-portal delivery.</span></div>
+      <div class="node"><b>Per-user files &rarr; the user's own Drive/PC</b><span>Accessed live under their login; never centralized. Client-specific &amp; regulated docs stay §10-gated.</span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Monthly cost — planning estimate (confirm at build)</div>
+    <div class="nrow">
+      <div class="node"><b>Cloudflare</b><span>Host + DB + Access &asymp; <strong>$5/mo</strong>; free tiers cover the rest.</span></div>
+      <div class="node"><b>Claude API — the variable</b><span>Pilot ~$15–65/mo · full team ~$300–700/mo · start cap ~$150/mo. Tokens are the lever — MD-in-git keeps context small.</span></div>
+      <div class="node"><b>GitHub</b><span><strong>$0</strong> on Free · optional ~$4/user Team (SSO).</span></div>
+      <div class="node"><b>Storage</b><span>Logs/DB = pennies; Shared Drives already in Workspace; R2 ~$0.015/GB.</span></div>
+    </div>
+  </div>
+
   <div class="archlegend"><b>Governance spine (applies at every layer):</b> Owner / sole approver = Jamin Austin · Provider / dev team = Simsaw (Mohit, lead) · Hard rules = deny by default, review before acting, security gates production, one source of truth.<br><b>Legend:</b> <span style="color:var(--blue-deep);font-weight:700;">Source / company account</span> · <span style="color:var(--purple);font-weight:700;">Runtime (app DB)</span> · <span style="color:var(--green);font-weight:700;">Project lane (W-)</span> · <span style="color:var(--staging);font-weight:700;">Gated / pending</span> · <span style="color:var(--blue-light);font-weight:700;">Living doc / view</span>. <b>No new vendor required</b> — Cloudflare covers host + database + access.</div>
 </main></body></html>
