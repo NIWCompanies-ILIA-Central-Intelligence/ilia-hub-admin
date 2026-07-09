@@ -72,11 +72,26 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
   <a class="cihtab active" href="./structure.html">CIH Structure</a>
 </nav>
 <main>
-  <div class="section-label">CIH Structure — How Everything Is Organized &amp; Connected</div>
-  <div class="arch-intro">A living map of the system we're building. It flows top to bottom: the master project in Claude, the lanes that do the work, the source-of-truth and living docs that keep every lane in sync, the connectors and tools they use, and out to the downstream views and (soon) the role-based portals for end users. This page updates as we build.</div>
+  <div class="section-label">CIH Architecture — Accounts · Layers · Logs · Users</div>
+  <div class="arch-intro">The whole system on one page: the accounts that hold the keys, the seven layers CIH runs on, where lanes and logs live (Markdown-in-git design layer vs the app-database runtime layer), the daily reconciliation + conflict loop, and how every user flows through it — top to bottom. Updates as we build.</div>
+
+  <div class="layer"><div class="lyr-h">A · Accounts &amp; Identities — who holds the keys</div><div class="lyr-sub">Target: everything owned by <strong>Simplicity / NIW company accounts</strong>; individuals join as members (seats), never the home.</div>
+    <div class="grp-h">Company-owned (source accounts)</div>
+    <div class="nrow">
+      <div class="node k"><b>GitHub Org</b><span>Code · Markdown logs · publishing.</span></div>
+      <div class="node k"><b>Google Workspace</b><span>SSO · Drive · Gmail.</span></div>
+      <div class="node k"><b>Atlassian</b><span>Jira + Confluence.</span></div>
+      <div class="node k"><b>Anthropic API</b><span>Claude — the brain (company key, pending).</span></div>
+      <div class="node k"><b>Cloudflare</b><span>Host + database + access (company, pending).</span></div>
+      <div class="node k"><b>DOMO · ILIA</b><span>Data + records — read-only, §10-gated.</span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Individual seat (per user)</div>
+    <div class="nrow"><div class="node"><b>&ldquo;My Account&rdquo;</b><span>A person's Google SSO identity &rarr; one <strong>seat</strong> &rarr; bounded by their <strong>ILIA permission tier</strong>. Not a source account.</span></div></div>
+  </div>
+  <div class="flow">&#9660;</div>
 
   <div class="layer"><div class="lyr-h">1 · Source of Truth</div><div class="lyr-sub">One brain every lane reads before doing anything — so nothing drifts.</div>
-    <div class="nrow"><div class="node k"><b>Core Operating Spec (Confluence)</b><span>Identity, hard rules, connector inventory, roadmap, and decision log. Files live in Drive; skill code in GitHub; decisions live here.</span></div></div>
+    <div class="nrow"><div class="node k"><b>Core Operating Spec</b><span>Identity, hard rules, connector inventory, roadmap, decision log. <em>Confluence today &rarr; Markdown-in-git proposed (owner decision).</em> Decisions live here; files in Drive; skill code in GitHub.</span></div></div>
   </div>
   <div class="flow">&#9660;</div>
 
@@ -110,4 +125,86 @@ try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
     <div class="nrow">
       <div class="node d"><b>Working Logs (per lane)</b><span>Each lane's current state + dated history. Read at start, updated at end of every session.</span></div>
       <div class="node d"><b>Active Projects Index</b><span>One page listing every lane and its status.</span></div>
-      <div class="node d"><b>Daily Reconciliation</b><span>Central Command sweeps all logs 
+      <div class="node d"><b>Daily Reconciliation</b><span>Central Command sweeps all logs each day and flags anything out of sync.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">5 · Connectors &amp; Tools</div><div class="lyr-sub">What the lanes reach out to — third-party systems we integrate with, and tools we build in-house.</div>
+    <div class="grp-h">Connected systems (integrations) — each shows the account it's tied to</div>
+    <div class="nrow">
+      <div class="node b"><b>Jira · Confluence</b><span>Tickets + source-of-truth docs.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Atlassian · simplicitygh</span></span></div>
+      <div class="node b"><b>Claude · AI · Team · Chrome</b><span>Cowork project + browser agent.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Anthropic Claude</span></span></div>
+      <div class="node b"><b>GitHub · Bitbucket mirror</b><span>Code, prototypes &amp; publishing.<span class="acct">👤 org NIWCompanies-ILIA-Central-Intelligence<br>🔗 GitHub · src user j••••</span></span></div>
+      <div class="node b"><b>Google Drive · Gmail</b><span>Files (on request) &amp; drafts.<span class="acct">👤 j••••@simplicitygroup.com<br>🔗 Google Workspace</span></span></div>
+      <div class="node b"><b>ILIA Local Studio</b><span>Live ILIA codebase mirror.<span class="acct">👤 b••••@simplicitygroup.com<br>🔗 Brad’s workstation</span></span></div>
+      <div class="node b"><b>Shared &amp; Marketing Drives</b><span>Team + campaign assets.<span class="acct">👤 Rahim-managed<br>🔗 Google Shared Drives</span></span></div>
+      <div class="node b"><b>Strapi CMS · FullStory</b><span>Agent pages; session replay.<span class="acct">👤 pending tokens<br>🔗 Rahim / Sanjay</span></span></div>
+      <div class="node b"><b>Web · Code Sandbox</b><span>Live research + safe code execution.<span class="acct">👤 CIH internal<br>🔗 sandbox</span></span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Built in-house (Tool Lab &#8594; ilia-cih-skills)</div>
+    <div class="nrow">
+      <div class="node t"><b>Tech Dashboard</b><span>Live plain-language Jira tracker for leadership.</span></div>
+      <div class="node t"><b>Enrollment Seeder</b><span>Auto-seeds test enrollments (in build).</span></div>
+      <div class="node t"><b>Prototypes &amp; skills</b><span>Reusable, installable capabilities.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">6 · Downstream Views</div><div class="lyr-sub">Read-only reflections of Core — kept in sync, never a second source of truth.</div>
+    <div class="nrow">
+      <div class="node d"><b>Hub-Admin (Overview)</b><span>Admin/owner view of the whole system.</span></div>
+      <div class="node d"><b>Hub-Team</b><span>Shareable team-facing view.</span></div>
+      <div class="node d"><b>Tech Dashboard</b><span>Project status for NIW admin.</span></div>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer" style="border-left:4px solid var(--purple);"><div class="lyr-h" style="color:var(--purple);">7 · CIH Web Portals — End Users (future)</div><div class="lyr-sub">A NIW-owned web app where each employee logs into a role-scoped seat that mirrors their ILIA permission tier.</div>
+    <div class="nrow">
+      <div class="node p"><b>Role-scoped seats</b><span>Support · Sales · Operations · Marketing · Admin — each bounded to what that role may see &amp; do.</span></div>
+      <div class="node p"><b>Built-in request workflow</b><span>Users submit ideas/changes; owner approves; nothing auto-updates.</span></div>
+    </div>
+  </div>
+
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">C · Where Logs Live — Two Layers</div><div class="lyr-sub">The design of the logs is separate from where they run — a wiki can't do real-time concurrent writes, so runtime logs live in the app database.</div>
+    <div class="nrow">
+      <div class="node d"><b>Design / working layer</b><span><strong>Markdown-in-git</strong> (canonical) &rarr; Confluence mirror for humans. Lane working logs, specs, seat charters, prompts, skills. <em>Git history = the immutable audit.</em></span></div>
+      <div class="node p"><b>Runtime / operational layer</b><span><strong>App database — Cloudflare D1 / KV.</strong> Per-user logs, per-lane logs, the event stream, conflict records, rule versions.</span></div>
+    </div>
+    <div class="grp-h" style="margin-top:12px;">Reconciliation &amp; log hygiene</div>
+    <div class="nrow"><div class="node d"><b>Daily reconciliation + two-tier logs</b><span>A daily sweep rolls events &rarr; summaries, cross-checks external systems, and diffs edits to the same object &rarr; <strong>flags conflicts</strong>. Each log = an <strong>AI-pruned hot summary</strong> over a <strong>never-deleted audit trail</strong>.</span></div></div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">D · How a User Is Handled</div><div class="lyr-sub">Every action is scoped, logged, and reconciled.</div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;font-size:12px;color:var(--ink);">
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">Google SSO</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">Seat (Admin/PM/Support/Ops)</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">ILIA tier</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">scoped tools only</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">actions emit events</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--purple-pale);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--purple);">per-user + per-lane log</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">daily reconciliation</span><span style="color:var(--blue-light);">&rarr;</span>
+      <span style="background:var(--staging-pale);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--staging);">conflict? &rarr; owner resolves</span>
+    </div>
+  </div>
+  <div class="flow">&#9660;</div>
+
+  <div class="layer"><div class="lyr-h">E · Third-Party Accounts — Do We Need More?</div><div class="lyr-sub">No new vendor beyond these — Cloudflare covers host + database + access.</div>
+    <div class="nrow">
+      <div class="node"><b>GitHub org</b><span style="color:var(--green);font-weight:700;">✓ have</span></div>
+      <div class="node"><b>Google Workspace</b><span style="color:var(--green);font-weight:700;">✓ have</span></div>
+      <div class="node"><b>Atlassian</b><span style="color:var(--green);font-weight:700;">✓ have</span></div>
+      <div class="node"><b>Anthropic API</b><span style="color:var(--staging);font-weight:700;">◷ pending (Manish&rarr;Mario)</span></div>
+      <div class="node"><b>Cloudflare</b><span style="color:var(--staging);font-weight:700;">◷ pending (Manish&rarr;Mario)</span></div>
+      <div class="node"><b>Route 53 DNS</b><span style="color:var(--blue-mid);font-weight:700;">◐ in motion (NIWD-1851)</span></div>
+      <div class="node"><b>DOMO / ILIA access</b><span style="color:var(--staging);font-weight:700;">⏳ gated (§10)</span></div>
+      <div class="node"><b>Strapi · FullStory</b><span style="color:var(--muted);">later / optional</span></div>
+    </div>
+  </div>
+
+  <div class="archlegend"><b>Governance spine (applies at every layer):</b> Owner / sole approver = Jamin Austin · Provider / dev team = Simsaw (Mohit, lead) · Hard rules = deny by default, review before acting, security gates production, one source of truth.<br><b>Legend:</b> <span style="color:var(--blue-deep);font-weight:700;">Source / company account</span> · <span style="color:var(--purple);font-weight:700;">Runtime (app DB)</span> · <span style="color:var(--green);font-weight:700;">Project lane (W-)</span> · <span style="color:var(--staging);font-weight:700;">Gated / pending</span> · <span style="color:var(--blue-light);font-weight:700;">Living doc / view</span>. <b>No new vendor required</b> — Cloudflare covers host + database + access.</div>
+</main></body></html>
