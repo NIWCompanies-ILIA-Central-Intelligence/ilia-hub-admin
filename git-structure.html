@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIH Git Structure — ILIA Central Intelligence Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue-deep:#004372;--blue-mid:#0076BD;--blue-light:#66A4D9;--blue-pale:#EBF4FB;--green:#30934C;--green-pale:#E6F5EA;--white:#fff;--off-white:#F5F7FA;--ink:#0D1F2D;--muted:#6B7E8F;--border:#D4DFE9;--staging:#F4A623;--purple:#7C3AED;--purple-pale:#F3EFFE;--red:#DC2626;}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--off-white);color:var(--ink);}
+header{background:linear-gradient(135deg,#00243d 0%,var(--blue-deep) 55%,var(--blue-mid) 130%);color:#fff;padding:38px 24px 30px;}
+.header-inner{max-width:1160px;margin:0 auto;}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;margin-bottom:16px;}
+h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;margin:0 0 10px;line-height:1.05;}
+h1 em{font-style:italic;color:var(--blue-light);}
+header p{color:rgba(255,255,255,.62);font-size:15px;font-weight:300;max-width:660px;line-height:1.65;margin:0;}
+.cihtabs{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;gap:6px;border-bottom:1px solid var(--border);background:var(--white);}
+.cihtab{display:inline-block;text-decoration:none;border-bottom:3px solid transparent;padding:15px 18px;font-size:14px;font-weight:600;color:var(--muted);}
+.cihtab:hover{color:var(--blue-deep);}
+.cihtab.active{color:var(--blue-deep);border-bottom-color:var(--blue-mid);font-weight:700;}
+main{max-width:1160px;margin:0 auto;padding:36px 24px 80px;}
+.section-label{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);font-weight:600;margin:0 0 6px;}
+.arch-intro{font-size:13px;color:var(--muted);line-height:1.65;max-width:860px;margin:2px 0 22px;}
+.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:start;}
+@media(max-width:820px){.grid2{grid-template-columns:1fr;}}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:16px;}
+.card h3{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--blue-mid);margin:0 0 10px;}
+.tree{font-family:'DM Mono',monospace;font-size:12.5px;line-height:1.75;color:var(--ink);white-space:pre;overflow-x:auto;margin:0;}
+.tree .d{color:var(--blue-deep);font-weight:500;}
+.tree .c{color:var(--muted);}
+.tree .g{color:var(--green);}
+.maprow{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--border);}
+.maprow:last-child{border-bottom:none;}
+.maprow b{display:block;font-size:12.5px;}
+.maprow span{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.mi{flex:0 0 22px;font-size:15px;}
+.panel{border-radius:12px;padding:12px 15px;font-size:12px;line-height:1.6;}
+.panel.warn{background:#FEF4E3;border:1px solid #F0D9A8;color:#7a5a12;}
+.panel.ok{background:var(--green-pale);border:1px solid #bfe3c8;color:#215e33;}
+.panel b{color:inherit;}
+.lg{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;}
+</style></head><body>
+<script>document.documentElement.classList.add('cihlock');</script>
+<style>
+html.cihlock body>*:not(#cihGate){display:none!important;}
+html:not(.cihlock) #cihGate{display:none;}
+#cihGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(900px 480px at 50% -10%,#dbe8f6 0%,#eef2f7 60%);font-family:'Inter',-apple-system,'Segoe UI',Arial,sans-serif;}
+#cihGate .gcard{width:min(400px,92vw);background:#fff;border:1px solid #D9E2EC;border-radius:20px;box-shadow:0 18px 44px rgba(13,31,45,.16);padding:34px 32px 26px;text-align:center;}
+#cihGate .gmark{width:54px;height:54px;margin:0 auto 15px;border-radius:15px;background:linear-gradient(135deg,#0076BD,#7C3AED);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:19px;}
+#cihGate h1{font-size:18px;margin:0 0 3px;color:#0D1F2D;}
+#cihGate .gsub{font-size:12.5px;color:#6B7E8F;margin:0 0 20px;}
+#cihGate .grow{display:flex;gap:8px;}
+#cihGate input{flex:1;padding:11px 13px;border:1px solid #D9E2EC;border-radius:10px;font-size:14px;font-family:inherit;}
+#cihGate input:focus{outline:none;border-color:#0076BD;box-shadow:0 0 0 3px rgba(0,118,189,.14);}
+#cihGate button{background:#0076BD;color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+#cihGate button:hover{background:#005c94;}
+#cihGate .gerr{color:#DC2626;font-size:12px;font-weight:600;margin:12px 0 0;min-height:15px;}
+#cihGate .gnote{font-size:11px;color:#6B7E8F;margin:14px 0 0;line-height:1.5;}
+#cihGate .gfoot{font-size:10.5px;color:#94a3b8;margin-top:16px;}
+</style>
+<div id="cihGate"><div class="gcard"><div class="gmark">CIH</div><h1>ILIA Central Intelligence Hub</h1><p class="gsub">Private · enter the team passcode</p><form onsubmit="return cihUnlock(event)"><div class="grow"><input id="cihPass" type="password" placeholder="Passcode" autocomplete="current-password" autofocus><button type="submit">Unlock</button></div></form><p class="gerr" id="cihErr"></p><p class="gnote">Enter once — this device stays unlocked. A new device will ask again.</p><p class="gfoot">Simplicity / NIW internal</p></div></div>
+<script>
+(function(){
+var GS="44b99bacd54515bf",GH="00319720fdbd5ce33664ad6133393dd8c2d0d9b44afab710baa9e6d7ac11f696",GK="cih_hubadmin_gate_v1";
+async function _gh(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(GS+t));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+function _open(){document.documentElement.classList.remove('cihlock');}
+window.cihUnlock=async function(e){e.preventDefault();var v=document.getElementById('cihPass').value;var h=await _gh(v);if(h===GH){try{localStorage.setItem(GK,GH);}catch(_){ }_open();}else{document.getElementById('cihErr').textContent='Incorrect passcode. Try again.';document.getElementById('cihPass').value='';document.getElementById('cihPass').focus();}return false;};
+try{if(localStorage.getItem(GK)===GH){_open();}}catch(_){ }
+})();
+</script>
+<header><div class="header-inner">
+  <div class="badge">NIW Companies · Simplicity Group · ILIA Platform</div>
+  <h1>CIH <em>Git Structure</em> — the master index</h1>
+  <p>How the source of truth is organized as Markdown-in-git: how it breaks down into lanes, logs, the portal spec, skills/tools, and users — everything CIH is, in one versioned tree that powers the portal.</p>
+</div></header>
+<nav class="cihtabs">
+  <a class="cihtab" href="./">Overview</a>
+  <a class="cihtab" href="./structure.html">CIH Structure</a>
+  <a class="cihtab active" href="./git-structure.html">Git Structure</a>
+</nav>
+<main>
+  <div class="section-label">CIH working repo — the Markdown-in-git master index</div>
+  <div class="arch-intro">One company-owned Git repo is the canonical home for everything CIH <em>authors</em>: Core, every lane's working log, the portal spec, and the skills/tools. It's plain text — cheap to read, diffable, and its history is the immutable audit. Runtime user data and shared documents live elsewhere (called out below). This is the proposed layout (owner decision pending on making it canonical over Confluence).</div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The repo tree</h3>
+<pre class="tree"><span class="d">cih/</span>                              <span class="c">← company GitHub org · the CIH working repo</span>
+├─ <span class="d">README.md</span>                       <span class="c">Master index — what CIH is + how this maps</span>
+├─ <span class="d">core.md</span>                         <span class="c">SOURCE OF TRUTH (identity, rules, roadmap, decisions)</span>
+├─ <span class="d">active-projects.md</span>              <span class="c">index of every lane + status</span>
+├─ <span class="d">lanes/</span>
+│  ├─ <span class="d">control/</span>                     <span class="c">S- lanes — work ON CIH</span>
+│  │  ├─ <span class="d">S-CIH-CC/</span>       working-log.md
+│  │  ├─ <span class="d">S-CIH-PORTAL/</span>   working-log.md
+│  │  ├─ <span class="d">S-CIH-LAB/</span>      working-log.md
+│  │  ├─ <span class="d">S-CIH-CODE/</span>     working-log.md
+│  │  ├─ <span class="d">S-CIH-DATA/</span>     working-log.md
+│  │  ├─ <span class="d">S-CIH-MKTG/</span>     working-log.md
+│  │  └─ <span class="d">S-CIH-DASH/</span>     working-log.md
+│  └─ <span class="d">project/</span>                     <span class="c">W- lanes — work IN ILIA</span>
+│     ├─ <span class="d">W-GWT/</span>  ├─ <span class="d">W-MSP/</span>  ├─ <span class="d">W-DBR/</span>  └─ <span class="d">W-1035/</span>
+├─ <span class="d">portal/</span>                         <span class="c">the CIH portal spec → feeds the Dev build</span>
+│  ├─ <span class="d">seat-charters.md</span>            <span class="c">roles / functions per seat</span>
+│  ├─ <span class="d">runtime-logging-model.md</span>    <span class="c">user/lane logs · sync · conflict (design)</span>
+│  └─ <span class="d">go-live-plan.md</span>
+├─ <span class="d">skills/</span>                         <span class="c">Tool Lab — reusable tools / scripts / skills</span>
+│  ├─ <span class="d">ilia-account-creator/</span>
+│  ├─ <span class="d">office-activity/</span>
+│  └─ <span class="d">dashboard-generator/</span>
+└─ <span class="d">reference/</span>                      <span class="c">shared context TEXT (not binaries)</span>
+   ├─ <span class="d">marketing-master-context.md</span>
+   └─ <span class="d">ilia-kb/</span></pre>
+      <div class="lg">Each lane's <b>working-log.md</b> = its dated history + current state (read at session start, appended at close). Git history = the never-deleted audit; the top of each log is the AI-pruned "hot" summary.</div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>How the tree maps</h3>
+        <div class="maprow"><span class="mi">🧠</span><div><b>Source of truth</b><span><code>core.md</code> — the one brain every lane reads first.</span></div></div>
+        <div class="maprow"><span class="mi">�£</span><div><b>Lanes</b><span><code>lanes/</code> — one folder + working-log per lane (control S- · project W-).</span></div></div>
+        <div class="maprow"><span class="mi">📝</span><div><b>Logs</b><span>each lane's <code>working-log.md</code>; runtime user/lane logs live in the app DB, not here.</span></div></div>
+        <div class="maprow"><span class="mi">👤</span><div><b>Users</b><span>defined in <code>portal/seat-charters.md</code> (seat → ILIA tier → scope). Live per-user activity = app DB.</span></div></div>
+        <div class="maprow"><span class="mi">🧰</span><div><b>Tools</b><span><code>skills/</code> — the mountable tools/scripts each seat can use.</span></div></div>
+        <div class="maprow"><span class="mi">🚀</span><div><b>Portal build</b><span><code>portal/</code> — the spec the Dev lane builds the app from.</span></div></div>
+      </div>
+      <div class="card">
+        <h3>Lives in git vs elsewhere</h3>
+        <div class="panel ok" style="margin-bottom:8px;"><b>In git (this repo):</b> Core, lane logs, portal spec, skills/tools, reference text. Text only.</div>
+        <div class="panel warn"><b>NOT in git:</b> runtime user/lane data → Cloudflare D1/KV · documents &amp; assets (marketing, disclosures, carrier apps) → company Google Shared Drives · secrets/tokens → never in git · client PII → §10-gated.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>How this powers the CIH portal</h3>
+    <div style="font-size:12.5px;color:var(--ink);line-height:1.7;">When the portal builds a user's session it reads <code>core.md</code> (rules) + <code>portal/seat-charters.md</code> (that seat's scope) to decide which tools from <code>skills/</code> to mount and what the user may see/do. Each lane's <code>working-log.md</code> is the shared memory that keeps lanes in sync; the daily reconciliation sweeps them. Because it's Git, every change is diffable and versioned — the audit trail is free, and the Dev lane builds the live app straight from <code>portal/</code>.</div>
+    <div class="lg"><b>Status:</b> proposed layout — Core stays canonical on Confluence until the owner green-lights moving it to git (change-control). The lane working layer can move to this structure now.</div>
+  </div>
+</main></body></html>
