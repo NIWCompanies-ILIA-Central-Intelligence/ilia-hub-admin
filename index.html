@@ -86,7 +86,7 @@ html:not(.cihlock) #cihGate{display:none;}
 <div id="cihGate"><div class="gcard"><div class="gmark">CIH</div><h1>ILIA Central Intelligence Hub</h1><p class="gsub">Private · enter the team passcode</p><form onsubmit="return cihUnlock(event)"><div class="grow"><input id="cihPass" type="password" placeholder="Passcode" autocomplete="current-password" autofocus><button type="submit">Unlock</button></div></form><p class="gerr" id="cihErr"></p><p class="gnote">Enter once — this device stays unlocked. A new device will ask again.</p><p class="gfoot">Simplicity / NIW internal</p></div></div>
 <script>
 (function(){
-var GS="44b99bacd54515bf",GH="00319720fdbd5ce33664ad6133393dd8c2d0d9b44afab710baa9e6d7ac11f696",GK="cih_hubadmin_gate_v1";
+var GS="44b99bacd54515bf",GH="709cf0631f14e7616daa7c7b2dd6faf7dbe7b977ac63c4e2d9da86a50632a900",GK="cih_hubadmin_gate_v1";
 async function _gh(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(GS+t));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
 function _open(){document.documentElement.classList.remove('cihlock');}
 window.cihUnlock=async function(e){e.preventDefault();var v=document.getElementById('cihPass').value;var h=await _gh(v);if(h===GH){try{localStorage.setItem(GK,GH);}catch(_){ }_open();}else{document.getElementById('cihErr').textContent='Incorrect passcode. Try again.';document.getElementById('cihPass').value='';document.getElementById('cihPass').focus();}return false;};
